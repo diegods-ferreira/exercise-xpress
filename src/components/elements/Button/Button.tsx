@@ -1,6 +1,5 @@
 import { ActivityIndicator } from 'react-native';
 import { RectButtonProps } from 'react-native-gesture-handler';
-import { RFValue } from 'react-native-responsive-fontsize';
 
 import { useTheme } from 'styled-components/native';
 
@@ -36,13 +35,13 @@ export function Button({
       size={size}
       isLoading={isLoading}
       isDisabled={isDisabled}
-      style={[{ borderRadius: theme.borderRadius.full }, theme.boxShadow]}
+      style={[{ borderRadius: theme.roundedFull }, theme.boxShadow]}
       {...rest}
     >
       {isLoading && (
         <ActivityIndicator
           color={variant === 'primary' ? color : theme.colors[color]}
-          size={RFValue(18)}
+          size={theme.fontSizes.lg}
         />
       )}
 

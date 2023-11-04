@@ -1,6 +1,21 @@
-import { borderRadius } from './border-radius';
+import { RFValue } from 'react-native-responsive-fontsize';
+
 import { boxShadowStyles } from './box-shadow';
 import { fontSizes } from './font-sizes';
+
+const generalMeasurements = {
+  sm: RFValue(4),
+  md: RFValue(8),
+  lg: RFValue(12),
+  xl: RFValue(16),
+  '2xl': RFValue(24),
+};
+
+const generalStyles = {
+  fontSizes,
+  measures: generalMeasurements,
+  roundedFull: RFValue(99999),
+};
 
 export const themes = {
   light: {
@@ -16,8 +31,7 @@ export const themes = {
       ripple: 'rgba(0, 0, 0, 0.1)',
     },
     boxShadow: boxShadowStyles,
-    fontSizes,
-    borderRadius,
+    ...generalStyles,
   },
   dark: {
     colors: {
@@ -32,7 +46,6 @@ export const themes = {
       ripple: 'rgba(255, 255, 255, 0.1)',
     },
     boxShadow: {} as typeof boxShadowStyles,
-    fontSizes,
-    borderRadius,
+    ...generalStyles,
   },
 };

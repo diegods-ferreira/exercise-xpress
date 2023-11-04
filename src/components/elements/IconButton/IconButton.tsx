@@ -1,5 +1,4 @@
 import { RectButtonProps } from 'react-native-gesture-handler';
-import { RFValue } from 'react-native-responsive-fontsize';
 
 import { LucideIcon } from 'lucide-react-native';
 import { useTheme } from 'styled-components/native';
@@ -22,11 +21,11 @@ export function IconButton({
     <S.Container
       isDisabled={isDisabled}
       rippleColor={theme.colors.ripple}
-      style={[{ borderRadius: theme.borderRadius.full }, theme.boxShadow]}
+      style={[{ borderRadius: theme.roundedFull }, theme.boxShadow]}
       {...rest}
     >
       <Icon
-        size={RFValue(20)}
+        size={theme.fontSizes.xl}
         color={theme.colors.text}
         style={{ opacity: isDisabled ? 0.75 : 1 }}
       />

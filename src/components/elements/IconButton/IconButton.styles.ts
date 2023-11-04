@@ -1,5 +1,4 @@
 import { RectButton } from 'react-native-gesture-handler';
-import { RFValue } from 'react-native-responsive-fontsize';
 
 import styled, { css } from 'styled-components/native';
 
@@ -14,7 +13,7 @@ export const Container = styled(RectButton)<ContainerProps>(({
   const opacity = isDisabled ? 0.75 : 1;
 
   return css`
-    padding: ${RFValue(8)}px;
+    padding: ${theme.measures.md}px;
     background-color: ${theme.colors.bgOffset};
     opacity: ${opacity};
   `;

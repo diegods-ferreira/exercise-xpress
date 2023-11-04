@@ -1,5 +1,4 @@
 import { RectButton } from 'react-native-gesture-handler';
-import { RFValue } from 'react-native-responsive-fontsize';
 
 import styled, { css } from 'styled-components/native';
 
@@ -60,19 +59,20 @@ export const Button = styled(RectButton)<ButtonProps>(({
     opacity = 0.75;
   }
 
-  const paddingY = size === 'small' ? 8 : 16;
-  const paddingX = size === 'small' ? 12 : 24;
+  const paddingY = size === 'small' ? theme.measures.md : theme.measures.xl;
+
+  const paddingX = size === 'small' ? theme.measures.lg : theme.measures['2xl'];
 
   return css`
     width: 100%;
-    padding: ${RFValue(paddingY)}px ${RFValue(paddingX)}px;
+    padding: ${paddingY}px ${paddingX}px;
     background-color: ${theme.colors[backgroundColor]};
     opacity: ${opacity};
 
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: ${RFValue(12)}px;
+    gap: ${theme.measures.lg}px;
   `;
 });
 
