@@ -76,14 +76,12 @@ const typographyVariants: Record<
   },
 };
 
-export const Text = styled.Text<TextProps>`
-  ${({ theme, variant }) => {
-    const { fontSize, fontWeight, color } = typographyVariants[variant];
+export const Text = styled.Text<TextProps>(({ theme, variant }) => {
+  const { fontSize, fontWeight, color } = typographyVariants[variant];
 
-    return css`
-      font-size: ${theme.fontSizes[fontSize]}px;
-      font-weight: ${fontWeight};
-      color: ${theme.colors[color]};
-    `;
-  }}
-`;
+  return css`
+    font-size: ${theme.fontSizes[fontSize]}px;
+    font-weight: ${fontWeight};
+    color: ${theme.colors[color]};
+  `;
+});
