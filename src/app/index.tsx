@@ -1,19 +1,30 @@
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { StatusBar } from 'expo-status-bar';
+import {
+  AccessibilityIcon,
+  ArrowLeftIcon,
+  BombIcon,
+  ClipboardSignatureIcon,
+} from 'lucide-react-native';
 import { ThemeProvider } from 'styled-components/native';
 
-import { Button, Typography } from '@/components/elements';
+import { Button, IconButton, Typography } from '@/components/elements';
 import { themes } from '@/config/styles/themes';
 
 export default function App() {
   return (
     <ThemeProvider theme={themes.dark}>
-      <View
+      <ScrollView
         style={[
           styles.container,
           { backgroundColor: themes.dark.colors.background },
         ]}
+        contentContainerStyle={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 4,
+        }}
       >
         <Typography variant="h1">Heading 1</Typography>
         <Typography variant="h2">Heading 2</Typography>
@@ -26,6 +37,13 @@ export default function App() {
         <Typography variant="body1">Body 1</Typography>
         <Typography variant="body2">Body 2</Typography>
         <Typography variant="caption">Caption Text</Typography>
+
+        <View style={{ flexDirection: 'row', gap: 8 }}>
+          <IconButton icon={ArrowLeftIcon} />
+          <IconButton icon={AccessibilityIcon} />
+          <IconButton icon={BombIcon} isDisabled />
+          <IconButton icon={ClipboardSignatureIcon} />
+        </View>
 
         <Button title="Button primary" />
         <Button
@@ -59,7 +77,7 @@ export default function App() {
           backgroundColor={themes.dark.colors.background}
           translucent
         />
-      </View>
+      </ScrollView>
     </ThemeProvider>
   );
 }
@@ -69,7 +87,5 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 24,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
