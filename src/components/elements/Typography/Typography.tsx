@@ -2,8 +2,10 @@ import { TextProps as RNTextProps } from 'react-native';
 
 import * as S from './Typography.styles';
 
-type TypographyProps = S.TextProps & RNTextProps;
+type TypographyProps = RNTextProps & {
+  variant?: S.TextProps['variant'];
+};
 
-export function Typography(props: TypographyProps) {
-  return <S.Text {...props} />;
+export function Typography({ variant = 'body1', ...rest }: TypographyProps) {
+  return <S.Text variant={variant} {...rest} />;
 }
