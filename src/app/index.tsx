@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { ThemeProvider } from 'styled-components/native';
 
-import { Typography } from '@/components/elements';
+import { Button, Typography } from '@/components/elements';
 import { themes } from '@/config/styles/themes';
 
 export default function App() {
@@ -27,6 +27,33 @@ export default function App() {
         <Typography variant="body2">Body 2</Typography>
         <Typography variant="caption">Caption Text</Typography>
 
+        <Button title="Button primary" />
+        <Button
+          isLoading
+          loadingText="Carregando..."
+          title="Button primary Disabled"
+        />
+        <Button isDisabled title="Button primary Disabled" />
+        <Button size="small" title="Button primary small" />
+
+        <Button variant="secondary" title="Button secondary" />
+        <Button
+          isLoading
+          loadingText="Carregando..."
+          variant="secondary"
+          title="Button secondary"
+        />
+        <Button
+          isDisabled
+          variant="secondary"
+          title="Button secondary Disabled"
+        />
+        <Button
+          variant="secondary"
+          size="small"
+          title="Button secondary small"
+        />
+
         <StatusBar
           style="light"
           backgroundColor={themes.dark.colors.background}
@@ -40,11 +67,9 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 24,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  text: {
-    fontSize: 16,
   },
 });

@@ -12,6 +12,8 @@ export const themes = {
 
       text: '#242424',
       textSecondary: '#3a3a3a',
+
+      ripple: 'rgba(0, 0, 0, 0.25)',
     },
     boxShadow: boxShadowStyles,
     fontSizes,
@@ -26,9 +28,11 @@ export const themes = {
 
       text: '#fcfcfc',
       textSecondary: '#9b9b9b',
+
+      ripple: 'rgba(255, 255, 255, 0.25)',
     },
     boxShadow: boxShadowStyles,
     fontSizes,
     borderRadius,
   },
-};
+} as const;
