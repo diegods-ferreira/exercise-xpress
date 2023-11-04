@@ -1,3 +1,4 @@
+import { borderRadius } from './border-radius';
 import { boxShadowStyles } from './box-shadow';
 import { fontSizes } from './font-sizes';
 
@@ -14,6 +15,7 @@ export const themes = {
     },
     boxShadow: boxShadowStyles,
     fontSizes,
+    borderRadius,
   },
   dark: {
     colors: {
@@ -27,5 +29,6 @@ export const themes = {
     },
     boxShadow: boxShadowStyles,
     fontSizes,
+    borderRadius,
   },
 };
