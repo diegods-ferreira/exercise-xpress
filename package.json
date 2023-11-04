@@ -28,7 +28,6 @@
     "@babel/core": "^7.20.0",
     "@d1d2-apps/eslint-config": "^3.0.1",
     "@types/react": "~18.2.14",
-    "@types/styled-components-react-native": "^5.2.4",
     "typescript": "^5.1.3"
   },
   "private": true
