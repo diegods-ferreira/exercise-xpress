@@ -7,13 +7,13 @@ export const themes = {
     colors: {
       primary: '#aad729',
 
-      background: '#f3f4f6',
-      bgOffset: '#fcfcfc',
+      background: '#f5f5f5',
+      bgOffset: '#ffffff',
 
       text: '#242424',
       textSecondary: '#3a3a3a',
 
-      ripple: 'rgba(0, 0, 0, 0.25)',
+      ripple: 'rgba(0, 0, 0, 0.1)',
     },
     boxShadow: boxShadowStyles,
     fontSizes,
@@ -29,10 +29,10 @@ export const themes = {
       text: '#fcfcfc',
       textSecondary: '#9b9b9b',
 
-      ripple: 'rgba(255, 255, 255, 0.25)',
+      ripple: 'rgba(255, 255, 255, 0.1)',
     },
-    boxShadow: boxShadowStyles,
+    boxShadow: {} as typeof boxShadowStyles,
     fontSizes,
     borderRadius,
   },
-} as const;
+};

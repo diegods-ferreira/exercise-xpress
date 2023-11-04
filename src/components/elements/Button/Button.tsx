@@ -36,7 +36,7 @@ export function Button({
       size={size}
       isLoading={isLoading}
       isDisabled={isDisabled}
-      style={{ borderRadius: theme.borderRadius.full }}
+      style={[{ borderRadius: theme.borderRadius.full }, theme.boxShadow]}
       {...rest}
     >
       {isLoading && (

@@ -1,5 +1,5 @@
 export const boxShadowStyles = {
-  elevation: 2,
+  elevation: 1,
   shadowOffset: { width: 0, height: 2 },
   shadowColor: '#000000',
   shadowOpacity: 0.1,
