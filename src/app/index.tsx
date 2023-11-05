@@ -1,79 +1,72 @@
-import { ScrollView, View } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import {
-  AccessibilityIcon,
-  ArrowLeftIcon,
-  BombIcon,
-  ClipboardSignatureIcon,
-} from 'lucide-react-native';
+import { DumbbellIcon, MoonIcon, SunIcon } from 'lucide-react-native';
 import { useTheme } from 'styled-components/native';
 
+import fitnessMontageImg from '@/assets/images/fitness-montage.png';
 import { Button, IconButton, Typography } from '@/components/elements';
+import { useColorSchemeStore } from '@/stores/color-scheme';
+
+import * as S from './styles';
 
 export default function App() {
   const theme = useTheme();
 
+  const [colorScheme, toggleColorScheme] = useColorSchemeStore((state) => [
+    state.colorScheme,
+    state.toggleColorScheme,
+  ]);
+
   return (
-    <ScrollView
-      style={{
-        flex: 1,
-        padding: 24,
-        backgroundColor: theme.colors.background,
-      }}
-      contentContainerStyle={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 4,
-      }}
-    >
-      <Typography variant="h1">Heading 1</Typography>
-      <Typography variant="h2">Heading 2</Typography>
-      <Typography variant="h3">Heading 3</Typography>
+    <S.Container>
+      <S.BackgroundImage source={fitnessMontageImg}>
+        <S.BackgroundImageMask
+          colors={[
+            theme.colors.background,
+            'transparent',
+            theme.colors.background,
+          ]}
+        >
+          <S.BackgroundImageSafeArea>
+            <DumbbellIcon color={theme.colors.primary} size={RFValue(32)} />
 
-      <Typography variant="subtitle1">Subtitle 1</Typography>
-      <Typography variant="subtitle2">Subtitle 2</Typography>
-      <Typography variant="subtitle3">Subtitle 3</Typography>
+            <Typography variant="h2">Exercise Xpress</Typography>
 
-      <Typography variant="body1">Body 1</Typography>
-      <Typography variant="body2">Body 2</Typography>
-      <Typography variant="caption">Caption Text</Typography>
+            <S.ToggleThemeButton>
+              <IconButton
+                icon={colorScheme === 'dark' ? SunIcon : MoonIcon}
+                onPress={toggleColorScheme}
+              />
+            </S.ToggleThemeButton>
+          </S.BackgroundImageSafeArea>
+        </S.BackgroundImageMask>
+      </S.BackgroundImage>
 
-      <View style={{ flexDirection: 'row', gap: 8 }}>
-        <IconButton icon={ArrowLeftIcon} />
-        <IconButton icon={AccessibilityIcon} />
-        <IconButton icon={BombIcon} isDisabled />
-        <IconButton icon={ClipboardSignatureIcon} />
-      </View>
+      <SafeAreaView>
+        <S.WelcomeContainer>
+          <Typography variant="h1">
+            Let&apos;s Start a Healthy Life Style
+          </Typography>
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-        <Button title="Button" size="small" variant="secondary" fitContent />
-        <Button title="Button" size="small" variant="secondary" fitContent />
-        <Button title="Button" size="small" variant="secondary" fitContent />
-      </View>
+          <Typography variant="subtitle1">
+            Achieve your best lifestyle and goals with Exercise Xpress
+          </Typography>
 
-      <Button title="Button primary" />
-      <Button
-        isLoading
-        loadingText="Carregando..."
-        title="Button primary Disabled"
-      />
-      <Button isDisabled title="Button primary Disabled" />
-      <Button size="small" title="Button primary small" />
+          <Button title="Get Started" />
 
-      <Button variant="secondary" title="Button secondary" />
-      <Button
-        isLoading
-        loadingText="Carregando..."
-        variant="secondary"
-        title="Button secondary"
-      />
-      <Button
-        isDisabled
-        variant="secondary"
-        title="Button secondary Disabled"
-      />
-      <Button variant="secondary" size="small" title="Button secondary small" />
-    </ScrollView>
+          <S.PrivacyPolicyLinkWrapper>
+            <Typography variant="subtitle2">Access our</Typography>
+
+            <Button
+              title="Privacy Policy"
+              variant="link"
+              size="small"
+              fitContent
+            />
+          </S.PrivacyPolicyLinkWrapper>
+        </S.WelcomeContainer>
+      </SafeAreaView>
+    </S.Container>
   );
 }

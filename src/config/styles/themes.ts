@@ -23,8 +23,9 @@ export const themes = {
     colors: {
       primary: '#aad729',
 
-      background: '#f5f5f5',
+      background: '#e5e5e5',
       bgOffset: '#ffffff',
+      bgOffsetDarker: '#f5f5f5',
 
       text: '#242424',
       textSecondary: '#3a3a3a',
@@ -40,6 +41,7 @@ export const themes = {
 
       background: '#242424',
       bgOffset: '#3a3a3a',
+      bgOffsetDarker: '#2a2a2a',
 
       text: '#fcfcfc',
       textSecondary: '#9b9b9b',

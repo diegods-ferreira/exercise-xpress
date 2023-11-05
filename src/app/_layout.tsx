@@ -42,7 +42,6 @@ export default function RootLayout() {
             animation: 'slide_from_right',
             headerShown: false,
             statusBarStyle: colorScheme === 'dark' ? 'light' : 'dark',
-            statusBarColor: themes[colorScheme].colors.background,
             statusBarTranslucent: true,
           }}
         />
