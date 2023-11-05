@@ -9,6 +9,7 @@ type ButtonProps = Pick<RectButtonProps, 'onPress' | 'onLongPress'> & {
   title: string;
   variant?: S.ButtonProps['variant'];
   size?: S.ButtonProps['size'];
+  fitContent?: S.ButtonProps['fitContent'];
   isLoading?: boolean;
   loadingText?: string;
   isDisabled?: boolean;
@@ -18,6 +19,7 @@ export function Button({
   title,
   variant = 'primary',
   size = 'normal',
+  fitContent = false,
   isLoading = false,
   loadingText,
   isDisabled = false,
@@ -33,6 +35,7 @@ export function Button({
       rippleColor={theme.colors.ripple}
       variant={variant}
       size={size}
+      fitContent={fitContent}
       isLoading={isLoading}
       isDisabled={isDisabled}
       style={[{ borderRadius: theme.roundedFull }, theme.boxShadow]}
@@ -42,6 +45,7 @@ export function Button({
         <ActivityIndicator
           color={variant === 'primary' ? color : theme.colors[color]}
           size={theme.fontSizes.lg}
+          style={{ marginRight: theme.measures.lg }}
         />
       )}
 

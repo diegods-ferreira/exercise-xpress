@@ -45,6 +45,12 @@ export default function App() {
           <IconButton icon={ClipboardSignatureIcon} />
         </View>
 
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+          <Button title="Button" size="small" variant="secondary" fitContent />
+          <Button title="Button" size="small" variant="secondary" fitContent />
+          <Button title="Button" size="small" variant="secondary" fitContent />
+        </View>
+
         <Button title="Button primary" />
         <Button
           isLoading

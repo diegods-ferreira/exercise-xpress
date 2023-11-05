@@ -11,6 +11,7 @@ type Theme = typeof themes.dark;
 export type ButtonProps = {
   variant: 'primary' | 'secondary';
   size: 'small' | 'normal';
+  fitContent: boolean;
   isLoading: boolean;
   isDisabled: boolean;
 };
@@ -44,6 +45,7 @@ export const Button = styled(RectButton)<ButtonProps>(({
   theme,
   variant,
   size,
+  fitContent,
   isLoading,
   isDisabled,
 }) => {
@@ -59,12 +61,12 @@ export const Button = styled(RectButton)<ButtonProps>(({
     opacity = 0.75;
   }
 
-  const paddingY = size === 'small' ? theme.measures.md : theme.measures.xl;
-
+  const width = fitContent ? 'auto' : '100%';
+  const paddingY = size === 'small' ? theme.measures.sm : theme.measures.lg;
   const paddingX = size === 'small' ? theme.measures.lg : theme.measures['2xl'];
 
   return css`
-    width: 100%;
+    width: ${width};
     padding: ${paddingY}px ${paddingX}px;
     background-color: ${theme.colors[backgroundColor]};
     opacity: ${opacity};
@@ -72,7 +74,6 @@ export const Button = styled(RectButton)<ButtonProps>(({
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: ${theme.measures.lg}px;
   `;
 });
 
@@ -97,6 +98,7 @@ export const Text = styled(Typography)<TextProps>(({
   return css`
     color: ${buttonVariant === 'primary' ? color : theme.colors[color]};
     font-weight: 600;
+    text-align: center;
     opacity: ${opacity};
   `;
 });

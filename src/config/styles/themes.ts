@@ -4,7 +4,8 @@ import { boxShadowStyles } from './box-shadow';
 import { fontSizes } from './font-sizes';
 
 const generalMeasurements = {
-  sm: RFValue(4),
+  xs: RFValue(4),
+  sm: RFValue(6),
   md: RFValue(8),
   lg: RFValue(12),
   xl: RFValue(16),
