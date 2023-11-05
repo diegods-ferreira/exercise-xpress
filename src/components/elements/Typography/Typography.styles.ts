@@ -46,12 +46,12 @@ const typographyVariants: Record<
   },
   subtitle1: {
     fontSize: 'base',
-    fontWeight: '300',
+    fontWeight: '400',
     color: 'textSecondary',
   },
   subtitle2: {
     fontSize: 'sm',
-    fontWeight: '300',
+    fontWeight: '400',
     color: 'textSecondary',
   },
   subtitle3: {
