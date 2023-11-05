@@ -1,5 +1,6 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
 
+import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import {
   AccessibilityIcon,
@@ -11,14 +12,26 @@ import { ThemeProvider } from 'styled-components/native';
 
 import { Button, IconButton, Typography } from '@/components/elements';
 import { themes } from '@/config/styles/themes';
+import { useColorSchemeStore } from '@/stores/color-scheme';
+
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  const [isLoadingColorScheme, colorScheme] = useColorSchemeStore((state) => [
+    state.isLoadingColorScheme,
+    state.colorScheme,
+  ]);
+
+  if (isLoadingColorScheme) {
+    return null;
+  }
+
   return (
-    <ThemeProvider theme={themes.dark}>
+    <ThemeProvider theme={themes[colorScheme]}>
       <ScrollView
         style={[
           styles.container,
-          { backgroundColor: themes.dark.colors.background },
+          { backgroundColor: themes[colorScheme].colors.background },
         ]}
         contentContainerStyle={{
           alignItems: 'center',
@@ -79,8 +92,8 @@ export default function App() {
         />
 
         <StatusBar
-          style="light"
-          backgroundColor={themes.dark.colors.background}
+          style={colorScheme === 'dark' ? 'light' : 'dark'}
+          backgroundColor={themes[colorScheme].colors.background}
           translucent
         />
       </ScrollView>
