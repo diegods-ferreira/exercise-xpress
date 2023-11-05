@@ -9,7 +9,7 @@ import { Typography } from '../Typography/Typography';
 type Theme = typeof themes.dark;
 
 export type ButtonProps = {
-  variant: 'primary' | 'secondary';
+  variant: 'primary' | 'secondary' | 'link';
   size: 'small' | 'normal';
   fitContent: boolean;
   isLoading: boolean;
@@ -23,7 +23,7 @@ type TextProps = {
 };
 
 type ButtonVariantConfig = {
-  backgroundColor: keyof Theme['colors'];
+  backgroundColor: keyof Theme['colors'] | 'transparent';
   color: keyof Theme['colors'] | typeof themes.dark.colors.background;
 };
 
@@ -38,6 +38,10 @@ export const buttonVariants: Record<
   secondary: {
     backgroundColor: 'bgOffset',
     color: 'text',
+  },
+  link: {
+    backgroundColor: 'transparent',
+    color: 'primary',
   },
 };
 
@@ -55,20 +59,26 @@ export const Button = styled(RectButton)<ButtonProps>(({
 
   if (isLoading) {
     opacity = 0.9;
-  }
-
-  if (isDisabled) {
+  } else if (isDisabled) {
     opacity = 0.75;
   }
 
   const width = fitContent ? 'auto' : '100%';
-  const paddingY = size === 'small' ? theme.measures.sm : theme.measures.lg;
-  const paddingX = size === 'small' ? theme.measures.lg : theme.measures['2xl'];
+
+  let paddingY = size === 'small' ? theme.measures.sm : theme.measures.lg;
+  let paddingX = size === 'small' ? theme.measures.lg : theme.measures['2xl'];
+
+  if (variant === 'link') {
+    paddingX = 0;
+    paddingY = 0;
+  }
 
   return css`
     width: ${width};
     padding: ${paddingY}px ${paddingX}px;
-    background-color: ${theme.colors[backgroundColor]};
+    background-color: ${variant === 'link'
+      ? 'transparent'
+      : theme.colors[backgroundColor]};
     opacity: ${opacity};
 
     flex-direction: row;
