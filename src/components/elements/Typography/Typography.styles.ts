@@ -30,7 +30,7 @@ const typographyVariants: Record<
   TypographyVariantConfig
 > = {
   h1: {
-    fontSize: '4xl',
+    fontSize: '3xl',
     fontWeight: '700',
     color: 'text',
   },

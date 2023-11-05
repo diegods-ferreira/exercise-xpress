@@ -9,5 +9,4 @@ export const fontSizes = {
   xl: RFValue(20),
   '2xl': RFValue(24),
   '3xl': RFValue(32),
-  '4xl': RFValue(48),
 };
