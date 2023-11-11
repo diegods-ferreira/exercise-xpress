@@ -6,8 +6,8 @@ import { useTheme } from 'styled-components/native';
 
 import fitnessMontageImg from '@/assets/images/fitness-montage.png';
 import { Button, IconButton, Typography } from '@/components/elements';
-import { translate } from '@/config/i18n';
 import { useColorSchemeStore } from '@/stores/color-scheme';
+import { useI18nStore } from '@/stores/i18n';
 
 import * as S from './styles';
 
@@ -18,6 +18,8 @@ export default function App() {
     state.colorScheme,
     state.toggleColorScheme,
   ]);
+
+  const translate = useI18nStore((state) => state.translate);
 
   return (
     <S.Container>

@@ -5,9 +5,9 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { ThemeProvider } from 'styled-components/native';
 
-import { setLanguageToI18n } from '@/config/i18n';
 import { themes } from '@/config/styles/themes';
 import { useColorSchemeStore } from '@/stores/color-scheme';
+import { useI18nStore } from '@/stores/i18n';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -16,6 +16,8 @@ export default function RootLayout() {
     state.isLoadingColorScheme,
     state.colorScheme,
   ]);
+
+  const isLoadingLocale = useI18nStore((state) => state.isLoadingLocale);
 
   const [appIsReady, setAppIsReady] = useState(false);
 
@@ -26,14 +28,10 @@ export default function RootLayout() {
   }, [appIsReady]);
 
   useEffect(() => {
-    if (!isLoadingColorScheme) {
+    if (!isLoadingColorScheme && !isLoadingLocale) {
       setAppIsReady(true);
     }
-  }, [isLoadingColorScheme]);
-
-  useEffect(() => {
-    setLanguageToI18n();
-  }, []);
+  }, [isLoadingColorScheme, isLoadingLocale]);
 
   if (!appIsReady) {
     return null;
