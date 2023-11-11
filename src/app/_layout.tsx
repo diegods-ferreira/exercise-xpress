@@ -5,6 +5,7 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { ThemeProvider } from 'styled-components/native';
 
+import { setLanguageToI18n } from '@/config/i18n';
 import { themes } from '@/config/styles/themes';
 import { useColorSchemeStore } from '@/stores/color-scheme';
 
@@ -29,6 +30,10 @@ export default function RootLayout() {
       setAppIsReady(true);
     }
   }, [isLoadingColorScheme]);
+
+  useEffect(() => {
+    setLanguageToI18n();
+  }, []);
 
   if (!appIsReady) {
     return null;

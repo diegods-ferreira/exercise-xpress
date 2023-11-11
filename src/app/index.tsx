@@ -6,6 +6,7 @@ import { useTheme } from 'styled-components/native';
 
 import fitnessMontageImg from '@/assets/images/fitness-montage.png';
 import { Button, IconButton, Typography } from '@/components/elements';
+import { translate } from '@/config/i18n';
 import { useColorSchemeStore } from '@/stores/color-scheme';
 
 import * as S from './styles';
@@ -45,21 +46,21 @@ export default function App() {
 
       <SafeAreaView>
         <S.WelcomeContainer>
-          <Typography variant="h1">
-            Let&apos;s Start a Healthy Life Style
-          </Typography>
+          <Typography variant="h1">{translate('landingPage.title')}</Typography>
 
           <Typography variant="subtitle1">
-            Achieve your best lifestyle and goals with Exercise Xpress
+            {translate('landingPage.subtitle')}
           </Typography>
 
-          <Button title="Get Started" />
+          <Button title={translate('landingPage.actionButton')} />
 
           <S.PrivacyPolicyLinkWrapper>
-            <Typography variant="subtitle2">Access our</Typography>
+            <Typography variant="subtitle2">
+              {translate('landingPage.accessPrivacyPolicy')}
+            </Typography>
 
             <Button
-              title="Privacy Policy"
+              title={translate('global.privacyPolicy')}
               variant="link"
               size="small"
               fitContent
