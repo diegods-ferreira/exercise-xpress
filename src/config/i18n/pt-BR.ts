@@ -1,4 +1,6 @@
-export const pt = {
+import { I18nTexts } from '@/types';
+
+export const pt: I18nTexts = {
   global: {
     privacyPolicy: 'Política de Privacidade',
   },
