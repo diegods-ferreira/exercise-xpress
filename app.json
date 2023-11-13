@@ -6,7 +6,6 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "scheme": "exercise-xpress",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -29,11 +28,9 @@
       "favicon": "./assets/favicon.png"
     },
     "experiments": {
-      "tsconfigPaths": true,
-      "typedRoutes": true
+      "tsconfigPaths": true
     },
     "plugins": [
-      "expo-router",
       "expo-localization"
     ]
   }
