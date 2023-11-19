@@ -1,4 +1,5 @@
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 import { useTheme } from 'styled-components/native';
 
@@ -9,15 +10,43 @@ export function HomeScreen({ navigation, route }: HomeScreenRouteProps) {
   const theme = useTheme();
 
   return (
-    <View
-      style={{
+    <ScrollView
+      contentContainerStyle={{
         flex: 1,
+        paddingBottom: RFValue(48),
         backgroundColor: theme.colors.background,
         alignItems: 'center',
         justifyContent: 'center',
       }}
     >
       <Typography variant="h1">HomeScreen</Typography>
-    </View>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+      <Typography variant="h1">HomeScreen</Typography>
+    </ScrollView>
   );
 }
