@@ -8,6 +8,7 @@ import fitnessMontageImg from '@/assets/images/fitness-montage.png';
 import { Button, IconButton, Typography } from '@/components/elements';
 import { useColorSchemeStore } from '@/stores/color-scheme';
 import { useI18nStore } from '@/stores/i18n';
+import { useSettingsStore } from '@/stores/settings';
 import { WelcomeScreenRouteProps } from '@/types';
 
 import * as S from './WelcomeScreen.styles';
@@ -22,7 +23,10 @@ export function WelComeScreen({ navigation, route }: WelcomeScreenRouteProps) {
 
   const translate = useI18nStore((state) => state.translate);
 
-  const onGetStartedPress = () => {
+  const updateSetting = useSettingsStore((state) => state.updateSetting);
+
+  const onGetStartedPress = async () => {
+    await updateSetting('showWelcomeScreen', false);
     navigation.replace('HomeTabNavigator');
   };
 

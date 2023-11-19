@@ -10,6 +10,7 @@ import { themes } from '@/config/styles/themes';
 import { Routes } from '@/routes';
 import { useColorSchemeStore } from '@/stores/color-scheme';
 import { useI18nStore } from '@/stores/i18n';
+import { useSettingsStore } from '@/stores/settings';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -21,6 +22,10 @@ export default function App() {
 
   const isLoadingLocale = useI18nStore((state) => state.isLoadingLocale);
 
+  const isLoadingSettings = useSettingsStore(
+    (state) => state.isLoadingSettings,
+  );
+
   const [appIsReady, setAppIsReady] = useState(false);
 
   const onLayoutRootView = useCallback(async () => {
@@ -30,10 +35,10 @@ export default function App() {
   }, [appIsReady]);
 
   useEffect(() => {
-    if (!isLoadingColorScheme && !isLoadingLocale) {
+    if (!isLoadingColorScheme && !isLoadingLocale && !isLoadingSettings) {
       setAppIsReady(true);
     }
-  }, [isLoadingColorScheme, isLoadingLocale]);
+  }, [isLoadingColorScheme, isLoadingLocale, isLoadingSettings]);
 
   if (!appIsReady) {
     return null;
