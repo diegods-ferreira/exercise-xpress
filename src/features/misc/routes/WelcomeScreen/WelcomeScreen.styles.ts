@@ -1,9 +1,13 @@
+import { RFValue } from 'react-native-responsive-fontsize';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { BlurView } from 'expo-blur';
+import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { css } from 'styled-components';
 import styled from 'styled-components/native';
 
+import logoImg from '@/assets/images/logo.png';
 import { Panel } from '@/components/elements';
 
 export const Container = styled.View(
@@ -32,6 +36,24 @@ export const BackgroundImageSafeArea = styled(SafeAreaView)(
     gap: ${theme.measures.md}px;
   `,
 );
+
+export const LogoImageWrapper = styled(BlurView)`
+  ${({ theme }) => css`
+    width: 90%;
+    margin-top: ${theme.measures['2xl']}px;
+    border-radius: ${theme.measures.lg}px;
+    overflow: hidden;
+  `}
+`;
+
+export const LogoImage = styled(Image).attrs({
+  source: logoImg,
+  alt: 'ExerciseXpress logo',
+  contentFit: 'contain',
+})`
+  width: 100%;
+  height: ${RFValue(80)}px;
+`;
 
 export const WelcomeContainer = styled(Panel)(
   ({ theme }) => css`

@@ -1,7 +1,6 @@
-import { RFValue } from 'react-native-responsive-fontsize';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { DumbbellIcon, MoonIcon, SunIcon } from 'lucide-react-native';
+import { MoonIcon, SunIcon } from 'lucide-react-native';
 import { useTheme } from 'styled-components/native';
 
 import fitnessMontageImg from '@/assets/images/fitness-montage.png';
@@ -41,9 +40,12 @@ export function WelComeScreen({ navigation, route }: WelcomeScreenRouteProps) {
           ]}
         >
           <S.BackgroundImageSafeArea>
-            <DumbbellIcon color={theme.colors.primary} size={RFValue(32)} />
-
-            <Typography variant="h2">Exercise Xpress</Typography>
+            <S.LogoImageWrapper
+              intensity={25}
+              tint={colorScheme === 'dark' ? 'light' : 'dark'}
+            >
+              <S.LogoImage />
+            </S.LogoImageWrapper>
 
             <S.ToggleThemeButton>
               <IconButton
