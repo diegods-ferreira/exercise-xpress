@@ -1,4 +1,5 @@
 import { RectButton } from 'react-native-gesture-handler';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 import styled, { css } from 'styled-components/native';
 
@@ -22,7 +23,8 @@ export const SettingsWrapper = styled(Panel)(
 
 export const SettingItem = styled(RectButton)(
   ({ theme }) => css`
-    padding: ${theme.measures.sm}px ${theme.measures['2xl']}px;
+    height: ${RFValue(40)}px;
+    padding: ${theme.measures.xs}px ${theme.measures['2xl']}px;
 
     flex-direction: row;
     align-items: center;

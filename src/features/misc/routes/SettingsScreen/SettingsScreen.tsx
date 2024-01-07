@@ -1,10 +1,13 @@
-import { Switch } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { SunMoonIcon } from 'lucide-react-native';
+import {
+  ChevronRightIcon,
+  FileBadgeIcon,
+  SunMoonIcon,
+} from 'lucide-react-native';
 import { useTheme } from 'styled-components/native';
 
-import { Typography } from '@/components/elements';
+import { Switch, Typography } from '@/components/elements';
 import { useColorSchemeStore } from '@/stores/color-scheme';
 import { SettingsScreenRouteProps } from '@/types';
 
@@ -32,20 +35,35 @@ export function SettingsScreen({
           onPress={toggleColorScheme}
         >
           <S.SettingItemInfo>
-            <SunMoonIcon color={theme.colors.textSecondary} />
+            <SunMoonIcon
+              size={theme.fontSizes.base}
+              color={theme.colors.textSecondary}
+            />
 
             <Typography>Tema escuro</Typography>
           </S.SettingItemInfo>
 
           <Switch
             value={colorScheme === 'dark'}
-            ios_backgroundColor={theme.colors.background}
-            thumbColor="#ffffff"
-            trackColor={{
-              false: theme.colors.background,
-              true: theme.colors.primary,
-            }}
             onValueChange={toggleColorScheme}
+          />
+        </S.SettingItem>
+      </S.SettingsWrapper>
+
+      <S.SettingsWrapper>
+        <S.SettingItem rippleColor={theme.colors.ripple}>
+          <S.SettingItemInfo>
+            <FileBadgeIcon
+              size={theme.fontSizes.base}
+              color={theme.colors.textSecondary}
+            />
+
+            <Typography>Política de privacidade</Typography>
+          </S.SettingItemInfo>
+
+          <ChevronRightIcon
+            size={theme.fontSizes.lg}
+            color={theme.colors.textSecondary}
           />
         </S.SettingItem>
       </S.SettingsWrapper>
