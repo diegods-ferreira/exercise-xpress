@@ -11,6 +11,7 @@ export function HomeScreen({ navigation, route }: HomeScreenRouteProps) {
 
   return (
     <ScrollView
+      style={{ backgroundColor: theme.colors.background }}
       contentContainerStyle={{
         flex: 1,
         paddingBottom: RFValue(48),
@@ -19,33 +20,6 @@ export function HomeScreen({ navigation, route }: HomeScreenRouteProps) {
         justifyContent: 'center',
       }}
     >
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
-      <Typography variant="h1">HomeScreen</Typography>
       <Typography variant="h1">HomeScreen</Typography>
     </ScrollView>
   );
