@@ -38,10 +38,7 @@ export function Button({
       fitContent={fitContent}
       isLoading={isLoading}
       isDisabled={isDisabled}
-      style={[
-        { borderRadius: theme.roundedFull },
-        variant !== 'link' && theme.boxShadow,
-      ]}
+      style={{ borderRadius: theme.roundedFull }}
       {...rest}
     >
       {isLoading && (

@@ -1,6 +1,5 @@
 import { RFValue } from 'react-native-responsive-fontsize';
 
-import { boxShadowStyles } from './box-shadow';
 import { fontSizes } from './font-sizes';
 
 const generalMeasurements = {
@@ -32,7 +31,6 @@ export const themes = {
 
       ripple: 'rgba(0, 0, 0, 0.1)',
     },
-    boxShadow: boxShadowStyles,
     ...generalStyles,
   },
   dark: {
@@ -48,7 +46,6 @@ export const themes = {
 
       ripple: 'rgba(255, 255, 255, 0.1)',
     },
-    boxShadow: {} as typeof boxShadowStyles,
     ...generalStyles,
   },
 };

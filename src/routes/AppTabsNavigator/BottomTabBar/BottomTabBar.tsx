@@ -59,12 +59,10 @@ function TabButton({
 }
 
 export function BottomTabBar({ state, navigation }: BottomTabBarProps) {
-  const theme = useTheme();
-
   const colorScheme = useColorSchemeStore((state) => state.colorScheme);
 
   return (
-    <S.Container intensity={100} tint={colorScheme} style={theme.boxShadow}>
+    <S.Container intensity={100} tint={colorScheme}>
       {state.routes.map((route, index) => {
         const isFocused = index === state.index;
 

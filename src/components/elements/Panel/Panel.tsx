@@ -13,7 +13,6 @@ export function Panel({ children, ...rest }: PropsWithChildren<PanelProps>) {
   return (
     <S.Container
       colors={[theme.colors.bgOffset, theme.colors.bgOffsetDarker]}
-      style={theme.boxShadow}
       {...rest}
     >
       {children}

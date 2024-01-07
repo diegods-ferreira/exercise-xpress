@@ -21,7 +21,7 @@ export function IconButton({
     <S.Container
       isDisabled={isDisabled}
       rippleColor={theme.colors.ripple}
-      style={[{ borderRadius: theme.roundedFull }, theme.boxShadow]}
+      style={{ borderRadius: theme.roundedFull }}
       {...rest}
     >
       <Icon
