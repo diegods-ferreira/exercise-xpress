@@ -1,4 +1,5 @@
 import { RFValue } from 'react-native-responsive-fontsize';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { HomeIcon, LucideIcon, SettingsIcon } from 'lucide-react-native';
@@ -47,6 +48,7 @@ function TabButton({
       onPress={onPress}
       onLongPress={onLongPress}
       rippleColor={theme.colors.ripple}
+      underlayColor={theme.colors.textSecondary}
     >
       <Icon
         size={RFValue(20)}
@@ -59,10 +61,16 @@ function TabButton({
 }
 
 export function BottomTabBar({ state, navigation }: BottomTabBarProps) {
+  const insets = useSafeAreaInsets();
+
   const colorScheme = useColorSchemeStore((state) => state.colorScheme);
 
   return (
-    <S.Container intensity={100} tint={colorScheme}>
+    <S.Container
+      intensity={100}
+      tint={colorScheme}
+      style={{ paddingBottom: insets.bottom }}
+    >
       {state.routes.map((route, index) => {
         const isFocused = index === state.index;
 

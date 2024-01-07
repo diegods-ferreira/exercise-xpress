@@ -10,7 +10,6 @@ interface TabBarItemProps {
 
 export const Container = styled(BlurView)`
   width: 100%;
-  height: ${RFValue(48)}px;
 
   flex-direction: row;
 
@@ -22,7 +21,7 @@ export const Container = styled(BlurView)`
 
 export const Button = styled(RectButton)`
   flex: 1;
-  height: 100%;
+  height: ${RFValue(48)}px;
 
   align-items: center;
   justify-content: center;
