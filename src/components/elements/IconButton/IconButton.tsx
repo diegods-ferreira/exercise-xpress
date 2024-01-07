@@ -1,11 +1,14 @@
-import { RectButtonProps } from 'react-native-gesture-handler';
+import { TouchableOpacityProps } from 'react-native';
 
 import { LucideIcon } from 'lucide-react-native';
 import { useTheme } from 'styled-components/native';
 
 import * as S from './IconButton.styles';
 
-type IconButtonProps = Pick<RectButtonProps, 'onPress' | 'onLongPress'> & {
+type IconButtonProps = Pick<
+  TouchableOpacityProps,
+  'onPress' | 'onLongPress'
+> & {
   icon: LucideIcon;
   isDisabled?: boolean;
 };
@@ -18,12 +21,7 @@ export function IconButton({
   const theme = useTheme();
 
   return (
-    <S.Container
-      isDisabled={isDisabled}
-      rippleColor={theme.colors.ripple}
-      style={{ borderRadius: theme.roundedFull }}
-      {...rest}
-    >
+    <S.Container isDisabled={isDisabled} activeOpacity={0.5} {...rest}>
       <Icon
         size={theme.fontSizes.xl}
         color={theme.colors.text}
