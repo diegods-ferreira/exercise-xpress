@@ -1,10 +1,9 @@
-import { LinearGradient } from 'expo-linear-gradient';
 import styled, { css } from 'styled-components/native';
 
-export const Container = styled(LinearGradient)(
+export const Container = styled.View(
   ({ theme }) => css`
     padding: ${theme.measures.xl}px;
-    border-radius: ${theme.measures['2xl']}px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background-color: ${theme.colors.bgOffset};
+    border-radius: ${theme.measures.xl}px;
   `,
 );
