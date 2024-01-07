@@ -22,14 +22,13 @@ export const themes = {
     colors: {
       primary: '#aad729',
 
-      background: '#e5e5e5',
+      background: '#f5f5f5',
       bgOffset: '#ffffff',
-      bgOffsetDarker: '#f5f5f5',
 
-      text: '#242424',
-      textSecondary: '#3a3a3a',
+      text: '#262626',
+      textSecondary: '#737373',
 
-      ripple: 'rgba(0, 0, 0, 0.05)',
+      ripple: 'rgba(0, 0, 0, 0.1)',
     },
     ...generalStyles,
   },
@@ -37,12 +36,11 @@ export const themes = {
     colors: {
       primary: '#aad729',
 
-      background: '#242424',
-      bgOffset: '#3a3a3a',
-      bgOffsetDarker: '#2a2a2a',
+      background: '#171717',
+      bgOffset: '#262626',
 
       text: '#fcfcfc',
-      textSecondary: '#9b9b9b',
+      textSecondary: '#a3a3a3',
 
       ripple: 'rgba(255, 255, 255, 0.1)',
     },
