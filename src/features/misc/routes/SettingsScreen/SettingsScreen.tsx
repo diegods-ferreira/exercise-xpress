@@ -11,6 +11,7 @@ import { useTheme } from 'styled-components/native';
 
 import { Switch, Typography } from '@/components/elements';
 import { useColorSchemeStore } from '@/stores/color-scheme';
+import { useI18nStore } from '@/stores/i18n';
 import { SettingsScreenRouteProps } from '@/types';
 
 import * as S from './SettingsScreen.styles';
@@ -22,6 +23,8 @@ export function SettingsScreen({
   const theme = useTheme();
   const insets = useSafeAreaInsets();
 
+  const translate = useI18nStore((state) => state.translate);
+
   const [colorScheme, toggleColorScheme] = useColorSchemeStore((state) => [
     state.colorScheme,
     state.toggleColorScheme,
@@ -29,11 +32,11 @@ export function SettingsScreen({
 
   return (
     <S.Container style={{ paddingTop: insets.top + theme.measures['2xl'] }}>
-      <Typography variant="h2">Ajustes</Typography>
+      <Typography variant="h2">{translate('settingsPage.title')}</Typography>
 
       <S.SettingsGroupContainer>
         <S.SettingsGroupTitle variant="subtitle3">
-          Unidades de medida
+          {translate('settingsPage.measuringUnitsGroup.title')}
         </S.SettingsGroupTitle>
 
         <S.SettingsWrapper>
@@ -44,11 +47,16 @@ export function SettingsScreen({
                 color={theme.colors.textSecondary}
               />
 
-              <Typography>Peso</Typography>
+              <Typography>
+                {translate('settingsPage.measuringUnitsGroup.weight')}
+              </Typography>
             </S.SettingItemInfo>
 
             <S.SettingsValueWrapper>
-              <Typography variant="subtitle1">Quilogramas (Kg)</Typography>
+              <Typography variant="subtitle1">
+                {translate('global.measuringUnits.weight.kilogram.plural')} (
+                {translate('global.measuringUnits.weight.kilogram.symbol')})
+              </Typography>
 
               <ChevronRightIcon
                 size={theme.fontSizes.xl}
@@ -67,11 +75,16 @@ export function SettingsScreen({
                 color={theme.colors.textSecondary}
               />
 
-              <Typography>Distância</Typography>
+              <Typography>
+                {translate('settingsPage.measuringUnitsGroup.distance')}
+              </Typography>
             </S.SettingItemInfo>
 
             <S.SettingsValueWrapper>
-              <Typography variant="subtitle1">Métrico</Typography>
+              <Typography variant="subtitle1">
+                {translate('global.measuringUnits.distance.meters.plural')} (
+                {translate('global.measuringUnits.distance.meters.symbol')})
+              </Typography>
 
               <ChevronRightIcon
                 size={theme.fontSizes.xl}
@@ -84,7 +97,9 @@ export function SettingsScreen({
       </S.SettingsGroupContainer>
 
       <S.SettingsGroupContainer>
-        <S.SettingsGroupTitle variant="subtitle3">Geral</S.SettingsGroupTitle>
+        <S.SettingsGroupTitle variant="subtitle3">
+          {translate('settingsPage.generalGroup.title')}
+        </S.SettingsGroupTitle>
 
         <S.SettingsWrapper>
           <S.SettingItem
@@ -97,7 +112,9 @@ export function SettingsScreen({
                 color={theme.colors.textSecondary}
               />
 
-              <Typography>Tema escuro</Typography>
+              <Typography>
+                {translate('settingsPage.generalGroup.darkTheme')}
+              </Typography>
             </S.SettingItemInfo>
 
             <Switch
@@ -116,7 +133,7 @@ export function SettingsScreen({
               color={theme.colors.textSecondary}
             />
 
-            <Typography>Política de privacidade</Typography>
+            <Typography>{translate('global.privacyPolicy')}</Typography>
           </S.SettingItemInfo>
 
           <ChevronRightIcon
