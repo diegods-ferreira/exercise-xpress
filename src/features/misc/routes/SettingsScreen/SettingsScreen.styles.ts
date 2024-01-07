@@ -1,8 +1,10 @@
 import { RectButton } from 'react-native-gesture-handler';
 import { RFValue } from 'react-native-responsive-fontsize';
 
+import { Image } from 'expo-image';
 import styled, { css } from 'styled-components/native';
 
+import logoImg from '@/assets/images/logo.png';
 import { Panel, Typography } from '@/components/elements';
 
 export const Container = styled.View(
@@ -66,3 +68,15 @@ export const SettingsValueWrapper = styled.View(
     gap: ${theme.measures.xs}px;
   `,
 );
+
+export const LogoImage = styled(Image).attrs(({ theme }) => ({
+  source: logoImg,
+  alt: 'ExerciseXpress logo',
+  contentFit: 'contain',
+  tintColor: theme.colors.text,
+}))`
+  width: 100%;
+  height: ${RFValue(40)}px;
+  margin-top: auto;
+  opacity: 0.25;
+`;

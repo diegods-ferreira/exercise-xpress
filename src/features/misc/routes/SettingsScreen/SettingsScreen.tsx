@@ -143,6 +143,8 @@ export function SettingsScreen({
           />
         </S.SettingItem>
       </S.SettingsWrapper>
+
+      <S.LogoImage style={{ marginBottom: insets.bottom + 120 }} />
     </S.Container>
   );
 }
