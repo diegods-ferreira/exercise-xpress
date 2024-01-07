@@ -36,6 +36,7 @@ export const en: I18nTexts = {
     generalGroup: {
       title: 'General',
       darkTheme: 'Dark theme',
+      language: 'Language',
     },
   },
 } as const;

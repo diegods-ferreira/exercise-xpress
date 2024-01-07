@@ -4,6 +4,7 @@ import {
   ChevronRightIcon,
   FileBadgeIcon,
   LandPlotIcon,
+  LanguagesIcon,
   SunMoonIcon,
   WeightIcon,
 } from 'lucide-react-native';
@@ -121,6 +122,31 @@ export function SettingsScreen({
               value={colorScheme === 'dark'}
               onValueChange={toggleColorScheme}
             />
+          </S.SettingItem>
+
+          <S.SettingItemSeparator />
+
+          <S.SettingItem rippleColor={theme.colors.ripple}>
+            <S.SettingItemInfo>
+              <LanguagesIcon
+                size={theme.fontSizes.base}
+                color={theme.colors.textSecondary}
+              />
+
+              <Typography>
+                {translate('settingsPage.generalGroup.language')}
+              </Typography>
+            </S.SettingItemInfo>
+
+            <S.SettingsValueWrapper>
+              <Typography variant="subtitle1">Português (BR)</Typography>
+
+              <ChevronRightIcon
+                size={theme.fontSizes.xl}
+                color={theme.colors.textSecondary}
+                opacity={0.75}
+              />
+            </S.SettingsValueWrapper>
           </S.SettingItem>
         </S.SettingsWrapper>
       </S.SettingsGroupContainer>
