@@ -29,7 +29,7 @@ export const themes = {
       text: '#242424',
       textSecondary: '#3a3a3a',
 
-      ripple: 'rgba(0, 0, 0, 0.1)',
+      ripple: 'rgba(0, 0, 0, 0.05)',
     },
     ...generalStyles,
   },
