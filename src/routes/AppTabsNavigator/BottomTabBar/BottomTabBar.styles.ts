@@ -8,24 +8,32 @@ interface TabBarItemProps {
   isFocused: boolean;
 }
 
-export const Container = styled(BlurView)`
-  width: 100%;
+export const Container = styled(BlurView)(
+  ({ theme }) => css`
+    width: 100%;
+    border-top-left-radius: ${theme.measures['2xl']}px;
+    border-top-right-radius: ${theme.measures['2xl']}px;
+    overflow: hidden;
 
-  flex-direction: row;
+    flex-direction: row;
 
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  right: 0;
-`;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  `,
+);
 
-export const Button = styled(RectButton)`
-  flex: 1;
-  height: ${RFValue(48)}px;
+export const Button = styled(RectButton)(
+  ({ theme }) => css`
+    flex: 1;
+    padding: ${theme.measures.xl}px 0px;
 
-  align-items: center;
-  justify-content: center;
-`;
+    align-items: center;
+    justify-content: center;
+    gap: ${theme.measures.xs}px;
+  `,
+);
 
 export const MenuName = styled.Text<TabBarItemProps>`
   ${({ isFocused, theme }) => css`
@@ -38,3 +46,15 @@ export const MenuName = styled.Text<TabBarItemProps>`
     `}
   `}
 `;
+
+export const ActionButton = styled.TouchableOpacity(
+  ({ theme }) => css`
+    background-color: ${theme.colors.primary};
+    border-radius: ${theme.roundedFull}px;
+    margin: ${theme.measures.xs}px;
+    aspect-ratio: 1 / 1;
+
+    justify-content: center;
+    align-items: center;
+  `,
+);

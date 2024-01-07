@@ -1,10 +1,17 @@
+import React from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import { HomeIcon, LucideIcon, SettingsIcon } from 'lucide-react-native';
+import {
+  HomeIcon,
+  LucideIcon,
+  PlusIcon,
+  SettingsIcon,
+} from 'lucide-react-native';
 import { useTheme } from 'styled-components/native';
 
+import { themes } from '@/config/styles/themes';
 import { useColorSchemeStore } from '@/stores/color-scheme';
 import { AppTabsParams } from '@/types';
 
@@ -61,6 +68,7 @@ function TabButton({
 }
 
 export function BottomTabBar({ state, navigation }: BottomTabBarProps) {
+  const theme = useTheme();
   const insets = useSafeAreaInsets();
 
   const colorScheme = useColorSchemeStore((state) => state.colorScheme);
@@ -94,13 +102,23 @@ export function BottomTabBar({ state, navigation }: BottomTabBarProps) {
         };
 
         return (
-          <TabButton
-            key={route.key}
-            isFocused={isFocused}
-            onPress={onPress}
-            onLongPress={onLongPress}
-            routeName={route.name as keyof AppTabsParams}
-          />
+          <React.Fragment key={route.key}>
+            {index === 1 && (
+              <S.ActionButton activeOpacity={0.5}>
+                <PlusIcon
+                  size={theme.fontSizes['2xl']}
+                  color={themes.dark.colors.background}
+                />
+              </S.ActionButton>
+            )}
+
+            <TabButton
+              isFocused={isFocused}
+              onPress={onPress}
+              onLongPress={onLongPress}
+              routeName={route.name as keyof AppTabsParams}
+            />
+          </React.Fragment>
         );
       })}
     </S.Container>
