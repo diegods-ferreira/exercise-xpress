@@ -1,4 +1,4 @@
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { MoonIcon, SunIcon } from 'lucide-react-native';
 import { useTheme } from 'styled-components/native';
@@ -12,8 +12,9 @@ import { WelcomeScreenRouteProps } from '@/types';
 
 import * as S from './WelcomeScreen.styles';
 
-export function WelComeScreen({ navigation, route }: WelcomeScreenRouteProps) {
+export function WelComeScreen({ navigation }: WelcomeScreenRouteProps) {
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
 
   const [colorScheme, toggleColorScheme] = useColorSchemeStore((state) => [
     state.colorScheme,
@@ -38,52 +39,51 @@ export function WelComeScreen({ navigation, route }: WelcomeScreenRouteProps) {
             'transparent',
             theme.colors.background,
           ]}
+          style={{ paddingTop: insets.top + theme.measures.lg }}
         >
-          <S.BackgroundImageSafeArea>
-            <S.LogoImageWrapper
-              intensity={25}
-              tint={colorScheme === 'dark' ? 'light' : 'dark'}
-            >
-              <S.LogoImage />
-            </S.LogoImageWrapper>
+          <S.ToggleThemeButton>
+            <IconButton
+              icon={colorScheme === 'dark' ? SunIcon : MoonIcon}
+              onPress={toggleColorScheme}
+            />
+          </S.ToggleThemeButton>
 
-            <S.ToggleThemeButton>
-              <IconButton
-                icon={colorScheme === 'dark' ? SunIcon : MoonIcon}
-                onPress={toggleColorScheme}
-              />
-            </S.ToggleThemeButton>
-          </S.BackgroundImageSafeArea>
+          <S.LogoImageWrapper
+            intensity={25}
+            tint={colorScheme === 'dark' ? 'light' : 'dark'}
+          >
+            <S.LogoImage />
+          </S.LogoImageWrapper>
         </S.BackgroundImageMask>
       </S.BackgroundImage>
 
-      <SafeAreaView>
-        <S.WelcomeContainer>
-          <Typography variant="h1">{translate('landingPage.title')}</Typography>
+      <S.WelcomeContainer
+        style={{ paddingBottom: insets.bottom + theme.measures.lg }}
+      >
+        <Typography variant="h1">{translate('landingPage.title')}</Typography>
 
-          <Typography variant="subtitle1">
-            {translate('landingPage.subtitle')}
+        <Typography variant="subtitle1">
+          {translate('landingPage.subtitle')}
+        </Typography>
+
+        <Button
+          title={translate('landingPage.actionButton')}
+          onPress={onGetStartedPress}
+        />
+
+        <S.PrivacyPolicyLinkWrapper>
+          <Typography variant="subtitle2">
+            {translate('landingPage.accessPrivacyPolicy')}
           </Typography>
 
           <Button
-            title={translate('landingPage.actionButton')}
-            onPress={onGetStartedPress}
+            title={translate('global.privacyPolicy')}
+            variant="link"
+            size="small"
+            fitContent
           />
-
-          <S.PrivacyPolicyLinkWrapper>
-            <Typography variant="subtitle2">
-              {translate('landingPage.accessPrivacyPolicy')}
-            </Typography>
-
-            <Button
-              title={translate('global.privacyPolicy')}
-              variant="link"
-              size="small"
-              fitContent
-            />
-          </S.PrivacyPolicyLinkWrapper>
-        </S.WelcomeContainer>
-      </SafeAreaView>
+        </S.PrivacyPolicyLinkWrapper>
+      </S.WelcomeContainer>
     </S.Container>
   );
 }

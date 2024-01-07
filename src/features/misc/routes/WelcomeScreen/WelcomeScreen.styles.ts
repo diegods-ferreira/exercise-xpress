@@ -1,5 +1,4 @@
 import { RFValue } from 'react-native-responsive-fontsize';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { BlurView } from 'expo-blur';
 import { Image } from 'expo-image';
@@ -23,24 +22,19 @@ export const BackgroundImage = styled.ImageBackground.attrs({
   flex: 1;
 `;
 
-export const BackgroundImageMask = styled(LinearGradient)`
-  flex: 1;
-`;
-
-export const BackgroundImageSafeArea = styled(SafeAreaView)(
+export const BackgroundImageMask = styled(LinearGradient)(
   ({ theme }) => css`
     flex: 1;
-    padding-top: ${theme.measures['2xl']}px;
+    padding: 0px ${theme.measures.lg}px;
 
     align-items: center;
-    gap: ${theme.measures.md}px;
+    gap: ${theme.measures.lg}px;
   `,
 );
 
 export const LogoImageWrapper = styled(BlurView)`
   ${({ theme }) => css`
-    width: 90%;
-    margin-top: ${theme.measures['2xl']}px;
+    width: 100%;
     border-radius: ${theme.measures.lg}px;
     overflow: hidden;
   `}
@@ -76,10 +70,6 @@ export const PrivacyPolicyLinkWrapper = styled.View(
   `,
 );
 
-export const ToggleThemeButton = styled.View(
-  ({ theme }) => css`
-    position: absolute;
-    top: ${theme.measures['2xl']}px;
-    right: ${theme.measures['2xl']}px;
-  `,
-);
+export const ToggleThemeButton = styled.View`
+  align-self: flex-end;
+`;
