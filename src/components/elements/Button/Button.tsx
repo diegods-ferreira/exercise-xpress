@@ -1,11 +1,10 @@
-import { ActivityIndicator } from 'react-native';
-import { RectButtonProps } from 'react-native-gesture-handler';
+import { ActivityIndicator, TouchableOpacityProps } from 'react-native';
 
 import { useTheme } from 'styled-components/native';
 
 import * as S from './Button.styles';
 
-type ButtonProps = Pick<RectButtonProps, 'onPress' | 'onLongPress'> & {
+type ButtonProps = Pick<TouchableOpacityProps, 'onPress' | 'onLongPress'> & {
   title: string;
   variant?: S.ButtonProps['variant'];
   size?: S.ButtonProps['size'];
@@ -31,14 +30,13 @@ export function Button({
 
   return (
     <S.Button
-      enabled={!isDisabled && !isLoading}
-      rippleColor={theme.colors.ripple}
+      disabled={isDisabled || isLoading}
       variant={variant}
       size={size}
       fitContent={fitContent}
       isLoading={isLoading}
       isDisabled={isDisabled}
-      style={{ borderRadius: theme.roundedFull }}
+      activeOpacity={0.5}
       {...rest}
     >
       {isLoading && (
