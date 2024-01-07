@@ -16,6 +16,7 @@ export const Container = styled(BlurView)(
     overflow: hidden;
 
     flex-direction: row;
+    align-items: center;
 
     position: absolute;
     left: 0;
@@ -52,6 +53,7 @@ export const ActionButton = styled.TouchableOpacity(
     background-color: ${theme.colors.primary};
     border-radius: ${theme.roundedFull}px;
     margin: ${theme.measures.xs}px;
+    height: 90%;
     aspect-ratio: 1 / 1;
 
     justify-content: center;
