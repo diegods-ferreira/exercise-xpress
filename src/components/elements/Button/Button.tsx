@@ -1,18 +1,26 @@
-import { ActivityIndicator, TouchableOpacityProps } from 'react-native';
+import { PropsWithChildren } from 'react';
+import { ActivityIndicator, Platform } from 'react-native';
 
 import { useTheme } from 'styled-components/native';
 
 import * as S from './Button.styles';
 
-type ButtonProps = Pick<TouchableOpacityProps, 'onPress' | 'onLongPress'> & {
-  title: string;
-  variant?: S.ButtonProps['variant'];
-  size?: S.ButtonProps['size'];
-  fitContent?: S.ButtonProps['fitContent'];
-  isLoading?: boolean;
-  loadingText?: string;
-  isDisabled?: boolean;
+type ButtonBaseProps = S.ButtonProps & {
+  onPress: () => void;
 };
+
+type ButtonProps = ButtonBaseProps & {
+  title: string;
+  loadingText?: string;
+};
+
+export function ButtonBase(props: PropsWithChildren<ButtonBaseProps>) {
+  if (Platform.OS === 'android') {
+    return <S.ButtonAndroid {...props} />;
+  }
+
+  return <S.ButtonIos {...props} />;
+}
 
 export function Button({
   title,
@@ -22,22 +30,22 @@ export function Button({
   isLoading = false,
   loadingText,
   isDisabled = false,
-  ...rest
+  onPress,
+  androidRippleRadius,
 }: ButtonProps) {
   const theme = useTheme();
 
   const { color } = S.buttonVariants[variant];
 
   return (
-    <S.Button
-      disabled={isDisabled || isLoading}
+    <ButtonBase
       variant={variant}
       size={size}
       fitContent={fitContent}
+      isDisabled={isDisabled || isLoading}
       isLoading={isLoading}
-      isDisabled={isDisabled}
-      activeOpacity={0.5}
-      {...rest}
+      onPress={onPress}
+      androidRippleRadius={androidRippleRadius}
     >
       {isLoading && (
         <ActivityIndicator
@@ -55,6 +63,6 @@ export function Button({
       >
         {isLoading && loadingText ? loadingText : title}
       </S.Text>
-    </S.Button>
+    </ButtonBase>
   );
 }

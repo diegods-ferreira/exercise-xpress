@@ -7,11 +7,12 @@ import { Typography } from '../Typography/Typography';
 type Theme = typeof themes.dark;
 
 export type ButtonProps = {
-  variant: 'primary' | 'secondary' | 'link';
-  size: 'small' | 'normal';
-  fitContent: boolean;
-  isLoading: boolean;
-  isDisabled: boolean;
+  variant?: 'primary' | 'secondary' | 'link';
+  size?: 'small' | 'normal';
+  fitContent?: boolean;
+  isLoading?: boolean;
+  isDisabled?: boolean;
+  androidRippleRadius?: number;
 };
 
 type TextProps = {
@@ -43,8 +44,14 @@ export const buttonVariants: Record<
   },
 };
 
-export const Button = styled.TouchableOpacity<ButtonProps>(
-  ({ theme, variant, size, fitContent, isLoading, isDisabled }) => {
+const getButtonStyles = ({
+  variant = 'primary',
+  size = 'normal',
+  fitContent = false,
+  isLoading = false,
+  isDisabled = false,
+}: ButtonProps) =>
+  css(({ theme }) => {
     const { backgroundColor } = buttonVariants[variant];
 
     let opacity = 1;
@@ -73,13 +80,29 @@ export const Button = styled.TouchableOpacity<ButtonProps>(
         ? backgroundColor
         : theme.colors[backgroundColor]};
       opacity: ${opacity};
+      overflow: hidden;
 
       flex-direction: row;
       justify-content: center;
       align-items: center;
     `;
-  },
-);
+  });
+
+export const ButtonIos = styled.TouchableOpacity.attrs<ButtonProps>({
+  activeOpacity: 0.5,
+})((props) => getButtonStyles(props));
+
+export const ButtonAndroid = styled.Pressable.attrs<ButtonProps>(
+  ({ theme, variant, androidRippleRadius }) => ({
+    android_ripple: {
+      color: theme.colors.ripple,
+      borderless: variant === 'link',
+      foreground: variant !== 'link',
+      radius: androidRippleRadius,
+    },
+    hitSlop: variant === 'link' ? theme.measures.md : 0,
+  }),
+)((props) => getButtonStyles(props));
 
 export const Text = styled(Typography)<TextProps>(({
   theme,
