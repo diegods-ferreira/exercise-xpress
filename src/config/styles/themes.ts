@@ -9,6 +9,7 @@ const generalMeasurements = {
   lg: RFValue(12),
   xl: RFValue(16),
   '2xl': RFValue(24),
+  '3xl': RFValue(32),
 };
 
 const generalStyles = {
