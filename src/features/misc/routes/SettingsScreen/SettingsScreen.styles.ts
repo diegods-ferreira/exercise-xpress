@@ -1,11 +1,10 @@
-import { RectButton } from 'react-native-gesture-handler';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 import { Image } from 'expo-image';
 import styled, { css } from 'styled-components/native';
 
 import logoImg from '@/assets/images/logo.png';
-import { Panel, Typography } from '@/components/elements';
+import { ButtonBase, Panel, Typography } from '@/components/elements';
 
 export const Container = styled.View(
   ({ theme }) => css`
@@ -33,10 +32,13 @@ export const SettingsWrapper = styled(Panel)`
   overflow: hidden;
 `;
 
-export const SettingItem = styled(RectButton)(
+export const SettingItem = styled(ButtonBase).attrs({
+  variant: 'secondary',
+})(
   ({ theme }) => css`
     height: ${RFValue(40)}px;
     padding: ${theme.measures.xs}px ${theme.measures.xl}px;
+    overflow: visible;
 
     flex-direction: row;
     align-items: center;
@@ -49,7 +51,7 @@ export const SettingItemSeparator = styled.View(
     width: 100%;
     height: ${RFValue(1)}px;
     background-color: ${theme.colors.ripple};
-    margin-left: ${theme.measures['2xl'] + theme.measures.xl}px;
+    margin-left: ${theme.measures['3xl'] + theme.measures.xl}px;
   `,
 );
 
@@ -57,7 +59,7 @@ export const SettingItemInfo = styled.View(
   ({ theme }) => css`
     flex-direction: row;
     align-items: center;
-    gap: ${theme.measures.lg}px;
+    gap: ${theme.measures.xl}px;
   `,
 );
 

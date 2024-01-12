@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import {
@@ -11,11 +12,18 @@ import {
 import { useTheme } from 'styled-components/native';
 
 import { Switch, Typography } from '@/components/elements';
+import { Locale } from '@/config/i18n';
 import { useColorSchemeStore } from '@/stores/color-scheme';
 import { useI18nStore } from '@/stores/i18n';
 import { SettingsScreenRouteProps } from '@/types';
 
+import { SelectModal } from '../../components/SelectModal/SelectModal';
 import * as S from './SettingsScreen.styles';
+
+const localeLabels: Record<Locale, string> = {
+  en_US: 'English (US)',
+  pt_BR: 'Português (BR)',
+};
 
 export function SettingsScreen({
   navigation,
@@ -24,12 +32,27 @@ export function SettingsScreen({
   const theme = useTheme();
   const insets = useSafeAreaInsets();
 
-  const translate = useI18nStore((state) => state.translate);
+  const [translate, locale, setLocale] = useI18nStore((state) => [
+    state.translate,
+    state.locale,
+    state.setLocale,
+  ]);
 
   const [colorScheme, toggleColorScheme] = useColorSchemeStore((state) => [
     state.colorScheme,
     state.toggleColorScheme,
   ]);
+
+  const [showSelectLanguageModal, setShowSelectLanguageModal] = useState(false);
+
+  const handleToggleSelectLanguageModal = () => {
+    setShowSelectLanguageModal((prevState) => !prevState);
+  };
+
+  const onSelectLanguage = (selectedLanguage: Locale) => {
+    setLocale(selectedLanguage);
+    handleToggleSelectLanguageModal();
+  };
 
   return (
     <S.Container style={{ paddingTop: insets.top + theme.measures['2xl'] }}>
@@ -41,7 +64,7 @@ export function SettingsScreen({
         </S.SettingsGroupTitle>
 
         <S.SettingsWrapper>
-          <S.SettingItem rippleColor={theme.colors.ripple}>
+          <S.SettingItem>
             <S.SettingItemInfo>
               <WeightIcon
                 size={theme.fontSizes.base}
@@ -69,7 +92,7 @@ export function SettingsScreen({
 
           <S.SettingItemSeparator />
 
-          <S.SettingItem rippleColor={theme.colors.ripple}>
+          <S.SettingItem>
             <S.SettingItemInfo>
               <LandPlotIcon
                 size={theme.fontSizes.base}
@@ -103,10 +126,7 @@ export function SettingsScreen({
         </S.SettingsGroupTitle>
 
         <S.SettingsWrapper>
-          <S.SettingItem
-            rippleColor={theme.colors.ripple}
-            onPress={toggleColorScheme}
-          >
+          <S.SettingItem onPress={toggleColorScheme}>
             <S.SettingItemInfo>
               <SunMoonIcon
                 size={theme.fontSizes.base}
@@ -126,7 +146,7 @@ export function SettingsScreen({
 
           <S.SettingItemSeparator />
 
-          <S.SettingItem rippleColor={theme.colors.ripple}>
+          <S.SettingItem onPress={handleToggleSelectLanguageModal}>
             <S.SettingItemInfo>
               <LanguagesIcon
                 size={theme.fontSizes.base}
@@ -139,7 +159,9 @@ export function SettingsScreen({
             </S.SettingItemInfo>
 
             <S.SettingsValueWrapper>
-              <Typography variant="subtitle1">Português (BR)</Typography>
+              <Typography variant="subtitle1">
+                {localeLabels[locale]}
+              </Typography>
 
               <ChevronRightIcon
                 size={theme.fontSizes.xl}
@@ -152,7 +174,7 @@ export function SettingsScreen({
       </S.SettingsGroupContainer>
 
       <S.SettingsWrapper style={{ marginTop: theme.measures.lg }}>
-        <S.SettingItem rippleColor={theme.colors.ripple}>
+        <S.SettingItem>
           <S.SettingItemInfo>
             <FileBadgeIcon
               size={theme.fontSizes.base}
@@ -171,6 +193,18 @@ export function SettingsScreen({
       </S.SettingsWrapper>
 
       <S.LogoImage style={{ marginBottom: insets.bottom + 120 }} />
+
+      <SelectModal
+        visible={showSelectLanguageModal}
+        value={locale}
+        options={[
+          { label: 'English (US)', value: 'en_US' },
+          { label: 'Português (BR)', value: 'pt_BR' },
+        ]}
+        onClose={handleToggleSelectLanguageModal}
+        onSelect={onSelectLanguage}
+        footerText="Quando aberto pela primeira vez, o aplicativo carrega o idioma do seu dispositivo. Uma vez alterado, sempre será carregado o idioma selecionado pelo usuário."
+      />
     </S.Container>
   );
 }
