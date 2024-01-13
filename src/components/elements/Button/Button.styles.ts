@@ -95,7 +95,10 @@ export const ButtonIos = styled.TouchableOpacity.attrs<ButtonProps>({
 export const ButtonAndroid = styled.Pressable.attrs<ButtonProps>(
   ({ theme, variant, androidRippleRadius }) => ({
     android_ripple: {
-      color: theme.colors.ripple,
+      color:
+        variant === 'primary'
+          ? themes.light.colors.ripple
+          : theme.colors.ripple,
       borderless: variant === 'link',
       foreground: variant !== 'link',
       radius: androidRippleRadius,
