@@ -7,6 +7,7 @@ import * as S from './Button.styles';
 
 type ButtonBaseProps = S.ButtonProps & {
   onPress: () => void;
+  onLongPress: () => void;
 };
 
 type ButtonProps = ButtonBaseProps & {
@@ -31,6 +32,7 @@ export function Button({
   loadingText,
   isDisabled = false,
   onPress,
+  onLongPress,
   androidRippleRadius,
 }: ButtonProps) {
   const theme = useTheme();
@@ -45,6 +47,7 @@ export function Button({
       isDisabled={isDisabled || isLoading}
       isLoading={isLoading}
       onPress={onPress}
+      onLongPress={onLongPress}
       androidRippleRadius={androidRippleRadius}
     >
       {isLoading && (
