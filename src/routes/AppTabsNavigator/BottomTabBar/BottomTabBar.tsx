@@ -51,19 +51,14 @@ function TabButton({
   const { label, icon: Icon } = tabBarItems[routeName];
 
   return (
-    <S.Button
-      onPress={onPress}
-      onLongPress={onLongPress}
-      rippleColor={theme.colors.ripple}
-      underlayColor={theme.colors.textSecondary}
-    >
+    <S.TabBarButton onPress={onPress} onLongPress={onLongPress}>
       <Icon
         size={RFValue(20)}
         color={isFocused ? theme.colors.primary : theme.colors.textSecondary}
       />
 
       <S.MenuName isFocused={isFocused}>{label}</S.MenuName>
-    </S.Button>
+    </S.TabBarButton>
   );
 }
 

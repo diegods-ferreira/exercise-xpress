@@ -1,8 +1,9 @@
-import { RectButton } from 'react-native-gesture-handler';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 import { BlurView } from 'expo-blur';
 import styled, { css } from 'styled-components/native';
+
+import { ButtonBase } from '@/components/elements';
 
 interface TabBarItemProps {
   isFocused: boolean;
@@ -25,14 +26,15 @@ export const Container = styled(BlurView)(
   `,
 );
 
-export const Button = styled(RectButton)(
+export const TabBarButton = styled(ButtonBase).attrs({
+  variant: 'secondary',
+})(
   ({ theme }) => css`
     flex: 1;
+    background-color: transparent;
     padding: ${theme.measures.xl}px 0px;
 
-    align-items: center;
-    justify-content: center;
-    gap: ${theme.measures.xs}px;
+    flex-direction: column;
   `,
 );
 
