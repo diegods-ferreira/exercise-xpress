@@ -1,5 +1,4 @@
 import { FlatList, FlatListProps } from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
 
 import styled, { css } from 'styled-components/native';
 
@@ -54,7 +53,7 @@ export const Option = styled(ButtonBase).attrs({
   variant: 'secondary',
 })(
   ({ theme }) => css`
-    min-height: ${RFValue(40)}px;
+    min-height: ${theme.measures['4xl']}px;
     padding: ${theme.measures.xs}px ${theme.measures['3xl']}px
       ${theme.measures.xs}px ${theme.measures.xl}px;
     overflow: visible;
@@ -80,7 +79,7 @@ export const OptionSeparator = styled.View<IconOffsetProps>(
 
     return css`
       width: 100%;
-      height: ${RFValue(1)}px;
+      height: 1px;
       background-color: ${theme.colors.ripple};
       margin-left: ${marginLeft}px;
     `;

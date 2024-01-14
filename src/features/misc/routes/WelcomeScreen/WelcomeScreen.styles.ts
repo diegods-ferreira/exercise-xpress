@@ -1,5 +1,3 @@
-import { RFValue } from 'react-native-responsive-fontsize';
-
 import { BlurView } from 'expo-blur';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -44,10 +42,12 @@ export const LogoImage = styled(Image).attrs({
   source: logoImg,
   alt: 'ExerciseXpress logo',
   contentFit: 'contain',
-})`
-  width: 100%;
-  height: ${RFValue(80)}px;
-`;
+})(
+  ({ theme }) => css`
+    width: 100%;
+    height: ${theme.measures['4xl'] * 2}px;
+  `,
+);
 
 export const WelcomeContainer = styled(Panel)(
   ({ theme }) => css`

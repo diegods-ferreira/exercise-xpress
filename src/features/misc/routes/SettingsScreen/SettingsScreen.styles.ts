@@ -1,5 +1,3 @@
-import { RFValue } from 'react-native-responsive-fontsize';
-
 import { Image } from 'expo-image';
 import styled, { css } from 'styled-components/native';
 
@@ -36,7 +34,7 @@ export const SettingItem = styled(ButtonBase).attrs({
   variant: 'secondary',
 })(
   ({ theme }) => css`
-    height: ${RFValue(40)}px;
+    height: ${theme.measures['4xl']}px;
     padding: ${theme.measures.xs}px ${theme.measures.xl}px;
     overflow: visible;
 
@@ -49,7 +47,7 @@ export const SettingItem = styled(ButtonBase).attrs({
 export const SettingItemSeparator = styled.View(
   ({ theme }) => css`
     width: 100%;
-    height: ${RFValue(1)}px;
+    height: 1px;
     background-color: ${theme.colors.ripple};
     margin-left: ${theme.measures['3xl'] + theme.measures.xl}px;
   `,
@@ -76,9 +74,11 @@ export const LogoImage = styled(Image).attrs(({ theme }) => ({
   alt: 'ExerciseXpress logo',
   contentFit: 'contain',
   tintColor: theme.colors.text,
-}))`
-  width: 100%;
-  height: ${RFValue(40)}px;
-  margin-top: auto;
-  opacity: 0.25;
-`;
+}))(
+  ({ theme }) => css`
+    width: 100%;
+    height: ${theme.measures['5xl']}px;
+    margin-top: auto;
+    opacity: 0.25;
+  `,
+);

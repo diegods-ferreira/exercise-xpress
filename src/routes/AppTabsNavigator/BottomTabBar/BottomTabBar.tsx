@@ -1,5 +1,4 @@
 import React from 'react';
-import { RFValue } from 'react-native-responsive-fontsize';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
@@ -53,7 +52,7 @@ function TabButton({
   return (
     <S.TabBarButton onPress={onPress} onLongPress={onLongPress}>
       <Icon
-        size={RFValue(20)}
+        size={theme.fontSizes['2xl']}
         color={isFocused ? theme.colors.primary : theme.colors.textSecondary}
       />
 

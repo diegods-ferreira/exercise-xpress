@@ -1,5 +1,3 @@
-import { RFValue } from 'react-native-responsive-fontsize';
-
 import { BlurView } from 'expo-blur';
 import styled, { css } from 'styled-components/native';
 
@@ -40,7 +38,7 @@ export const TabBarButton = styled(ButtonBase).attrs({
 
 export const MenuName = styled.Text<TabBarItemProps>`
   ${({ isFocused, theme }) => css`
-    font-size: ${RFValue(9)}px;
+    font-size: ${theme.fontSizes.xxs}px;
     color: ${isFocused ? theme.colors.primary : theme.colors.textSecondary};
 
     ${isFocused &&

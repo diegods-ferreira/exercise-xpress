@@ -1,5 +1,4 @@
 import { ScrollView } from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
 
 import { useTheme } from 'styled-components/native';
 
@@ -14,7 +13,7 @@ export function HomeScreen({ navigation, route }: HomeScreenRouteProps) {
       style={{ backgroundColor: theme.colors.background }}
       contentContainerStyle={{
         flex: 1,
-        paddingBottom: RFValue(48),
+        paddingBottom: theme.measures['4xl'],
         backgroundColor: theme.colors.background,
         alignItems: 'center',
         justifyContent: 'center',

@@ -1,21 +1,21 @@
-import { RFValue } from 'react-native-responsive-fontsize';
-
 import { fontSizes } from './font-sizes';
 
 const generalMeasurements = {
-  xs: RFValue(4),
-  sm: RFValue(6),
-  md: RFValue(8),
-  lg: RFValue(12),
-  xl: RFValue(16),
-  '2xl': RFValue(24),
-  '3xl': RFValue(32),
+  xs: 4,
+  sm: 6,
+  md: 8,
+  lg: 12,
+  xl: 16,
+  '2xl': 24,
+  '3xl': 32,
+  '4xl': 48,
+  '5xl': 56,
 };
 
 const generalStyles = {
   fontSizes,
   measures: generalMeasurements,
-  roundedFull: RFValue(99999),
+  roundedFull: 99999,
 };
 
 export const themes = {
