@@ -54,13 +54,15 @@ export const Option = styled(ButtonBase).attrs({
   variant: 'secondary',
 })(
   ({ theme }) => css`
-    height: ${RFValue(40)}px;
-    padding: ${theme.measures.xs}px ${theme.measures.xl}px;
+    min-height: ${RFValue(40)}px;
+    padding: ${theme.measures.xs}px ${theme.measures['3xl']}px
+      ${theme.measures.xs}px ${theme.measures.xl}px;
     overflow: visible;
 
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    gap: ${theme.measures.xl}px;
   `,
 );
 
@@ -69,22 +71,38 @@ type IconOffsetProps = {
 };
 
 export const OptionSeparator = styled.View<IconOffsetProps>(
-  ({ theme, addIconOffset }) => css`
-    width: 100%;
-    height: ${RFValue(1)}px;
-    background-color: ${theme.colors.ripple};
-    margin-left: ${(addIconOffset ? theme.measures['3xl'] : 0) +
-    theme.measures.xl}px;
-  `,
+  ({ theme, addIconOffset }) => {
+    let marginLeft = theme.measures.xl;
+
+    if (addIconOffset) {
+      marginLeft += theme.measures['3xl'];
+    }
+
+    return css`
+      width: 100%;
+      height: ${RFValue(1)}px;
+      background-color: ${theme.colors.ripple};
+      margin-left: ${marginLeft}px;
+    `;
+  },
 );
 
 export const OptionInfo = styled.View<IconOffsetProps>(
   ({ theme, addIconOffset }) => css`
+    flex: 1;
     padding-left: ${addIconOffset ? theme.measures['3xl'] : 0}px;
     position: relative;
 
     flex-direction: row;
     align-items: center;
+  `,
+);
+
+export const OptionTextWrapper = styled.View(
+  ({ theme }) => css`
+    flex: 1;
+    align-items: flex-start;
+    gap: ${theme.measures.xs}px;
   `,
 );
 

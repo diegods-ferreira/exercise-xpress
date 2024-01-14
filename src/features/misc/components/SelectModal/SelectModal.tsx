@@ -13,6 +13,7 @@ export type SelectOption<TOption = string> = {
   icon?: LucideIcon;
   label: string;
   value: TOption;
+  helpText?: string;
 };
 
 type SelectModalProps<TOption> = Pick<ModalProps, 'visible'> & {
@@ -72,7 +73,7 @@ export function SelectModal<TOption extends string>({
             data={options}
             keyExtractor={(item) => item.value}
             renderItem={({ item }) => {
-              const { icon: Icon, label, value } = item;
+              const { icon: Icon, label, value, helpText } = item;
 
               return (
                 <S.Option onPress={() => setSelectedOption(value as TOption)}>
@@ -83,17 +84,25 @@ export function SelectModal<TOption extends string>({
                         color={theme.colors.textSecondary}
                         style={{
                           position: 'absolute',
+                          top: !!helpText && theme.measures.xs,
                         }}
                       />
                     )}
 
-                    <Typography>{label}</Typography>
+                    <S.OptionTextWrapper>
+                      <Typography>{label}</Typography>
+
+                      {!!helpText && (
+                        <Typography variant="subtitle3">{helpText}</Typography>
+                      )}
+                    </S.OptionTextWrapper>
                   </S.OptionInfo>
 
                   {selectedOption === value && (
                     <CheckIcon
                       size={theme.fontSizes.xl}
                       color={theme.colors.primary}
+                      style={{ position: 'absolute', right: theme.measures.xl }}
                     />
                   )}
                 </S.Option>
