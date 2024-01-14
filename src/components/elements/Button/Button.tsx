@@ -7,7 +7,7 @@ import * as S from './Button.styles';
 
 type ButtonBaseProps = S.ButtonProps & {
   onPress: () => void;
-  onLongPress: () => void;
+  onLongPress?: () => void;
 };
 
 type ButtonProps = ButtonBaseProps & {
