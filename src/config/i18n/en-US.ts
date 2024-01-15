@@ -18,6 +18,18 @@ export const en: I18nTexts = {
           plural: 'Meters',
         },
       },
+      bodyMeasurements: {
+        centimeters: {
+          symbol: 'cm',
+          singular: 'Centimeter',
+          plural: 'Centimeters',
+        },
+        inches: {
+          symbol: 'in',
+          singular: 'Inch',
+          plural: 'Inches',
+        },
+      },
     },
   },
   landingPage: {
@@ -32,6 +44,7 @@ export const en: I18nTexts = {
       title: 'Measuring units',
       weight: 'Weight',
       distance: 'Distance',
+      bodyMeasurements: 'Body measurements',
     },
     generalGroup: {
       title: 'General',

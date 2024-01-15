@@ -18,6 +18,18 @@ export const pt: I18nTexts = {
           plural: 'Metros',
         },
       },
+      bodyMeasurements: {
+        centimeters: {
+          symbol: 'cm',
+          singular: 'Centímetro',
+          plural: 'Centímetros',
+        },
+        inches: {
+          symbol: 'in',
+          singular: 'Polegada',
+          plural: 'Polegadas',
+        },
+      },
     },
   },
   landingPage: {
@@ -33,6 +45,7 @@ export const pt: I18nTexts = {
       title: 'Unidades de medida',
       weight: 'Peso',
       distance: 'Distância',
+      bodyMeasurements: 'Medidas corporais',
     },
     generalGroup: {
       title: 'Geral',

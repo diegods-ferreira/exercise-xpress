@@ -17,6 +17,10 @@ export type I18nTexts = {
       distance: {
         meters: Record<'symbol' | 'singular' | 'plural', string>;
       };
+      bodyMeasurements: {
+        centimeters: Record<'symbol' | 'singular' | 'plural', string>;
+        inches: Record<'symbol' | 'singular' | 'plural', string>;
+      };
     };
   };
   landingPage: {
@@ -31,6 +35,7 @@ export type I18nTexts = {
       title: string;
       weight: string;
       distance: string;
+      bodyMeasurements: string;
     };
     generalGroup: {
       title: string;

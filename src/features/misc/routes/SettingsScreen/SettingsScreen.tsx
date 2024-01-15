@@ -6,6 +6,7 @@ import {
   FileBadgeIcon,
   LandPlotIcon,
   LanguagesIcon,
+  RulerIcon,
   SunMoonIcon,
   WeightIcon,
 } from 'lucide-react-native';
@@ -108,6 +109,40 @@ export function SettingsScreen({
               <Typography variant="subtitle1">
                 {translate('global.measuringUnits.distance.meters.plural')} (
                 {translate('global.measuringUnits.distance.meters.symbol')})
+              </Typography>
+
+              <ChevronRightIcon
+                size={theme.fontSizes.xl}
+                color={theme.colors.textSecondary}
+                opacity={0.75}
+              />
+            </S.SettingsValueWrapper>
+          </S.SettingItem>
+
+          <S.SettingItemSeparator />
+
+          <S.SettingItem>
+            <S.SettingItemInfo>
+              <RulerIcon
+                size={theme.fontSizes.base}
+                color={theme.colors.textSecondary}
+              />
+
+              <Typography>
+                {translate('settingsPage.measuringUnitsGroup.bodyMeasurements')}
+              </Typography>
+            </S.SettingItemInfo>
+
+            <S.SettingsValueWrapper>
+              <Typography variant="subtitle1">
+                {translate(
+                  'global.measuringUnits.bodyMeasurements.centimeters.plural',
+                )}{' '}
+                (
+                {translate(
+                  'global.measuringUnits.bodyMeasurements.centimeters.symbol',
+                )}
+                )
               </Typography>
 
               <ChevronRightIcon
