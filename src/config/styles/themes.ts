@@ -10,13 +10,13 @@ const generalMeasurements = {
   '3xl': 32,
   '4xl': 48,
   '5xl': 56,
-};
+} as const;
 
 const generalStyles = {
   fontSizes,
   measures: generalMeasurements,
   roundedFull: 99999,
-};
+} as const;
 
 export const themes = {
   light: {

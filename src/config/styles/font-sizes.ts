@@ -7,4 +7,4 @@ export const fontSizes = {
   xl: 20,
   '2xl': 24,
   '3xl': 32,
-};
+} as const;
