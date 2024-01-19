@@ -13,9 +13,11 @@ export type I18nTexts = {
     measuringUnits: {
       weight: {
         kilogram: Record<'symbol' | 'singular' | 'plural', string>;
+        pound: Record<'symbol' | 'singular' | 'plural', string>;
       };
       distance: {
         meters: Record<'symbol' | 'singular' | 'plural', string>;
+        miles: Record<'symbol' | 'singular' | 'plural', string>;
       };
       bodyMeasurements: {
         centimeters: Record<'symbol' | 'singular' | 'plural', string>;

@@ -10,12 +10,22 @@ export const pt: I18nTexts = {
           singular: 'Quilograma',
           plural: 'Quilogramas',
         },
+        pound: {
+          symbol: 'lb',
+          singular: 'Libra',
+          plural: 'Libras',
+        },
       },
       distance: {
         meters: {
           symbol: 'm',
           singular: 'Metro',
           plural: 'Metros',
+        },
+        miles: {
+          symbol: 'mi.',
+          singular: 'Milha',
+          plural: 'Milhas',
         },
       },
       bodyMeasurements: {

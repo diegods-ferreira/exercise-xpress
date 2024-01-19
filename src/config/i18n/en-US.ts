@@ -10,12 +10,22 @@ export const en: I18nTexts = {
           singular: 'Kilogram',
           plural: 'Kilograms',
         },
+        pound: {
+          symbol: 'lb',
+          singular: 'Pound',
+          plural: 'Pounds',
+        },
       },
       distance: {
         meters: {
           symbol: 'm',
           singular: 'Meter',
           plural: 'Meters',
+        },
+        miles: {
+          symbol: 'mi.',
+          singular: 'Mile',
+          plural: 'Miles',
         },
       },
       bodyMeasurements: {
