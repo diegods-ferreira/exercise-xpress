@@ -48,7 +48,7 @@ export const buttonStyles = ({
   isLoading = false,
   isDisabled = false,
 }: ButtonStylesProps) => {
-  return ({ measures }: StylesFunctionParams) => {
+  return ({ colors, measures, roundedFull }: StylesFunctionParams) => {
     const { backgroundColor } = buttonVariants[variant];
 
     let paddingVertical: ViewStyle['paddingVertical'] =
@@ -73,7 +73,8 @@ export const buttonStyles = ({
     return StyleSheet.create({
       container: {
         width: fitContent ? 'auto' : '100%',
-        backgroundColor: backgroundColor || 'transparent',
+        backgroundColor: colors[backgroundColor] || 'transparent',
+        borderRadius: roundedFull,
         paddingVertical,
         paddingHorizontal,
         opacity,
