@@ -1,20 +1,21 @@
 import React from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Text, TouchableOpacity } from 'react-native';
 
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import { BlurView } from 'expo-blur';
 import {
   HomeIcon,
   LucideIcon,
   PlusIcon,
   SettingsIcon,
 } from 'lucide-react-native';
-import { useTheme } from 'styled-components/native';
 
+import { ButtonBase } from '@/components/elements';
 import { themes } from '@/config/styles/themes';
-import { useColorSchemeStore } from '@/stores/color-scheme';
+import { useStyles } from '@/hooks';
 import { AppTabsParams } from '@/types';
 
-import * as S from './BottomTabBar.styles';
+import { bottomTabBarStyles, tabBarButtonStyles } from './BottomTabBar.styles';
 
 type TabButtonProps = {
   isFocused: boolean;
@@ -45,34 +46,32 @@ function TabButton({
   onLongPress,
   routeName,
 }: TabButtonProps) {
-  const theme = useTheme();
+  const { styles, theme } = useStyles(tabBarButtonStyles({ isFocused }));
 
   const { label, icon: Icon } = tabBarItems[routeName];
 
   return (
-    <S.TabBarButton onPress={onPress} onLongPress={onLongPress}>
+    <ButtonBase
+      variant="secondary"
+      style={styles.container}
+      onPress={onPress}
+      onLongPress={onLongPress}
+    >
       <Icon
         size={theme.fontSizes['2xl']}
         color={isFocused ? theme.colors.primary : theme.colors.textSecondary}
       />
 
-      <S.MenuName isFocused={isFocused}>{label}</S.MenuName>
-    </S.TabBarButton>
+      <Text style={styles.menuName}>{label}</Text>
+    </ButtonBase>
   );
 }
 
 export function BottomTabBar({ state, navigation }: BottomTabBarProps) {
-  const theme = useTheme();
-  const insets = useSafeAreaInsets();
-
-  const colorScheme = useColorSchemeStore((state) => state.colorScheme);
+  const { styles, theme, colorScheme } = useStyles(bottomTabBarStyles);
 
   return (
-    <S.Container
-      intensity={100}
-      tint={colorScheme}
-      style={{ paddingBottom: insets.bottom }}
-    >
+    <BlurView intensity={100} tint={colorScheme} style={styles.container}>
       {state.routes.map((route, index) => {
         const isFocused = index === state.index;
 
@@ -98,12 +97,12 @@ export function BottomTabBar({ state, navigation }: BottomTabBarProps) {
         return (
           <React.Fragment key={route.key}>
             {index === 1 && (
-              <S.ActionButton activeOpacity={0.5}>
+              <TouchableOpacity activeOpacity={0.5} style={styles.actionButton}>
                 <PlusIcon
                   size={theme.fontSizes['2xl']}
                   color={themes.dark.colors.background}
                 />
-              </S.ActionButton>
+              </TouchableOpacity>
             )}
 
             <TabButton
@@ -115,6 +114,6 @@ export function BottomTabBar({ state, navigation }: BottomTabBarProps) {
           </React.Fragment>
         );
       })}
-    </S.Container>
+    </BlurView>
   );
 }

@@ -4,6 +4,7 @@ import {
   Platform,
   Pressable,
   TouchableOpacity,
+  ViewStyle,
 } from 'react-native';
 
 import { themes } from '@/config/styles/themes';
@@ -18,6 +19,7 @@ import {
 } from './Button.styles';
 
 type ButtonBaseProps = ButtonStylesProps & {
+  style?: ViewStyle;
   onPress: () => void;
   onLongPress?: () => void;
 };
@@ -27,7 +29,10 @@ type ButtonProps = ButtonBaseProps & {
   loadingText?: string;
 };
 
-export function ButtonBase(props: PropsWithChildren<ButtonBaseProps>) {
+export function ButtonBase({
+  style,
+  ...props
+}: PropsWithChildren<ButtonBaseProps>) {
   const { styles, theme } = useStyles(buttonStyles(props));
 
   const androidRippleColor =
@@ -39,7 +44,7 @@ export function ButtonBase(props: PropsWithChildren<ButtonBaseProps>) {
     return (
       <Pressable
         {...props}
-        style={styles.container}
+        style={[styles.container, style]}
         android_ripple={{
           color: androidRippleColor,
           borderless: props.variant === 'link',
@@ -50,7 +55,7 @@ export function ButtonBase(props: PropsWithChildren<ButtonBaseProps>) {
     );
   }
 
-  return <TouchableOpacity {...props} style={styles.container} />;
+  return <TouchableOpacity {...props} style={[styles.container, style]} />;
 }
 
 export function Button({

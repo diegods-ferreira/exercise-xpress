@@ -1,31 +1,31 @@
 import { useMemo } from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { themes } from '@/config/styles/themes';
 import { useColorSchemeStore } from '@/stores/color-scheme';
-import { StylesObject, StylesFunctionParams } from '@/types';
+import { StylesFunctionParams } from '@/types';
 
 type UseStylesReturn<TStylesObject> = {
-  styles: StylesObject<TStylesObject>;
+  styles: TStylesObject;
   colorScheme: 'light' | 'dark';
   theme: typeof themes.light;
+  edgeInsets: EdgeInsets;
 };
 
 export function useStyles<TStylesObject>(
-  stylesFunction: (param: StylesFunctionParams) => TStylesObject,
+  stylesFunction?: (param: StylesFunctionParams) => TStylesObject,
 ): UseStylesReturn<TStylesObject> {
   const colorScheme = useColorSchemeStore((state) => state.colorScheme);
-  const insets = useSafeAreaInsets();
+  const edgeInsets = useSafeAreaInsets();
   const theme = themes[colorScheme];
 
   const styles = useMemo(() => {
-    const stylesObject = stylesFunction({
-      edgeInsets: insets,
-      ...theme,
-    });
+    if (!stylesFunction) {
+      return null;
+    }
 
-    return stylesObject;
-  }, [insets, stylesFunction, theme]);
+    return stylesFunction({ edgeInsets, ...theme });
+  }, [edgeInsets, stylesFunction, theme]);
 
-  return { styles, colorScheme, theme };
+  return { styles, colorScheme, theme, edgeInsets };
 }
