@@ -1,11 +1,10 @@
 import { useMemo, useState } from 'react';
-import { Modal, ModalProps } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { FlatList, Modal, ModalProps, View } from 'react-native';
 
 import { CheckIcon, LucideIcon } from 'lucide-react-native';
-import { useTheme } from 'styled-components/native';
 
-import { Button, Typography } from '@/components/elements';
+import { Button, ButtonBase, Panel, Typography } from '@/components/elements';
+import { useStyles } from '@/hooks';
 
 import * as S from './SelectModal.styles';
 
@@ -32,14 +31,15 @@ export function SelectModal<TOption extends string>({
   footerText,
   ...rest
 }: SelectModalProps<TOption>) {
-  const theme = useTheme();
-  const insets = useSafeAreaInsets();
-
   const [selectedOption, setSelectedOption] = useState<TOption>(value);
 
   const hasAnyOptionWithIcon = useMemo(
     () => options.some((option) => !!option.icon),
     [options],
+  );
+
+  const { styles, theme } = useStyles(
+    S.selectModalStyles({ hasAnyOptionWithIcon }),
   );
 
   return (
@@ -49,13 +49,13 @@ export function SelectModal<TOption extends string>({
       onRequestClose={onClose}
       statusBarTranslucent
     >
-      <S.Container>
-        <S.Header style={{ paddingTop: insets.top + theme.measures.lg }}>
-          <S.HeaderSlot contentPosition="start" />
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <View style={styles.headerSlotLeft} />
 
           <Typography variant="subtitle3">Selecione um idioma</Typography>
 
-          <S.HeaderSlot contentPosition="end">
+          <View style={styles.headerSlotRight}>
             <Button
               variant="link"
               fitContent
@@ -65,19 +65,23 @@ export function SelectModal<TOption extends string>({
                 theme.measures['2xl'] + theme.measures['2xl']
               }
             />
-          </S.HeaderSlot>
-        </S.Header>
+          </View>
+        </View>
 
-        <S.OptionsWrapper>
-          <S.OptionsList
+        <Panel style={styles.optionsWrapper}>
+          <FlatList
             data={options}
             keyExtractor={(item) => item.value}
             renderItem={({ item }) => {
               const { icon: Icon, label, value, helpText } = item;
 
               return (
-                <S.Option onPress={() => setSelectedOption(value as TOption)}>
-                  <S.OptionInfo addIconOffset={hasAnyOptionWithIcon}>
+                <ButtonBase
+                  variant="secondary"
+                  style={styles.option}
+                  onPress={() => setSelectedOption(value as TOption)}
+                >
+                  <View style={styles.optionInfo}>
                     {!!Icon && (
                       <Icon
                         size={theme.fontSizes.base}
@@ -89,14 +93,14 @@ export function SelectModal<TOption extends string>({
                       />
                     )}
 
-                    <S.OptionTextWrapper>
+                    <View style={styles.optionTextWrapper}>
                       <Typography>{label}</Typography>
 
                       {!!helpText && (
                         <Typography variant="subtitle3">{helpText}</Typography>
                       )}
-                    </S.OptionTextWrapper>
-                  </S.OptionInfo>
+                    </View>
+                  </View>
 
                   {selectedOption === value && (
                     <CheckIcon
@@ -105,17 +109,21 @@ export function SelectModal<TOption extends string>({
                       style={{ position: 'absolute', right: theme.measures.xl }}
                     />
                   )}
-                </S.Option>
+                </ButtonBase>
               );
             }}
             ItemSeparatorComponent={() => (
-              <S.OptionSeparator addIconOffset={hasAnyOptionWithIcon} />
+              <View style={styles.optionSeparator} />
             )}
           />
-        </S.OptionsWrapper>
+        </Panel>
 
-        {!!footerText && <S.FooterText>{footerText}</S.FooterText>}
-      </S.Container>
+        {!!footerText && (
+          <Typography variant="subtitle3" style={styles.footerText}>
+            {footerText}
+          </Typography>
+        )}
+      </View>
     </Modal>
   );
 }
