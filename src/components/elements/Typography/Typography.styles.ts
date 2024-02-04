@@ -1,18 +1,8 @@
-import { TextStyle } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import styled, { css } from 'styled-components/native';
+import { StylesFunctionParams } from '@/types';
 
-import { themes } from '@/config/styles/themes';
-
-type Theme = typeof themes.dark;
-
-type TypographyVariantConfig = {
-  fontSize: keyof Theme['fontSizes'];
-  fontWeight: TextStyle['fontWeight'];
-  color: keyof Theme['colors'];
-};
-
-export type TextProps = {
+export type TypographyStylesProps = {
   variant:
     | 'h1'
     | 'h2'
@@ -25,10 +15,7 @@ export type TextProps = {
     | 'caption';
 };
 
-const typographyVariants: Record<
-  TextProps['variant'],
-  TypographyVariantConfig
-> = {
+const typographyVariants = {
   h1: {
     fontSize: '3xl',
     fontWeight: '700',
@@ -74,14 +61,18 @@ const typographyVariants: Record<
     fontWeight: '400',
     color: 'text',
   },
+} as const;
+
+export const typographyStyles = ({ variant }: TypographyStylesProps) => {
+  return ({ colors, fontSizes }: StylesFunctionParams) => {
+    const { fontSize, fontWeight, color } = typographyVariants[variant];
+
+    return StyleSheet.create({
+      text: {
+        fontSize: fontSizes[fontSize],
+        fontWeight,
+        color: colors[color],
+      },
+    });
+  };
 };
-
-export const Text = styled.Text<TextProps>(({ theme, variant }) => {
-  const { fontSize, fontWeight, color } = typographyVariants[variant];
-
-  return css`
-    font-size: ${theme.fontSizes[fontSize]}px;
-    font-weight: ${fontWeight};
-    color: ${theme.colors[color]};
-  `;
-});

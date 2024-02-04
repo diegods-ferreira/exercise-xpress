@@ -1,11 +1,17 @@
-import { TextProps as RNTextProps } from 'react-native';
+import { Text, TextProps } from 'react-native';
 
-import * as S from './Typography.styles';
+import { useStyles } from '@/hooks';
 
-type TypographyProps = RNTextProps & {
-  variant?: S.TextProps['variant'];
-};
+import { TypographyStylesProps, typographyStyles } from './Typography.styles';
 
-export function Typography({ variant = 'body1', ...rest }: TypographyProps) {
-  return <S.Text variant={variant} {...rest} />;
+type TypographyProps = Partial<TypographyStylesProps> & TextProps;
+
+export function Typography({
+  variant = 'body1',
+  style,
+  ...rest
+}: TypographyProps) {
+  const { styles } = useStyles(typographyStyles({ variant }));
+
+  return <Text {...rest} style={[styles.text, style]} />;
 }
