@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Platform,
   Pressable,
+  StyleProp,
   TouchableOpacity,
   ViewStyle,
 } from 'react-native';
@@ -19,7 +20,7 @@ import {
 } from './Button.styles';
 
 type ButtonBaseProps = ButtonStylesProps & {
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
   onPress: () => void;
   onLongPress?: () => void;
 };
