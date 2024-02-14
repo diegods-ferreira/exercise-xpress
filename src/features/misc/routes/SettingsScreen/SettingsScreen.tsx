@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import {
-  ChevronRightIcon,
   FileBadgeIcon,
   LandPlotIcon,
   LanguagesIcon,
@@ -12,7 +11,7 @@ import {
 } from 'lucide-react-native';
 import { useTheme } from 'styled-components/native';
 
-import { Switch, Typography } from '@/components/elements';
+import { MenuList, Typography } from '@/components/elements';
 import { Locale } from '@/config/i18n';
 import { useColorSchemeStore } from '@/stores/color-scheme';
 import { useI18nStore } from '@/stores/i18n';
@@ -64,95 +63,42 @@ export function SettingsScreen({
           {translate('settingsPage.measuringUnitsGroup.title')}
         </S.SettingsGroupTitle>
 
-        <S.SettingsWrapper>
-          <S.SettingItem>
-            <S.SettingItemInfo>
-              <WeightIcon
-                size={theme.fontSizes.base}
-                color={theme.colors.textSecondary}
-              />
+        <MenuList.Root>
+          <MenuList.Item
+            icon={WeightIcon}
+            title={translate('settingsPage.measuringUnitsGroup.weight')}
+            value={`${translate(
+              'global.measuringUnits.weight.kilogram.plural',
+            )} (${translate('global.measuringUnits.weight.kilogram.symbol')})`}
+            onPress={() => {}}
+          />
 
-              <Typography>
-                {translate('settingsPage.measuringUnitsGroup.weight')}
-              </Typography>
-            </S.SettingItemInfo>
+          <MenuList.ItemSeparator addIconOffset />
 
-            <S.SettingsValueWrapper>
-              <Typography variant="subtitle1">
-                {translate('global.measuringUnits.weight.kilogram.plural')} (
-                {translate('global.measuringUnits.weight.kilogram.symbol')})
-              </Typography>
+          <MenuList.Item
+            icon={LandPlotIcon}
+            title={translate('settingsPage.measuringUnitsGroup.distance')}
+            value={`${translate(
+              'global.measuringUnits.distance.meters.plural',
+            )} (${translate('global.measuringUnits.distance.meters.symbol')})`}
+            onPress={() => {}}
+          />
 
-              <ChevronRightIcon
-                size={theme.fontSizes.xl}
-                color={theme.colors.textSecondary}
-                opacity={0.75}
-              />
-            </S.SettingsValueWrapper>
-          </S.SettingItem>
+          <MenuList.ItemSeparator addIconOffset />
 
-          <S.SettingItemSeparator />
-
-          <S.SettingItem>
-            <S.SettingItemInfo>
-              <LandPlotIcon
-                size={theme.fontSizes.base}
-                color={theme.colors.textSecondary}
-              />
-
-              <Typography>
-                {translate('settingsPage.measuringUnitsGroup.distance')}
-              </Typography>
-            </S.SettingItemInfo>
-
-            <S.SettingsValueWrapper>
-              <Typography variant="subtitle1">
-                {translate('global.measuringUnits.distance.meters.plural')} (
-                {translate('global.measuringUnits.distance.meters.symbol')})
-              </Typography>
-
-              <ChevronRightIcon
-                size={theme.fontSizes.xl}
-                color={theme.colors.textSecondary}
-                opacity={0.75}
-              />
-            </S.SettingsValueWrapper>
-          </S.SettingItem>
-
-          <S.SettingItemSeparator />
-
-          <S.SettingItem>
-            <S.SettingItemInfo>
-              <RulerIcon
-                size={theme.fontSizes.base}
-                color={theme.colors.textSecondary}
-              />
-
-              <Typography>
-                {translate('settingsPage.measuringUnitsGroup.bodyMeasurements')}
-              </Typography>
-            </S.SettingItemInfo>
-
-            <S.SettingsValueWrapper>
-              <Typography variant="subtitle1">
-                {translate(
-                  'global.measuringUnits.bodyMeasurements.centimeters.plural',
-                )}{' '}
-                (
-                {translate(
-                  'global.measuringUnits.bodyMeasurements.centimeters.symbol',
-                )}
-                )
-              </Typography>
-
-              <ChevronRightIcon
-                size={theme.fontSizes.xl}
-                color={theme.colors.textSecondary}
-                opacity={0.75}
-              />
-            </S.SettingsValueWrapper>
-          </S.SettingItem>
-        </S.SettingsWrapper>
+          <MenuList.Item
+            icon={RulerIcon}
+            title={translate(
+              'settingsPage.measuringUnitsGroup.bodyMeasurements',
+            )}
+            value={`${translate(
+              'global.measuringUnits.bodyMeasurements.centimeters.plural',
+            )} (${translate(
+              'global.measuringUnits.bodyMeasurements.centimeters.symbol',
+            )})`}
+            onPress={() => {}}
+          />
+        </MenuList.Root>
       </S.SettingsGroupContainer>
 
       <S.SettingsGroupContainer>
@@ -160,72 +106,33 @@ export function SettingsScreen({
           {translate('settingsPage.generalGroup.title')}
         </S.SettingsGroupTitle>
 
-        <S.SettingsWrapper>
-          <S.SettingItem onPress={toggleColorScheme}>
-            <S.SettingItemInfo>
-              <SunMoonIcon
-                size={theme.fontSizes.base}
-                color={theme.colors.textSecondary}
-              />
+        <MenuList.Root>
+          <MenuList.ItemSwitch
+            icon={SunMoonIcon}
+            title={translate('settingsPage.generalGroup.darkTheme')}
+            value={colorScheme === 'dark'}
+            onPress={toggleColorScheme}
+            onValueChange={toggleColorScheme}
+          />
 
-              <Typography>
-                {translate('settingsPage.generalGroup.darkTheme')}
-              </Typography>
-            </S.SettingItemInfo>
+          <MenuList.ItemSeparator addIconOffset />
 
-            <Switch
-              value={colorScheme === 'dark'}
-              onValueChange={toggleColorScheme}
-            />
-          </S.SettingItem>
-
-          <S.SettingItemSeparator />
-
-          <S.SettingItem onPress={handleToggleSelectLanguageModal}>
-            <S.SettingItemInfo>
-              <LanguagesIcon
-                size={theme.fontSizes.base}
-                color={theme.colors.textSecondary}
-              />
-
-              <Typography>
-                {translate('settingsPage.generalGroup.language')}
-              </Typography>
-            </S.SettingItemInfo>
-
-            <S.SettingsValueWrapper>
-              <Typography variant="subtitle1">
-                {localeLabels[locale]}
-              </Typography>
-
-              <ChevronRightIcon
-                size={theme.fontSizes.xl}
-                color={theme.colors.textSecondary}
-                opacity={0.75}
-              />
-            </S.SettingsValueWrapper>
-          </S.SettingItem>
-        </S.SettingsWrapper>
+          <MenuList.Item
+            icon={LanguagesIcon}
+            title={translate('settingsPage.generalGroup.language')}
+            value={localeLabels[locale]}
+            onPress={handleToggleSelectLanguageModal}
+          />
+        </MenuList.Root>
       </S.SettingsGroupContainer>
 
-      <S.SettingsWrapper style={{ marginTop: theme.measures.lg }}>
-        <S.SettingItem>
-          <S.SettingItemInfo>
-            <FileBadgeIcon
-              size={theme.fontSizes.base}
-              color={theme.colors.textSecondary}
-            />
-
-            <Typography>{translate('global.privacyPolicy')}</Typography>
-          </S.SettingItemInfo>
-
-          <ChevronRightIcon
-            size={theme.fontSizes.xl}
-            color={theme.colors.textSecondary}
-            opacity={0.75}
-          />
-        </S.SettingItem>
-      </S.SettingsWrapper>
+      <MenuList.Root style={{ marginTop: theme.measures.lg }}>
+        <MenuList.Item
+          icon={FileBadgeIcon}
+          title={translate('global.privacyPolicy')}
+          onPress={() => {}}
+        />
+      </MenuList.Root>
 
       <S.LogoImage style={{ marginBottom: insets.bottom + 120 }} />
 

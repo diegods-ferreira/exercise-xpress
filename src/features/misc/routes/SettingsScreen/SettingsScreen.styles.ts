@@ -2,7 +2,7 @@ import { Image } from 'expo-image';
 import styled, { css } from 'styled-components/native';
 
 import logoImg from '@/assets/images/logo.png';
-import { ButtonBase, Panel, Typography } from '@/components/elements';
+import { Typography } from '@/components/elements';
 
 export const Container = styled.View(
   ({ theme }) => css`
@@ -22,50 +22,6 @@ export const SettingsGroupContainer = styled.View(
 export const SettingsGroupTitle = styled(Typography)(
   ({ theme }) => css`
     margin-left: ${theme.measures.xl}px;
-  `,
-);
-
-export const SettingsWrapper = styled(Panel)`
-  padding: 0px;
-  overflow: hidden;
-`;
-
-export const SettingItem = styled(ButtonBase).attrs({
-  variant: 'secondary',
-})(
-  ({ theme }) => css`
-    height: ${theme.measures['4xl']}px;
-    padding: ${theme.measures.xs}px ${theme.measures.xl}px;
-    overflow: visible;
-
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  `,
-);
-
-export const SettingItemSeparator = styled.View(
-  ({ theme }) => css`
-    width: 100%;
-    height: 1px;
-    background-color: ${theme.colors.ripple};
-    margin-left: ${theme.measures['3xl'] + theme.measures.xl}px;
-  `,
-);
-
-export const SettingItemInfo = styled.View(
-  ({ theme }) => css`
-    flex-direction: row;
-    align-items: center;
-    gap: ${theme.measures.xl}px;
-  `,
-);
-
-export const SettingsValueWrapper = styled.View(
-  ({ theme }) => css`
-    flex-direction: row;
-    align-items: center;
-    gap: ${theme.measures.xs}px;
   `,
 );
 
