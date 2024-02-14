@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react';
-import { FlatList, Modal, ModalProps, View } from 'react-native';
+import { Modal, ModalProps, View } from 'react-native';
 
-import { CheckIcon, LucideIcon } from 'lucide-react-native';
+import { LucideIcon } from 'lucide-react-native';
 
-import { Button, ButtonBase, Panel, Typography } from '@/components/elements';
+import { Button, MenuList, Typography } from '@/components/elements';
 import { useStyles } from '@/hooks';
 
-import * as S from './SelectModal.styles';
+import { selectModalStyles } from './SelectModal.styles';
 
 export type SelectOption<TOption = string> = {
   icon?: LucideIcon;
@@ -38,9 +38,7 @@ export function SelectModal<TOption extends string>({
     [options],
   );
 
-  const { styles, theme } = useStyles(
-    S.selectModalStyles({ hasAnyOptionWithIcon }),
-  );
+  const { styles, theme } = useStyles(selectModalStyles);
 
   return (
     <Modal
@@ -68,55 +66,28 @@ export function SelectModal<TOption extends string>({
           </View>
         </View>
 
-        <Panel style={styles.optionsWrapper}>
-          <FlatList
+        <MenuList.Root style={styles.menuList}>
+          <MenuList.List
             data={options}
             keyExtractor={(item) => item.value}
             renderItem={({ item }) => {
-              const { icon: Icon, label, value, helpText } = item;
+              const { icon, label, value, helpText } = item;
 
               return (
-                <ButtonBase
-                  variant="secondary"
-                  style={styles.option}
-                  onPress={() => setSelectedOption(value as TOption)}
-                >
-                  <View style={styles.optionInfo}>
-                    {!!Icon && (
-                      <Icon
-                        size={theme.fontSizes.base}
-                        color={theme.colors.textSecondary}
-                        style={{
-                          position: 'absolute',
-                          top: !!helpText && theme.measures.xs,
-                        }}
-                      />
-                    )}
-
-                    <View style={styles.optionTextWrapper}>
-                      <Typography>{label}</Typography>
-
-                      {!!helpText && (
-                        <Typography variant="subtitle3">{helpText}</Typography>
-                      )}
-                    </View>
-                  </View>
-
-                  {selectedOption === value && (
-                    <CheckIcon
-                      size={theme.fontSizes.xl}
-                      color={theme.colors.primary}
-                      style={{ position: 'absolute', right: theme.measures.xl }}
-                    />
-                  )}
-                </ButtonBase>
+                <MenuList.ItemCheckbox
+                  icon={icon}
+                  label={label}
+                  helpText={helpText}
+                  onPress={() => setSelectedOption(value)}
+                  isSelected={selectedOption === value}
+                />
               );
             }}
             ItemSeparatorComponent={() => (
-              <View style={styles.optionSeparator} />
+              <MenuList.ItemSeparator addIconOffset={hasAnyOptionWithIcon} />
             )}
           />
-        </Panel>
+        </MenuList.Root>
 
         {!!footerText && (
           <Typography variant="subtitle3" style={styles.footerText}>
