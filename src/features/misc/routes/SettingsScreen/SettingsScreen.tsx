@@ -5,8 +5,8 @@ import {
   FileBadgeIcon,
   LandPlotIcon,
   LanguagesIcon,
+  MoonIcon,
   RulerIcon,
-  SunMoonIcon,
   WeightIcon,
 } from 'lucide-react-native';
 import { useTheme } from 'styled-components/native';
@@ -108,7 +108,7 @@ export function SettingsScreen({
 
         <MenuList.Root>
           <MenuList.ItemSwitch
-            icon={SunMoonIcon}
+            icon={MoonIcon}
             title={translate('settingsPage.generalGroup.darkTheme')}
             value={colorScheme === 'dark'}
             onPress={toggleColorScheme}
