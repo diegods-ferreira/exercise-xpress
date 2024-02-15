@@ -55,7 +55,7 @@ export const tabBarButtonStyles = ({ isFocused }: TabBarItemProps) => {
       menuName: {
         fontSize: fontSizes.xxs,
         color: isFocused ? colors.primary : colors.textSecondary,
-        fontWeight: isFocused ? 'normal' : 'bold',
+        fontWeight: isFocused ? 'bold' : '300',
       },
     });
   };

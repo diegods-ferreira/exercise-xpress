@@ -60,6 +60,7 @@ function TabButton({
       <Icon
         size={theme.fontSizes['2xl']}
         color={isFocused ? theme.colors.primary : theme.colors.textSecondary}
+        strokeWidth={isFocused ? 2 : 1}
       />
 
       <Text style={styles.menuName}>{label}</Text>
