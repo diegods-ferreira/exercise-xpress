@@ -14,6 +14,9 @@ import {
   menuListRootStyles,
   menuListItemSeparatorStyles,
   menuListItemStyles,
+  menuListItemBaseStyles,
+  menuListItemCheckboxStyles,
+  menuListItemSwitchStyles,
 } from './MenuList.styles';
 
 function MenuListRoot({
@@ -35,30 +38,30 @@ function MenuListItemSeparator({
   return <View style={styles.separator} />;
 }
 
-type MenuListItemProps = {
+type MenuListItemBaseProps = {
   icon?: LucideIcon;
   title: string;
   helpText?: string;
-  value?: string;
   onPress: () => void;
 };
 
-function MenuListItem({
+function MenuListItemBase({
   icon: Icon,
   title,
   helpText,
-  value,
   onPress,
-}: MenuListItemProps) {
-  const { styles, theme } = useStyles(menuListItemStyles);
+  children,
+}: PropsWithChildren<MenuListItemBaseProps>) {
+  const { styles, theme } = useStyles(menuListItemBaseStyles);
 
   return (
     <ButtonBase variant="secondary" style={styles.container} onPress={onPress}>
       <View style={styles.leftWrapper}>
         {!!Icon && (
           <Icon
-            size={theme.fontSizes.base}
+            size={theme.fontSizes.xl}
             color={theme.colors.textSecondary}
+            strokeWidth={1}
           />
         )}
 
@@ -71,8 +74,22 @@ function MenuListItem({
         </View>
       </View>
 
+      {children}
+    </ButtonBase>
+  );
+}
+
+type MenuListItemProps = MenuListItemBaseProps & {
+  value?: string;
+};
+
+function MenuListItem({ value, ...rest }: MenuListItemProps) {
+  const { styles, theme } = useStyles(menuListItemStyles);
+
+  return (
+    <MenuListItemBase {...rest}>
       <View style={styles.rightWrapper}>
-        {!!value && <Typography variant="subtitle1">{value}</Typography>}
+        {!!value && <Typography variant="subtitle3">{value}</Typography>}
 
         <ChevronRightIcon
           size={theme.fontSizes.xl}
@@ -80,46 +97,24 @@ function MenuListItem({
           opacity={0.75}
         />
       </View>
-    </ButtonBase>
+    </MenuListItemBase>
   );
 }
 
-type MenuListItemCheckboxProps = {
-  icon?: LucideIcon;
+type MenuListItemCheckboxProps = Omit<MenuListItemBaseProps, 'title'> & {
   label: string;
-  helpText?: string;
   isSelected?: boolean;
-  onPress: () => void;
 };
 
 function MenuListItemCheckbox({
-  icon: Icon,
   label,
-  helpText,
   isSelected,
-  onPress,
+  ...rest
 }: MenuListItemCheckboxProps) {
-  const { styles, theme } = useStyles(menuListItemStyles);
+  const { styles, theme } = useStyles(menuListItemCheckboxStyles);
 
   return (
-    <ButtonBase variant="secondary" style={styles.container} onPress={onPress}>
-      <View style={styles.leftWrapper}>
-        {!!Icon && (
-          <Icon
-            size={theme.fontSizes.base}
-            color={theme.colors.textSecondary}
-          />
-        )}
-
-        <View style={styles.textWrapper}>
-          <Typography>{label}</Typography>
-
-          {!!helpText && (
-            <Typography variant="subtitle3">{helpText}</Typography>
-          )}
-        </View>
-      </View>
-
+    <MenuListItemBase {...rest} title={label}>
       {isSelected && (
         <CheckIcon
           size={theme.fontSizes.xl}
@@ -127,50 +122,28 @@ function MenuListItemCheckbox({
           style={styles.checkIndicator}
         />
       )}
-    </ButtonBase>
+    </MenuListItemBase>
   );
 }
 
-type MenuListItemSwitchProps = {
-  icon?: LucideIcon;
-  title: string;
-  helpText?: string;
+type MenuListItemSwitchProps = MenuListItemBaseProps & {
   value: boolean;
   onValueChange: (value: boolean) => void;
-  onPress: () => void;
 };
 
 function MenuListItemSwitch({
-  icon: Icon,
-  title,
-  helpText,
   value,
   onValueChange,
-  onPress,
+  ...rest
 }: MenuListItemSwitchProps) {
-  const { styles, theme } = useStyles(menuListItemStyles);
+  const { styles } = useStyles(menuListItemSwitchStyles);
 
   return (
-    <ButtonBase variant="secondary" style={styles.container} onPress={onPress}>
-      <View style={styles.leftWrapper}>
-        {!!Icon && (
-          <Icon
-            size={theme.fontSizes.base}
-            color={theme.colors.textSecondary}
-          />
-        )}
-
-        <View style={styles.textWrapper}>
-          <Typography>{title}</Typography>
-
-          {!!helpText && (
-            <Typography variant="subtitle3">{helpText}</Typography>
-          )}
-        </View>
+    <MenuListItemBase {...rest}>
+      <View style={styles.switchWrapper}>
+        <Switch value={value} onValueChange={onValueChange} />
       </View>
-
-      <Switch value={value} onValueChange={onValueChange} />
-    </ButtonBase>
+    </MenuListItemBase>
   );
 }
 

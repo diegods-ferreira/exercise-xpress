@@ -22,7 +22,7 @@ export const menuListItemSeparatorStyles = ({
     let marginLeft: ViewStyle['marginLeft'] = measures.xl;
 
     if (addIconOffset) {
-      marginLeft += measures['3xl'];
+      marginLeft += measures['3xl'] + measures.xs;
     }
 
     return StyleSheet.create({
@@ -36,10 +36,10 @@ export const menuListItemSeparatorStyles = ({
   };
 };
 
-export const menuListItemStyles = ({ measures }: StylesFunctionParams) => {
+export const menuListItemBaseStyles = ({ measures }: StylesFunctionParams) => {
   return StyleSheet.create({
     container: {
-      minHeight: measures['3xl'] + measures['3xl'],
+      minHeight: measures['4xl'],
       paddingVertical: measures.xl,
       paddingHorizontal: measures.xl,
 
@@ -49,6 +49,7 @@ export const menuListItemStyles = ({ measures }: StylesFunctionParams) => {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
+      gap: measures.lg,
     },
 
     leftWrapper: {
@@ -58,21 +59,42 @@ export const menuListItemStyles = ({ measures }: StylesFunctionParams) => {
       gap: measures.xl,
     },
 
-    rightWrapper: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: measures.xs,
-    },
-
     textWrapper: {
       flex: 1,
       alignItems: 'flex-start',
       gap: measures.xs,
     },
+  });
+};
 
+export const menuListItemStyles = ({ measures }: StylesFunctionParams) => {
+  return StyleSheet.create({
+    rightWrapper: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: measures.xs,
+    },
+  });
+};
+
+export const menuListItemCheckboxStyles = ({
+  measures,
+}: StylesFunctionParams) => {
+  return StyleSheet.create({
     checkIndicator: {
       position: 'absolute',
       right: measures.xl,
+    },
+  });
+};
+
+export const menuListItemSwitchStyles = ({
+  measures,
+}: StylesFunctionParams) => {
+  return StyleSheet.create({
+    switchWrapper: {
+      height: measures.xl,
+      justifyContent: 'center',
     },
   });
 };
