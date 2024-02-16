@@ -1,12 +1,11 @@
 import { ScrollView } from 'react-native';
 
-import { useTheme } from 'styled-components/native';
-
 import { Typography } from '@/components/elements';
+import { useStyles } from '@/hooks';
 import { HomeScreenRouteProps } from '@/types';
 
 export function HomeScreen({ navigation, route }: HomeScreenRouteProps) {
-  const theme = useTheme();
+  const { theme } = useStyles();
 
   return (
     <ScrollView
