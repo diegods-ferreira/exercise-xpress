@@ -1,9 +1,15 @@
-import { useMemo, useState } from 'react';
-import { Modal, ModalProps, View } from 'react-native';
+import { forwardRef, useMemo } from 'react';
+import { View } from 'react-native';
 
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import { LucideIcon } from 'lucide-react-native';
 
-import { Button, MenuList, Typography } from '@/components/elements';
+import {
+  BottomSheetModalBlurBackdrop,
+  MenuList,
+  Typography,
+} from '@/components/elements';
 import { useStyles } from '@/hooks';
 
 import { selectModalStyles } from './SelectModal.styles';
@@ -15,55 +21,49 @@ export type SelectOption<TOption = string> = {
   helpText?: string;
 };
 
-type SelectModalProps<TOption> = Pick<ModalProps, 'visible'> & {
-  value: TOption;
+type SelectModalProps<TOption> = {
+  title: string;
+  selectedOption: TOption;
   options: SelectOption<TOption>[];
   onSelect: (selectedValue: TOption) => void;
-  onClose: () => void;
+  onDismiss?: () => void;
   footerText?: string;
 };
 
-export function SelectModal<TOption extends string>({
-  onClose,
-  onSelect,
-  value,
-  options,
-  footerText,
-  ...rest
-}: SelectModalProps<TOption>) {
-  const [selectedOption, setSelectedOption] = useState<TOption>(value);
+function SelectModalBase<TOption extends string>(
+  {
+    title,
+    onSelect,
+    onDismiss,
+    selectedOption,
+    options,
+    footerText,
+  }: SelectModalProps<TOption>,
+  ref: React.ForwardedRef<BottomSheetModalMethods>,
+) {
+  const { styles, theme, edgeInsets } = useStyles(selectModalStyles);
 
   const hasAnyOptionWithIcon = useMemo(
     () => options.some((option) => !!option.icon),
     [options],
   );
 
-  const { styles, theme } = useStyles(selectModalStyles);
+  const snapPoints = useMemo(() => ['50%', '100%'], []);
 
   return (
-    <Modal
-      {...rest}
-      animationType="slide"
-      onRequestClose={onClose}
-      statusBarTranslucent
+    <BottomSheetModal
+      ref={ref}
+      snapPoints={snapPoints}
+      onDismiss={onDismiss}
+      backgroundStyle={{ backgroundColor: theme.colors.bgOffset }}
+      handleIndicatorStyle={{ backgroundColor: theme.colors.textSecondary }}
+      backdropComponent={BottomSheetModalBlurBackdrop}
+      topInset={edgeInsets.top}
+      bottomInset={edgeInsets.bottom}
     >
       <View style={styles.container}>
         <View style={styles.header}>
-          <View style={styles.headerSlotLeft} />
-
-          <Typography variant="subtitle3">Selecione um idioma</Typography>
-
-          <View style={styles.headerSlotRight}>
-            <Button
-              variant="link"
-              fitContent
-              title="OK"
-              onPress={() => onSelect(selectedOption)}
-              androidRippleRadius={
-                theme.measures['2xl'] + theme.measures['2xl']
-              }
-            />
-          </View>
+          <Typography variant="subtitle2">{title}</Typography>
         </View>
 
         <MenuList.Root style={styles.menuList}>
@@ -78,7 +78,7 @@ export function SelectModal<TOption extends string>({
                   icon={icon}
                   label={label}
                   helpText={helpText}
-                  onPress={() => setSelectedOption(value)}
+                  onPress={() => onSelect(value)}
                   isSelected={selectedOption === value}
                 />
               );
@@ -95,6 +95,15 @@ export function SelectModal<TOption extends string>({
           </Typography>
         )}
       </View>
-    </Modal>
+    </BottomSheetModal>
   );
 }
+
+export const SelectModal = forwardRef(SelectModalBase) as <
+  TOption extends string,
+>(
+  // eslint-disable-next-line no-use-before-define
+  props: SelectModalProps<TOption> & {
+    ref?: React.ForwardedRef<BottomSheetModalMethods>;
+  },
+) => ReturnType<typeof SelectModalBase>;

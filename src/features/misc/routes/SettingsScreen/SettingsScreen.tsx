@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useRef } from 'react';
 import { View } from 'react-native';
 
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { Image } from 'expo-image';
 import {
   FileBadgeIcon,
@@ -31,6 +32,8 @@ export function SettingsScreen({
   navigation,
   route,
 }: SettingsScreenRouteProps) {
+  const bottomSheetRef = useRef<BottomSheetModal>(null);
+
   const { styles, theme } = useStyles(settingsScreenStyles);
 
   const [translate, locale, setLocale] = useI18nStore((state) => [
@@ -44,15 +47,9 @@ export function SettingsScreen({
     state.toggleColorScheme,
   ]);
 
-  const [showSelectLanguageModal, setShowSelectLanguageModal] = useState(false);
-
-  const handleToggleSelectLanguageModal = () => {
-    setShowSelectLanguageModal((prevState) => !prevState);
-  };
-
   const onSelectLanguage = (selectedLanguage: Locale) => {
     setLocale(selectedLanguage);
-    handleToggleSelectLanguageModal();
+    bottomSheetRef.current?.close();
   };
 
   return (
@@ -122,7 +119,7 @@ export function SettingsScreen({
             icon={LanguagesIcon}
             title={translate('settingsPage.generalGroup.language')}
             value={localeLabels[locale]}
-            onPress={handleToggleSelectLanguageModal}
+            onPress={() => bottomSheetRef.current?.present()}
           />
         </MenuList.Root>
       </View>
@@ -143,13 +140,13 @@ export function SettingsScreen({
       />
 
       <SelectModal
-        visible={showSelectLanguageModal}
-        value={locale}
+        ref={bottomSheetRef}
+        title="Selecione um idioma"
+        selectedOption={locale}
         options={[
           { label: 'English (US)', value: 'en_US' },
           { label: 'Português (BR)', value: 'pt_BR' },
         ]}
-        onClose={handleToggleSelectLanguageModal}
         onSelect={onSelectLanguage}
         footerText="Quando aberto pela primeira vez, o aplicativo carrega o idioma do seu dispositivo. Uma vez alterado, sempre será carregado o idioma selecionado pelo usuário."
       />

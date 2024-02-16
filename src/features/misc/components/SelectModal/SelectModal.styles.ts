@@ -5,7 +5,6 @@ import { StylesFunctionParams } from '@/types';
 export const selectModalStyles = ({
   colors,
   measures,
-  edgeInsets,
 }: StylesFunctionParams) => {
   return StyleSheet.create({
     container: {
@@ -15,23 +14,15 @@ export const selectModalStyles = ({
 
     header: {
       backgroundColor: colors.bgOffset,
-      paddingTop: edgeInsets.top + measures.lg,
-      paddingBottom: measures.lg,
+      paddingVertical: measures.lg,
       paddingHorizontal: measures.xl,
+      borderBottomWidth: 1,
+      borderBottomColor: colors.ripple,
       overflow: 'visible',
 
       flexDirection: 'row',
       alignItems: 'center',
-    },
-
-    headerSlotLeft: {
-      flex: 1,
-      alignItems: 'flex-start',
-    },
-
-    headerSlotRight: {
-      flex: 1,
-      alignItems: 'flex-end',
+      justifyContent: 'center',
     },
 
     menuList: {
