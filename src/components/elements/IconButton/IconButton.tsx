@@ -2,7 +2,6 @@ import { PropsWithChildren } from 'react';
 import { Platform, Pressable, TouchableOpacity } from 'react-native';
 
 import { LucideIcon } from 'lucide-react-native';
-import { useTheme } from 'styled-components/native';
 
 import { useStyles } from '@/hooks';
 
@@ -41,7 +40,7 @@ export function IconButton({
   isDisabled = false,
   onPress,
 }: IconButtonProps) {
-  const theme = useTheme();
+  const { theme } = useStyles();
 
   return (
     <ButtonBase isDisabled={isDisabled} onPress={onPress}>
