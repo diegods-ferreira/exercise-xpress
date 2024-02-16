@@ -1,8 +1,7 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import { BlurView } from 'expo-blur';
 import {
   HomeIcon,
   LucideIcon,
@@ -69,10 +68,10 @@ function TabButton({
 }
 
 export function BottomTabBar({ state, navigation }: BottomTabBarProps) {
-  const { styles, theme, colorScheme } = useStyles(bottomTabBarStyles);
+  const { styles, theme } = useStyles(bottomTabBarStyles);
 
   return (
-    <BlurView intensity={100} tint={colorScheme} style={styles.container}>
+    <View style={styles.container}>
       {state.routes.map((route, index) => {
         const isFocused = index === state.index;
 
@@ -115,6 +114,6 @@ export function BottomTabBar({ state, navigation }: BottomTabBarProps) {
           </React.Fragment>
         );
       })}
-    </BlurView>
+    </View>
   );
 }

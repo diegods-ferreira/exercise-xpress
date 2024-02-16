@@ -16,6 +16,7 @@ export const bottomTabBarStyles = ({
     container: {
       width: '100%',
       paddingBottom: edgeInsets.bottom,
+      backgroundColor: colors.bgOffset,
       borderTopLeftRadius: measures['2xl'],
       borderTopRightRadius: measures['2xl'],
       overflow: 'hidden',
