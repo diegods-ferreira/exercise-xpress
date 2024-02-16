@@ -1,12 +1,13 @@
 import { PropsWithChildren } from 'react';
-import { Platform } from 'react-native';
+import { Platform, Pressable, TouchableOpacity } from 'react-native';
 
 import { LucideIcon } from 'lucide-react-native';
-import { useTheme } from 'styled-components/native';
 
-import * as S from './IconButton.styles';
+import { useStyles } from '@/hooks';
 
-type ButtonBaseProps = S.IconButtonProps & {
+import { IconButtonStylesProps, iconButtonStyles } from './IconButton.styles';
+
+type ButtonBaseProps = IconButtonStylesProps & {
   onPress: () => void;
 };
 
@@ -15,11 +16,23 @@ type IconButtonProps = ButtonBaseProps & {
 };
 
 function ButtonBase(props: PropsWithChildren<ButtonBaseProps>) {
+  const { styles, theme } = useStyles(iconButtonStyles(props));
+
   if (Platform.OS === 'android') {
-    return <S.ButtonAndroid {...props} />;
+    return (
+      <Pressable
+        {...props}
+        style={styles.container}
+        android_ripple={{
+          color: theme.colors.ripple,
+          borderless: true,
+          radius: theme.measures['2xl'] + theme.measures['2xl'],
+        }}
+      />
+    );
   }
 
-  return <S.ButtonIos {...props} />;
+  return <TouchableOpacity {...props} style={styles.container} />;
 }
 
 export function IconButton({
@@ -27,7 +40,7 @@ export function IconButton({
   isDisabled = false,
   onPress,
 }: IconButtonProps) {
-  const theme = useTheme();
+  const { theme } = useStyles();
 
   return (
     <ButtonBase isDisabled={isDisabled} onPress={onPress}>

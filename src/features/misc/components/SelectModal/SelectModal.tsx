@@ -1,13 +1,12 @@
 import { useMemo, useState } from 'react';
-import { Modal, ModalProps } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Modal, ModalProps, View } from 'react-native';
 
-import { CheckIcon, LucideIcon } from 'lucide-react-native';
-import { useTheme } from 'styled-components/native';
+import { LucideIcon } from 'lucide-react-native';
 
-import { Button, Typography } from '@/components/elements';
+import { Button, MenuList, Typography } from '@/components/elements';
+import { useStyles } from '@/hooks';
 
-import * as S from './SelectModal.styles';
+import { selectModalStyles } from './SelectModal.styles';
 
 export type SelectOption<TOption = string> = {
   icon?: LucideIcon;
@@ -32,15 +31,14 @@ export function SelectModal<TOption extends string>({
   footerText,
   ...rest
 }: SelectModalProps<TOption>) {
-  const theme = useTheme();
-  const insets = useSafeAreaInsets();
-
   const [selectedOption, setSelectedOption] = useState<TOption>(value);
 
   const hasAnyOptionWithIcon = useMemo(
     () => options.some((option) => !!option.icon),
     [options],
   );
+
+  const { styles, theme } = useStyles(selectModalStyles);
 
   return (
     <Modal
@@ -49,13 +47,13 @@ export function SelectModal<TOption extends string>({
       onRequestClose={onClose}
       statusBarTranslucent
     >
-      <S.Container>
-        <S.Header style={{ paddingTop: insets.top + theme.measures.lg }}>
-          <S.HeaderSlot contentPosition="start" />
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <View style={styles.headerSlotLeft} />
 
           <Typography variant="subtitle3">Selecione um idioma</Typography>
 
-          <S.HeaderSlot contentPosition="end">
+          <View style={styles.headerSlotRight}>
             <Button
               variant="link"
               fitContent
@@ -65,57 +63,38 @@ export function SelectModal<TOption extends string>({
                 theme.measures['2xl'] + theme.measures['2xl']
               }
             />
-          </S.HeaderSlot>
-        </S.Header>
+          </View>
+        </View>
 
-        <S.OptionsWrapper>
-          <S.OptionsList
+        <MenuList.Root style={styles.menuList}>
+          <MenuList.List
             data={options}
             keyExtractor={(item) => item.value}
             renderItem={({ item }) => {
-              const { icon: Icon, label, value, helpText } = item;
+              const { icon, label, value, helpText } = item;
 
               return (
-                <S.Option onPress={() => setSelectedOption(value as TOption)}>
-                  <S.OptionInfo addIconOffset={hasAnyOptionWithIcon}>
-                    {!!Icon && (
-                      <Icon
-                        size={theme.fontSizes.base}
-                        color={theme.colors.textSecondary}
-                        style={{
-                          position: 'absolute',
-                          top: !!helpText && theme.measures.xs,
-                        }}
-                      />
-                    )}
-
-                    <S.OptionTextWrapper>
-                      <Typography>{label}</Typography>
-
-                      {!!helpText && (
-                        <Typography variant="subtitle3">{helpText}</Typography>
-                      )}
-                    </S.OptionTextWrapper>
-                  </S.OptionInfo>
-
-                  {selectedOption === value && (
-                    <CheckIcon
-                      size={theme.fontSizes.xl}
-                      color={theme.colors.primary}
-                      style={{ position: 'absolute', right: theme.measures.xl }}
-                    />
-                  )}
-                </S.Option>
+                <MenuList.ItemCheckbox
+                  icon={icon}
+                  label={label}
+                  helpText={helpText}
+                  onPress={() => setSelectedOption(value)}
+                  isSelected={selectedOption === value}
+                />
               );
             }}
             ItemSeparatorComponent={() => (
-              <S.OptionSeparator addIconOffset={hasAnyOptionWithIcon} />
+              <MenuList.ItemSeparator addIconOffset={hasAnyOptionWithIcon} />
             )}
           />
-        </S.OptionsWrapper>
+        </MenuList.Root>
 
-        {!!footerText && <S.FooterText>{footerText}</S.FooterText>}
-      </S.Container>
+        {!!footerText && (
+          <Typography variant="subtitle3" style={styles.footerText}>
+            {footerText}
+          </Typography>
+        )}
+      </View>
     </Modal>
   );
 }

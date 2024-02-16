@@ -1,11 +1,26 @@
 import { PropsWithChildren } from 'react';
-import { ActivityIndicator, Platform } from 'react-native';
+import {
+  ActivityIndicator,
+  Platform,
+  Pressable,
+  StyleProp,
+  TouchableOpacity,
+  ViewStyle,
+} from 'react-native';
 
-import { useTheme } from 'styled-components/native';
+import { themes } from '@/config/styles/themes';
+import { useStyles } from '@/hooks';
 
-import * as S from './Button.styles';
+import { Typography } from '../Typography/Typography';
+import {
+  ButtonStylesProps,
+  buttonStyles,
+  buttonTextStyles,
+  buttonVariants,
+} from './Button.styles';
 
-type ButtonBaseProps = S.ButtonProps & {
+type ButtonBaseProps = ButtonStylesProps & {
+  style?: StyleProp<ViewStyle>;
   onPress: () => void;
   onLongPress?: () => void;
 };
@@ -15,12 +30,33 @@ type ButtonProps = ButtonBaseProps & {
   loadingText?: string;
 };
 
-export function ButtonBase(props: PropsWithChildren<ButtonBaseProps>) {
+export function ButtonBase({
+  style,
+  ...props
+}: PropsWithChildren<ButtonBaseProps>) {
+  const { styles, theme } = useStyles(buttonStyles(props));
+
+  const androidRippleColor =
+    props.variant === 'primary'
+      ? themes.light.colors.ripple
+      : theme.colors.ripple;
+
   if (Platform.OS === 'android') {
-    return <S.ButtonAndroid {...props} />;
+    return (
+      <Pressable
+        {...props}
+        style={[styles.container, style]}
+        android_ripple={{
+          color: androidRippleColor,
+          borderless: props.variant === 'link',
+          foreground: props.variant !== 'link',
+          radius: props.androidRippleRadius,
+        }}
+      />
+    );
   }
 
-  return <S.ButtonIos {...props} />;
+  return <TouchableOpacity {...props} style={[styles.container, style]} />;
 }
 
 export function Button({
@@ -35,9 +71,11 @@ export function Button({
   onLongPress,
   androidRippleRadius,
 }: ButtonProps) {
-  const theme = useTheme();
+  const { styles, theme } = useStyles(
+    buttonTextStyles({ variant, isLoading, isDisabled }),
+  );
 
-  const { color } = S.buttonVariants[variant];
+  const { color } = buttonVariants[variant];
 
   return (
     <ButtonBase
@@ -58,14 +96,12 @@ export function Button({
         />
       )}
 
-      <S.Text
+      <Typography
         variant={size === 'small' ? 'body2' : 'body1'}
-        buttonVariant={variant}
-        isLoading={isLoading}
-        isDisabled={isDisabled}
+        style={styles.text}
       >
         {isLoading && loadingText ? loadingText : title}
-      </S.Text>
+      </Typography>
     </ButtonBase>
   );
 }

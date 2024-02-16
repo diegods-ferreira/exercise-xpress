@@ -1,12 +1,11 @@
-import styled, { css } from 'styled-components/native';
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
 
 import { themes } from '@/config/styles/themes';
-
-import { Typography } from '../Typography/Typography';
+import { StylesFunctionParams } from '@/types';
 
 type Theme = typeof themes.dark;
 
-export type ButtonProps = {
+export type ButtonStylesProps = {
   variant?: 'primary' | 'secondary' | 'link';
   size?: 'small' | 'normal';
   fitContent?: boolean;
@@ -15,19 +14,18 @@ export type ButtonProps = {
   androidRippleRadius?: number;
 };
 
-type TextProps = {
-  buttonVariant: ButtonProps['variant'];
-  isLoading: boolean;
-  isDisabled: boolean;
-};
+type TextProps = Pick<
+  ButtonStylesProps,
+  'variant' | 'isLoading' | 'isDisabled'
+>;
 
 type ButtonVariantConfig = {
-  backgroundColor: keyof Theme['colors'] | 'transparent';
+  backgroundColor?: keyof Theme['colors'] | 'transparent';
   color: keyof Theme['colors'] | typeof themes.dark.colors.background;
 };
 
 export const buttonVariants: Record<
-  ButtonProps['variant'],
+  ButtonStylesProps['variant'],
   ButtonVariantConfig
 > = {
   primary: {
@@ -39,22 +37,32 @@ export const buttonVariants: Record<
     color: 'text',
   },
   link: {
-    backgroundColor: 'transparent',
     color: 'primary',
   },
 };
 
-const getButtonStyles = ({
+export const buttonStyles = ({
   variant = 'primary',
   size = 'normal',
   fitContent = false,
   isLoading = false,
   isDisabled = false,
-}: ButtonProps) =>
-  css(({ theme }) => {
+}: ButtonStylesProps) => {
+  return ({ colors, measures, roundedFull }: StylesFunctionParams) => {
     const { backgroundColor } = buttonVariants[variant];
 
-    let opacity = 1;
+    let paddingVertical: ViewStyle['paddingVertical'] =
+      size === 'small' ? measures.sm : measures.lg;
+
+    let paddingHorizontal: ViewStyle['paddingHorizontal'] =
+      size === 'small' ? measures.lg : measures['2xl'];
+
+    if (variant === 'link') {
+      paddingHorizontal = 0;
+      paddingVertical = 0;
+    }
+
+    let opacity: ViewStyle['opacity'] = 1;
 
     if (isLoading) {
       opacity = 0.9;
@@ -62,73 +70,48 @@ const getButtonStyles = ({
       opacity = 0.75;
     }
 
-    const width = fitContent ? 'auto' : '100%';
+    return StyleSheet.create({
+      container: {
+        width: fitContent ? 'auto' : '100%',
+        backgroundColor: colors[backgroundColor] || 'transparent',
+        borderRadius: roundedFull,
+        paddingVertical,
+        paddingHorizontal,
+        opacity,
+        overflow: 'hidden',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+    });
+  };
+};
 
-    let paddingY = size === 'small' ? theme.measures.sm : theme.measures.lg;
-    let paddingX = size === 'small' ? theme.measures.lg : theme.measures['2xl'];
+export const buttonTextStyles = ({
+  variant = 'primary',
+  isLoading = false,
+  isDisabled = false,
+}: TextProps) => {
+  return ({ colors }: StylesFunctionParams) => {
+    const { color } = buttonVariants[variant];
 
-    if (variant === 'link') {
-      paddingX = 0;
-      paddingY = 0;
+    let opacity: TextStyle['opacity'] = 1;
+
+    if (isLoading) {
+      opacity = 0.9;
     }
 
-    return css`
-      width: ${width};
-      padding: ${paddingY}px ${paddingX}px;
-      border-radius: ${theme.roundedFull}px;
-      background-color: ${variant === 'link'
-        ? backgroundColor
-        : theme.colors[backgroundColor]};
-      opacity: ${opacity};
-      overflow: hidden;
+    if (isDisabled) {
+      opacity = 0.75;
+    }
 
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-    `;
-  });
-
-export const ButtonIos = styled.TouchableOpacity.attrs<ButtonProps>({
-  activeOpacity: 0.5,
-})((props) => getButtonStyles(props));
-
-export const ButtonAndroid = styled.Pressable.attrs<ButtonProps>(
-  ({ theme, variant, androidRippleRadius }) => ({
-    android_ripple: {
-      color:
-        variant === 'primary'
-          ? themes.light.colors.ripple
-          : theme.colors.ripple,
-      borderless: variant === 'link',
-      foreground: variant !== 'link',
-      radius: androidRippleRadius,
-    },
-    hitSlop: variant === 'link' ? theme.measures.md : 0,
-  }),
-)((props) => getButtonStyles(props));
-
-export const Text = styled(Typography)<TextProps>(({
-  theme,
-  buttonVariant,
-  isLoading,
-  isDisabled,
-}) => {
-  const { color } = buttonVariants[buttonVariant];
-
-  let opacity = 1;
-
-  if (isLoading) {
-    opacity = 0.9;
-  }
-
-  if (isDisabled) {
-    opacity = 0.75;
-  }
-
-  return css`
-    color: ${buttonVariant === 'primary' ? color : theme.colors[color]};
-    font-weight: 600;
-    text-align: center;
-    opacity: ${opacity};
-  `;
-});
+    return StyleSheet.create({
+      text: {
+        color: variant === 'primary' ? color : colors[color],
+        fontWeight: '600',
+        textAlign: 'center',
+        opacity,
+      },
+    });
+  };
+};

@@ -1,62 +1,62 @@
-import { BlurView } from 'expo-blur';
-import styled, { css } from 'styled-components/native';
+import { StyleSheet } from 'react-native';
 
-import { ButtonBase } from '@/components/elements';
+import { StylesFunctionParams } from '@/types';
 
 interface TabBarItemProps {
   isFocused: boolean;
 }
 
-export const Container = styled(BlurView)(
-  ({ theme }) => css`
-    width: 100%;
-    border-top-left-radius: ${theme.measures['2xl']}px;
-    border-top-right-radius: ${theme.measures['2xl']}px;
-    overflow: hidden;
+export const bottomTabBarStyles = ({
+  colors,
+  measures,
+  roundedFull,
+  edgeInsets,
+}: StylesFunctionParams) => {
+  return StyleSheet.create({
+    container: {
+      width: '100%',
+      paddingBottom: edgeInsets.bottom,
+      borderTopLeftRadius: measures['2xl'],
+      borderTopRightRadius: measures['2xl'],
+      overflow: 'hidden',
 
-    flex-direction: row;
-    align-items: center;
+      flexDirection: 'row',
+      alignItems: 'center',
 
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    right: 0;
-  `,
-);
+      position: 'absolute',
+      left: 0,
+      bottom: 0,
+      right: 0,
+    },
+    actionButton: {
+      backgroundColor: colors.primary,
+      borderRadius: roundedFull,
+      margin: measures.xs,
+      height: '90%',
+      aspectRatio: '1 / 1',
 
-export const TabBarButton = styled(ButtonBase).attrs({
-  variant: 'secondary',
-})(
-  ({ theme }) => css`
-    flex: 1;
-    background-color: transparent;
-    padding: ${theme.measures.xl}px 0px;
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  });
+};
 
-    flex-direction: column;
-  `,
-);
+export const tabBarButtonStyles = ({ isFocused }: TabBarItemProps) => {
+  return ({ colors, measures, fontSizes }: StylesFunctionParams) => {
+    return StyleSheet.create({
+      container: {
+        flex: 1,
+        backgroundColor: 'transparent',
+        paddingVertical: measures.xl,
+        paddingHorizontal: 0,
 
-export const MenuName = styled.Text<TabBarItemProps>`
-  ${({ isFocused, theme }) => css`
-    font-size: ${theme.fontSizes.xxs}px;
-    color: ${isFocused ? theme.colors.primary : theme.colors.textSecondary};
-
-    ${isFocused &&
-    css`
-      font-weight: bold;
-    `}
-  `}
-`;
-
-export const ActionButton = styled.TouchableOpacity(
-  ({ theme }) => css`
-    background-color: ${theme.colors.primary};
-    border-radius: ${theme.roundedFull}px;
-    margin: ${theme.measures.xs}px;
-    height: 90%;
-    aspect-ratio: 1 / 1;
-
-    justify-content: center;
-    align-items: center;
-  `,
-);
+        flexDirection: 'column',
+      },
+      menuName: {
+        fontSize: fontSizes.xxs,
+        color: isFocused ? colors.primary : colors.textSecondary,
+        fontWeight: isFocused ? 'bold' : '300',
+      },
+    });
+  };
+};

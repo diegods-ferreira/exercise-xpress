@@ -4,13 +4,9 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import { ThemeProvider } from 'styled-components/native';
 
-import { themes } from '@/config/styles/themes';
 import { Routes } from '@/routes';
-import { useColorSchemeStore } from '@/stores/color-scheme';
-import { useI18nStore } from '@/stores/i18n';
-import { useSettingsStore } from '@/stores/settings';
+import { useColorSchemeStore, useI18nStore, useSettingsStore } from '@/stores';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -47,14 +43,12 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider onLayout={onLayoutRootView}>
-        <ThemeProvider theme={themes[colorScheme]}>
-          <StatusBar
-            style={colorScheme === 'dark' ? 'light' : 'dark'}
-            translucent
-          />
+        <StatusBar
+          style={colorScheme === 'dark' ? 'light' : 'dark'}
+          translucent
+        />
 
-          <Routes />
-        </ThemeProvider>
+        <Routes />
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

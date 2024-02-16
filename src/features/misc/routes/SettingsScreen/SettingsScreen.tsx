@@ -1,25 +1,26 @@
 import { useState } from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { View } from 'react-native';
 
+import { Image } from 'expo-image';
 import {
-  ChevronRightIcon,
   FileBadgeIcon,
   LandPlotIcon,
   LanguagesIcon,
+  MoonIcon,
   RulerIcon,
-  SunMoonIcon,
   WeightIcon,
 } from 'lucide-react-native';
-import { useTheme } from 'styled-components/native';
 
-import { Switch, Typography } from '@/components/elements';
+import logoImg from '@/assets/images/logo.png';
+import { MenuList, Typography } from '@/components/elements';
 import { Locale } from '@/config/i18n';
+import { useStyles } from '@/hooks';
 import { useColorSchemeStore } from '@/stores/color-scheme';
 import { useI18nStore } from '@/stores/i18n';
 import { SettingsScreenRouteProps } from '@/types';
 
 import { SelectModal } from '../../components/SelectModal/SelectModal';
-import * as S from './SettingsScreen.styles';
+import { settingsScreenStyles } from './SettingsScreen.styles';
 
 const localeLabels: Record<Locale, string> = {
   en_US: 'English (US)',
@@ -30,8 +31,7 @@ export function SettingsScreen({
   navigation,
   route,
 }: SettingsScreenRouteProps) {
-  const theme = useTheme();
-  const insets = useSafeAreaInsets();
+  const { styles, theme } = useStyles(settingsScreenStyles);
 
   const [translate, locale, setLocale] = useI18nStore((state) => [
     state.translate,
@@ -56,178 +56,91 @@ export function SettingsScreen({
   };
 
   return (
-    <S.Container style={{ paddingTop: insets.top + theme.measures['2xl'] }}>
+    <View style={styles.container}>
       <Typography variant="h2">{translate('settingsPage.title')}</Typography>
 
-      <S.SettingsGroupContainer>
-        <S.SettingsGroupTitle variant="subtitle3">
+      <View style={styles.settingsGroupContainer}>
+        <Typography variant="subtitle3" style={styles.settingsGroupTitle}>
           {translate('settingsPage.measuringUnitsGroup.title')}
-        </S.SettingsGroupTitle>
+        </Typography>
 
-        <S.SettingsWrapper>
-          <S.SettingItem>
-            <S.SettingItemInfo>
-              <WeightIcon
-                size={theme.fontSizes.base}
-                color={theme.colors.textSecondary}
-              />
-
-              <Typography>
-                {translate('settingsPage.measuringUnitsGroup.weight')}
-              </Typography>
-            </S.SettingItemInfo>
-
-            <S.SettingsValueWrapper>
-              <Typography variant="subtitle1">
-                {translate('global.measuringUnits.weight.kilogram.plural')} (
-                {translate('global.measuringUnits.weight.kilogram.symbol')})
-              </Typography>
-
-              <ChevronRightIcon
-                size={theme.fontSizes.xl}
-                color={theme.colors.textSecondary}
-                opacity={0.75}
-              />
-            </S.SettingsValueWrapper>
-          </S.SettingItem>
-
-          <S.SettingItemSeparator />
-
-          <S.SettingItem>
-            <S.SettingItemInfo>
-              <LandPlotIcon
-                size={theme.fontSizes.base}
-                color={theme.colors.textSecondary}
-              />
-
-              <Typography>
-                {translate('settingsPage.measuringUnitsGroup.distance')}
-              </Typography>
-            </S.SettingItemInfo>
-
-            <S.SettingsValueWrapper>
-              <Typography variant="subtitle1">
-                {translate('global.measuringUnits.distance.meters.plural')} (
-                {translate('global.measuringUnits.distance.meters.symbol')})
-              </Typography>
-
-              <ChevronRightIcon
-                size={theme.fontSizes.xl}
-                color={theme.colors.textSecondary}
-                opacity={0.75}
-              />
-            </S.SettingsValueWrapper>
-          </S.SettingItem>
-
-          <S.SettingItemSeparator />
-
-          <S.SettingItem>
-            <S.SettingItemInfo>
-              <RulerIcon
-                size={theme.fontSizes.base}
-                color={theme.colors.textSecondary}
-              />
-
-              <Typography>
-                {translate('settingsPage.measuringUnitsGroup.bodyMeasurements')}
-              </Typography>
-            </S.SettingItemInfo>
-
-            <S.SettingsValueWrapper>
-              <Typography variant="subtitle1">
-                {translate(
-                  'global.measuringUnits.bodyMeasurements.centimeters.plural',
-                )}{' '}
-                (
-                {translate(
-                  'global.measuringUnits.bodyMeasurements.centimeters.symbol',
-                )}
-                )
-              </Typography>
-
-              <ChevronRightIcon
-                size={theme.fontSizes.xl}
-                color={theme.colors.textSecondary}
-                opacity={0.75}
-              />
-            </S.SettingsValueWrapper>
-          </S.SettingItem>
-        </S.SettingsWrapper>
-      </S.SettingsGroupContainer>
-
-      <S.SettingsGroupContainer>
-        <S.SettingsGroupTitle variant="subtitle3">
-          {translate('settingsPage.generalGroup.title')}
-        </S.SettingsGroupTitle>
-
-        <S.SettingsWrapper>
-          <S.SettingItem onPress={toggleColorScheme}>
-            <S.SettingItemInfo>
-              <SunMoonIcon
-                size={theme.fontSizes.base}
-                color={theme.colors.textSecondary}
-              />
-
-              <Typography>
-                {translate('settingsPage.generalGroup.darkTheme')}
-              </Typography>
-            </S.SettingItemInfo>
-
-            <Switch
-              value={colorScheme === 'dark'}
-              onValueChange={toggleColorScheme}
-            />
-          </S.SettingItem>
-
-          <S.SettingItemSeparator />
-
-          <S.SettingItem onPress={handleToggleSelectLanguageModal}>
-            <S.SettingItemInfo>
-              <LanguagesIcon
-                size={theme.fontSizes.base}
-                color={theme.colors.textSecondary}
-              />
-
-              <Typography>
-                {translate('settingsPage.generalGroup.language')}
-              </Typography>
-            </S.SettingItemInfo>
-
-            <S.SettingsValueWrapper>
-              <Typography variant="subtitle1">
-                {localeLabels[locale]}
-              </Typography>
-
-              <ChevronRightIcon
-                size={theme.fontSizes.xl}
-                color={theme.colors.textSecondary}
-                opacity={0.75}
-              />
-            </S.SettingsValueWrapper>
-          </S.SettingItem>
-        </S.SettingsWrapper>
-      </S.SettingsGroupContainer>
-
-      <S.SettingsWrapper style={{ marginTop: theme.measures.lg }}>
-        <S.SettingItem>
-          <S.SettingItemInfo>
-            <FileBadgeIcon
-              size={theme.fontSizes.base}
-              color={theme.colors.textSecondary}
-            />
-
-            <Typography>{translate('global.privacyPolicy')}</Typography>
-          </S.SettingItemInfo>
-
-          <ChevronRightIcon
-            size={theme.fontSizes.xl}
-            color={theme.colors.textSecondary}
-            opacity={0.75}
+        <MenuList.Root>
+          <MenuList.Item
+            icon={WeightIcon}
+            title={translate('settingsPage.measuringUnitsGroup.weight')}
+            value={`${translate(
+              'global.measuringUnits.weight.kilogram.plural',
+            )} (${translate('global.measuringUnits.weight.kilogram.symbol')})`}
+            onPress={() => {}}
           />
-        </S.SettingItem>
-      </S.SettingsWrapper>
 
-      <S.LogoImage style={{ marginBottom: insets.bottom + 120 }} />
+          <MenuList.ItemSeparator addIconOffset />
+
+          <MenuList.Item
+            icon={LandPlotIcon}
+            title={translate('settingsPage.measuringUnitsGroup.distance')}
+            value={`${translate(
+              'global.measuringUnits.distance.meters.plural',
+            )} (${translate('global.measuringUnits.distance.meters.symbol')})`}
+            onPress={() => {}}
+          />
+
+          <MenuList.ItemSeparator addIconOffset />
+
+          <MenuList.Item
+            icon={RulerIcon}
+            title={translate(
+              'settingsPage.measuringUnitsGroup.bodyMeasurements',
+            )}
+            value={`${translate(
+              'global.measuringUnits.bodyMeasurements.centimeters.plural',
+            )} (${translate(
+              'global.measuringUnits.bodyMeasurements.centimeters.symbol',
+            )})`}
+            onPress={() => {}}
+          />
+        </MenuList.Root>
+      </View>
+
+      <View style={styles.settingsGroupContainer}>
+        <Typography variant="subtitle3" style={styles.settingsGroupTitle}>
+          {translate('settingsPage.generalGroup.title')}
+        </Typography>
+
+        <MenuList.Root>
+          <MenuList.ItemSwitch
+            icon={MoonIcon}
+            title={translate('settingsPage.generalGroup.darkTheme')}
+            value={colorScheme === 'dark'}
+            onPress={toggleColorScheme}
+            onValueChange={toggleColorScheme}
+          />
+
+          <MenuList.ItemSeparator addIconOffset />
+
+          <MenuList.Item
+            icon={LanguagesIcon}
+            title={translate('settingsPage.generalGroup.language')}
+            value={localeLabels[locale]}
+            onPress={handleToggleSelectLanguageModal}
+          />
+        </MenuList.Root>
+      </View>
+
+      <MenuList.Root style={{ marginTop: theme.measures.lg }}>
+        <MenuList.Item
+          icon={FileBadgeIcon}
+          title={translate('global.privacyPolicy')}
+          onPress={() => {}}
+        />
+      </MenuList.Root>
+
+      <Image
+        source={logoImg}
+        alt="ExerciseXpress Logo"
+        contentFit="contain"
+        tintColor={theme.colors.text}
+      />
 
       <SelectModal
         visible={showSelectLanguageModal}
@@ -240,6 +153,6 @@ export function SettingsScreen({
         onSelect={onSelectLanguage}
         footerText="Quando aberto pela primeira vez, o aplicativo carrega o idioma do seu dispositivo. Uma vez alterado, sempre será carregado o idioma selecionado pelo usuário."
       />
-    </S.Container>
+    </View>
   );
 }

@@ -2,9 +2,9 @@ import React from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useTheme } from 'styled-components/native';
 
 import { WelComeScreen } from '@/features/misc';
+import { useStyles } from '@/hooks';
 import { useSettingsStore } from '@/stores/settings';
 import { AppRoutesParams } from '@/types';
 
@@ -13,7 +13,7 @@ import { AppTabsNavigator } from './AppTabsNavigator';
 const Stack = createNativeStackNavigator<AppRoutesParams>();
 
 export function Routes() {
-  const theme = useTheme();
+  const { theme } = useStyles();
 
   const settings = useSettingsStore((state) => state.settings);
 

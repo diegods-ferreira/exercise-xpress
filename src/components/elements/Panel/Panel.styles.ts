@@ -1,9 +1,13 @@
-import styled, { css } from 'styled-components/native';
+import { StyleSheet } from 'react-native';
 
-export const Container = styled.View(
-  ({ theme }) => css`
-    padding: ${theme.measures.xl}px;
-    background-color: ${theme.colors.bgOffset};
-    border-radius: ${theme.measures.lg}px;
-  `,
-);
+import { StylesFunctionParams } from '@/types';
+
+export const panelStyles = ({ colors, measures }: StylesFunctionParams) => {
+  return StyleSheet.create({
+    container: {
+      padding: measures.xl,
+      backgroundColor: colors.bgOffset,
+      borderRadius: measures.lg,
+    },
+  });
+};
