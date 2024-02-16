@@ -1,40 +1,35 @@
-import { Image } from 'expo-image';
-import styled, { css } from 'styled-components/native';
+import { StyleSheet } from 'react-native';
 
-import logoImg from '@/assets/images/logo.png';
-import { Typography } from '@/components/elements';
+import { StylesFunctionParams } from '@/types';
 
-export const Container = styled.View(
-  ({ theme }) => css`
-    flex: 1;
-    background-color: ${theme.colors.background};
-    padding: 0px ${theme.measures.xl}px;
-    gap: ${theme.measures['2xl']}px;
-  `,
-);
+export const settingsScreenStyles = ({
+  colors,
+  measures,
+  edgeInsets,
+}: StylesFunctionParams) => {
+  return StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background,
+      paddingTop: edgeInsets.top + measures['2xl'],
+      paddingHorizontal: measures.xl,
+      gap: measures['2xl'],
+    },
 
-export const SettingsGroupContainer = styled.View(
-  ({ theme }) => css`
-    gap: ${theme.measures.sm}px;
-  `,
-);
+    settingsGroupContainer: {
+      gap: measures.sm,
+    },
 
-export const SettingsGroupTitle = styled(Typography)(
-  ({ theme }) => css`
-    margin-left: ${theme.measures.xl}px;
-  `,
-);
+    settingsGroupTitle: {
+      marginLeft: measures.xl,
+    },
 
-export const LogoImage = styled(Image).attrs(({ theme }) => ({
-  source: logoImg,
-  alt: 'ExerciseXpress logo',
-  contentFit: 'contain',
-  tintColor: theme.colors.text,
-}))(
-  ({ theme }) => css`
-    width: 100%;
-    height: ${theme.measures['5xl']}px;
-    margin-top: auto;
-    opacity: 0.25;
-  `,
-);
+    logo: {
+      width: '100%',
+      height: measures['5xl'],
+      marginTop: 'auto',
+      marginBottom: edgeInsets.bottom + measures['5xl'] * 2,
+      opacity: 0.25,
+    },
+  });
+};

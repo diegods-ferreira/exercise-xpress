@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { View } from 'react-native';
 
+import { Image } from 'expo-image';
 import {
   FileBadgeIcon,
   LandPlotIcon,
@@ -9,16 +10,17 @@ import {
   RulerIcon,
   WeightIcon,
 } from 'lucide-react-native';
-import { useTheme } from 'styled-components/native';
 
+import logoImg from '@/assets/images/logo.png';
 import { MenuList, Typography } from '@/components/elements';
 import { Locale } from '@/config/i18n';
+import { useStyles } from '@/hooks';
 import { useColorSchemeStore } from '@/stores/color-scheme';
 import { useI18nStore } from '@/stores/i18n';
 import { SettingsScreenRouteProps } from '@/types';
 
 import { SelectModal } from '../../components/SelectModal/SelectModal';
-import * as S from './SettingsScreen.styles';
+import { settingsScreenStyles } from './SettingsScreen.styles';
 
 const localeLabels: Record<Locale, string> = {
   en_US: 'English (US)',
@@ -29,8 +31,7 @@ export function SettingsScreen({
   navigation,
   route,
 }: SettingsScreenRouteProps) {
-  const theme = useTheme();
-  const insets = useSafeAreaInsets();
+  const { styles, theme } = useStyles(settingsScreenStyles);
 
   const [translate, locale, setLocale] = useI18nStore((state) => [
     state.translate,
@@ -55,13 +56,13 @@ export function SettingsScreen({
   };
 
   return (
-    <S.Container style={{ paddingTop: insets.top + theme.measures['2xl'] }}>
+    <View style={styles.container}>
       <Typography variant="h2">{translate('settingsPage.title')}</Typography>
 
-      <S.SettingsGroupContainer>
-        <S.SettingsGroupTitle variant="subtitle3">
+      <View style={styles.settingsGroupContainer}>
+        <Typography variant="subtitle3" style={styles.settingsGroupTitle}>
           {translate('settingsPage.measuringUnitsGroup.title')}
-        </S.SettingsGroupTitle>
+        </Typography>
 
         <MenuList.Root>
           <MenuList.Item
@@ -99,12 +100,12 @@ export function SettingsScreen({
             onPress={() => {}}
           />
         </MenuList.Root>
-      </S.SettingsGroupContainer>
+      </View>
 
-      <S.SettingsGroupContainer>
-        <S.SettingsGroupTitle variant="subtitle3">
+      <View style={styles.settingsGroupContainer}>
+        <Typography variant="subtitle3" style={styles.settingsGroupTitle}>
           {translate('settingsPage.generalGroup.title')}
-        </S.SettingsGroupTitle>
+        </Typography>
 
         <MenuList.Root>
           <MenuList.ItemSwitch
@@ -124,7 +125,7 @@ export function SettingsScreen({
             onPress={handleToggleSelectLanguageModal}
           />
         </MenuList.Root>
-      </S.SettingsGroupContainer>
+      </View>
 
       <MenuList.Root style={{ marginTop: theme.measures.lg }}>
         <MenuList.Item
@@ -134,7 +135,12 @@ export function SettingsScreen({
         />
       </MenuList.Root>
 
-      <S.LogoImage style={{ marginBottom: insets.bottom + 120 }} />
+      <Image
+        source={logoImg}
+        alt="ExerciseXpress Logo"
+        contentFit="contain"
+        tintColor={theme.colors.text}
+      />
 
       <SelectModal
         visible={showSelectLanguageModal}
@@ -147,6 +153,6 @@ export function SettingsScreen({
         onSelect={onSelectLanguage}
         footerText="Quando aberto pela primeira vez, o aplicativo carrega o idioma do seu dispositivo. Uma vez alterado, sempre será carregado o idioma selecionado pelo usuário."
       />
-    </S.Container>
+    </View>
   );
 }
