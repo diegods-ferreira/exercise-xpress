@@ -1,9 +1,9 @@
 import { Switch as RNSwitch, SwitchProps } from 'react-native';
 
-import { useTheme } from 'styled-components/native';
+import { useStyles } from '@/hooks';
 
 export function Switch(props: SwitchProps) {
-  const theme = useTheme();
+  const { theme } = useStyles();
 
   return (
     <RNSwitch
