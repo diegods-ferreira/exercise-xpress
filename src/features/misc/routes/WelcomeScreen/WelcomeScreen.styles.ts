@@ -1,75 +1,59 @@
-import { BlurView } from 'expo-blur';
-import { Image } from 'expo-image';
-import { LinearGradient } from 'expo-linear-gradient';
-import { css } from 'styled-components';
-import styled from 'styled-components/native';
+import { StyleSheet } from 'react-native';
 
-import logoImg from '@/assets/images/logo.png';
-import { Panel } from '@/components/elements';
+import { StylesFunctionParams } from '@/types';
 
-export const Container = styled.View(
-  ({ theme }) => css`
-    flex: 1;
-    background-color: ${theme.colors.background};
-  `,
-);
+export const welcomeScreenStyles = ({
+  colors,
+  measures,
+  edgeInsets,
+}: StylesFunctionParams) => {
+  return StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background,
+    },
 
-export const BackgroundImage = styled.ImageBackground.attrs({
-  resizeMode: 'cover',
-})`
-  flex: 1;
-`;
+    backgroundImage: {
+      flex: 1,
+    },
 
-export const BackgroundImageMask = styled(LinearGradient)(
-  ({ theme }) => css`
-    flex: 1;
-    padding: 0px ${theme.measures.lg}px;
+    backgroundImageMask: {
+      flex: 1,
+      paddingTop: edgeInsets.top + measures.lg,
+      paddingHorizontal: measures.lg,
+      alignItems: 'center',
+      gap: measures.lg,
+    },
 
-    align-items: center;
-    gap: ${theme.measures.lg}px;
-  `,
-);
+    logoWrapper: {
+      width: '100%',
+      borderRadius: measures.lg,
+      overflow: 'hidden',
+    },
 
-export const LogoImageWrapper = styled(BlurView)`
-  ${({ theme }) => css`
-    width: 100%;
-    border-radius: ${theme.measures.lg}px;
-    overflow: hidden;
-  `}
-`;
+    logo: {
+      width: '100%',
+      height: measures['4xl'] * 2,
+    },
 
-export const LogoImage = styled(Image).attrs({
-  source: logoImg,
-  alt: 'ExerciseXpress logo',
-  contentFit: 'contain',
-})(
-  ({ theme }) => css`
-    width: 100%;
-    height: ${theme.measures['4xl'] * 2}px;
-  `,
-);
+    welcomeContainer: {
+      marginTop: measures.xl * -1,
+      paddingBottom: edgeInsets.bottom + measures.lg,
+      borderBottomLeftRadius: 0,
+      borderBottomRightRadius: 0,
+      borderBottomWidth: 0,
+      gap: measures.xl,
+    },
 
-export const WelcomeContainer = styled(Panel)(
-  ({ theme }) => css`
-    margin-top: -${theme.measures.xl}px;
+    privacyPolicyLinkWrapper: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: measures.xs,
+    },
 
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    border-bottom-width: 0;
-
-    gap: ${theme.measures.xl}px;
-  `,
-);
-
-export const PrivacyPolicyLinkWrapper = styled.View(
-  ({ theme }) => css`
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: ${theme.measures.xs}px;
-  `,
-);
-
-export const ToggleThemeButton = styled.View`
-  align-self: flex-end;
-`;
+    toggleThemeButton: {
+      alignSelf: 'flex-end',
+    },
+  });
+};
