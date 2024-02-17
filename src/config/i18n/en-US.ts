@@ -68,7 +68,14 @@ export const en: I18nTexts = {
             'The distance unit is used to record your exercises, such as walking, running, cycling, etc.',
         },
       },
-      bodyMeasurements: 'Body measurements',
+      bodyMeasurements: {
+        menuItemTitle: 'Body measurements',
+        selectModal: {
+          title: 'Select a measuring unit for body measurements',
+          footerText:
+            'The body measurement unit is used to track your body evolution.',
+        },
+      },
     },
     generalGroup: {
       title: 'General',

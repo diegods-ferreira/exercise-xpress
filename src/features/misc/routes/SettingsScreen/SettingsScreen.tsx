@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 
 import { Image } from 'expo-image';
-import { FileBadgeIcon, RulerIcon } from 'lucide-react-native';
+import { FileBadgeIcon } from 'lucide-react-native';
 
 import logoImg from '@/assets/images/logo.png';
 import { MenuList, Typography } from '@/components/elements';
@@ -9,6 +9,7 @@ import { useStyles } from '@/hooks';
 import { useI18nStore } from '@/stores/i18n';
 import { SettingsScreenRouteProps } from '@/types';
 
+import { BodyMeasurementsSettingMenuItem } from '../../components/BodyMeasurementsSettingMenuItem';
 import { ColorSchemeSettingMenuItem } from '../../components/ColorSchemeSettingMenuItem';
 import { DistanceSettingMenuItem } from '../../components/DistanceSettingMenuItem';
 import { LanguageSettingMenuItem } from '../../components/LanguageSettingMenuItem';
@@ -34,25 +35,10 @@ export function SettingsScreen({
 
         <MenuList.Root>
           <WeightSettingMenuItem />
-
           <MenuList.ItemSeparator addIconOffset />
-
           <DistanceSettingMenuItem />
-
           <MenuList.ItemSeparator addIconOffset />
-
-          <MenuList.Item
-            icon={RulerIcon}
-            title={translate(
-              'settingsPage.measuringUnitsGroup.bodyMeasurements',
-            )}
-            value={`${translate(
-              'global.measuringUnits.bodyMeasurements.centimeters.plural',
-            )} (${translate(
-              'global.measuringUnits.bodyMeasurements.centimeters.symbol',
-            )})`}
-            onPress={() => {}}
-          />
+          <BodyMeasurementsSettingMenuItem />
         </MenuList.Root>
       </View>
 

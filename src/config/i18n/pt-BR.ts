@@ -69,7 +69,14 @@ export const pt: I18nTexts = {
             'A unidade de distância é usada para registros de seus exercícios, tais como caminhada, corrida, bicicleta, etc.',
         },
       },
-      bodyMeasurements: 'Medidas corporais',
+      bodyMeasurements: {
+        menuItemTitle: 'Medidas corporais',
+        selectModal: {
+          title: 'Selecione a unidade de medidas corporais',
+          footerText:
+            'A unidade de medidas corporais é usada para rastreio de sua evolução corporal.',
+        },
+      },
     },
     generalGroup: {
       title: 'Geral',

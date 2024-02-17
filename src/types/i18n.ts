@@ -51,7 +51,13 @@ export type I18nTexts = {
           footerText: string;
         };
       };
-      bodyMeasurements: string;
+      bodyMeasurements: {
+        menuItemTitle: string;
+        selectModal: {
+          title: string;
+          footerText: string;
+        };
+      };
     };
     generalGroup: {
       title: string;
