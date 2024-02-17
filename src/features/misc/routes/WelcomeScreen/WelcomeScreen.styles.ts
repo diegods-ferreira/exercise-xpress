@@ -37,6 +37,7 @@ export const welcomeScreenStyles = ({
     },
 
     welcomeContainer: {
+      backgroundColor: colors.background,
       marginTop: measures.xl * -1,
       paddingBottom: edgeInsets.bottom + measures.lg,
       borderBottomLeftRadius: 0,

@@ -55,7 +55,7 @@ export function WelComeScreen({ navigation }: WelcomeScreenRouteProps) {
 
           <BlurView
             intensity={25}
-            tint={colorScheme === 'dark' ? 'light' : 'dark'}
+            tint={colorScheme}
             style={styles.logoWrapper}
           >
             <Image
