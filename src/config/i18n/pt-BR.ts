@@ -57,7 +57,14 @@ export const pt: I18nTexts = {
         menuItemTitle: 'Peso',
         selectModalTitle: 'Selecione a unidade de medida de peso',
       },
-      distance: 'Distância',
+      distance: {
+        menuItemTitle: 'Distância',
+        selectModal: {
+          title: 'Selecione a unidade de medida de distância',
+          footerText:
+            'A unidade de distância é usada para registros de seus exercícios, tais como caminhada, corrida, bicicleta, etc.',
+        },
+      },
       bodyMeasurements: 'Medidas corporais',
     },
     generalGroup: {

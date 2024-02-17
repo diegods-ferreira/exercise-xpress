@@ -41,7 +41,13 @@ export type I18nTexts = {
         menuItemTitle: string;
         selectModalTitle: string;
       };
-      distance: string;
+      distance: {
+        menuItemTitle: string;
+        selectModal: {
+          title: string;
+          footerText: string;
+        };
+      };
       bodyMeasurements: string;
     };
     generalGroup: {

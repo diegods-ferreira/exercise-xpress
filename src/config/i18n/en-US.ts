@@ -56,7 +56,14 @@ export const en: I18nTexts = {
         menuItemTitle: 'Weight',
         selectModalTitle: 'Select a measuring unit for weight',
       },
-      distance: 'Distance',
+      distance: {
+        menuItemTitle: 'Distance',
+        selectModal: {
+          title: 'Select a measuring unit for distance',
+          footerText:
+            'The distance unit is used to record your exercises, such as walking, running, cycling, etc.',
+        },
+      },
       bodyMeasurements: 'Body measurements',
     },
     generalGroup: {

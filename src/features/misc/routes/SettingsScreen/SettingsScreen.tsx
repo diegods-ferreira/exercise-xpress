@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 
 import { Image } from 'expo-image';
-import { FileBadgeIcon, LandPlotIcon, RulerIcon } from 'lucide-react-native';
+import { FileBadgeIcon, RulerIcon } from 'lucide-react-native';
 
 import logoImg from '@/assets/images/logo.png';
 import { MenuList, Typography } from '@/components/elements';
@@ -10,6 +10,7 @@ import { useI18nStore } from '@/stores/i18n';
 import { SettingsScreenRouteProps } from '@/types';
 
 import { ColorSchemeSettingMenuItem } from '../../components/ColorSchemeSettingMenuItem';
+import { DistanceSettingMenuItem } from '../../components/DistanceSettingMenuItem';
 import { LanguageSettingMenuItem } from '../../components/LanguageSettingMenuItem';
 import { WeightSettingMenuItem } from '../../components/WeightSettingMenuItem';
 import { settingsScreenStyles } from './SettingsScreen.styles';
@@ -36,14 +37,7 @@ export function SettingsScreen({
 
           <MenuList.ItemSeparator addIconOffset />
 
-          <MenuList.Item
-            icon={LandPlotIcon}
-            title={translate('settingsPage.measuringUnitsGroup.distance')}
-            value={`${translate(
-              'global.measuringUnits.distance.meters.plural',
-            )} (${translate('global.measuringUnits.distance.meters.symbol')})`}
-            onPress={() => {}}
-          />
+          <DistanceSettingMenuItem />
 
           <MenuList.ItemSeparator addIconOffset />
 
