@@ -53,7 +53,10 @@ export const pt: I18nTexts = {
     title: 'Ajustes',
     measuringUnitsGroup: {
       title: 'Unidades de medida',
-      weight: 'Peso',
+      weight: {
+        menuItemTitle: 'Peso',
+        selectModalTitle: 'Selecione a unidade de medida de peso',
+      },
       distance: 'Distância',
       bodyMeasurements: 'Medidas corporais',
     },

@@ -52,7 +52,10 @@ export const en: I18nTexts = {
     title: 'Settings',
     measuringUnitsGroup: {
       title: 'Measuring units',
-      weight: 'Weight',
+      weight: {
+        menuItemTitle: 'Weight',
+        selectModalTitle: 'Select a measuring unit for weight',
+      },
       distance: 'Distance',
       bodyMeasurements: 'Body measurements',
     },

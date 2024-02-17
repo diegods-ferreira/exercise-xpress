@@ -22,6 +22,9 @@ const loadSettings = async () => {
 export const useSettingsStore = create<SettingsStoreData>()((set, get) => ({
   settings: {
     showWelcomeScreen: true,
+    weight: 'kilogram',
+    distance: 'meters',
+    bodyMeasurements: 'centimeters',
   },
   isLoadingSettings: true,
   updateSetting: async (setting, value) => {

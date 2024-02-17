@@ -1,3 +1,5 @@
+import { AppSettings } from './settings';
+
 type FlattenKeys<T, Prefix extends string = ''> = {
   [K in keyof T]: T[K] extends string
     ? `${Prefix & string}${Prefix extends '' ? '' : '.'}${K & string}`
@@ -11,18 +13,18 @@ export type I18nTexts = {
   global: {
     privacyPolicy: string;
     measuringUnits: {
-      weight: {
-        kilogram: Record<'symbol' | 'singular' | 'plural', string>;
-        pound: Record<'symbol' | 'singular' | 'plural', string>;
-      };
-      distance: {
-        meters: Record<'symbol' | 'singular' | 'plural', string>;
-        miles: Record<'symbol' | 'singular' | 'plural', string>;
-      };
-      bodyMeasurements: {
-        centimeters: Record<'symbol' | 'singular' | 'plural', string>;
-        inches: Record<'symbol' | 'singular' | 'plural', string>;
-      };
+      weight: Record<
+        AppSettings['weight'],
+        Record<'symbol' | 'singular' | 'plural', string>
+      >;
+      distance: Record<
+        AppSettings['distance'],
+        Record<'symbol' | 'singular' | 'plural', string>
+      >;
+      bodyMeasurements: Record<
+        AppSettings['bodyMeasurements'],
+        Record<'symbol' | 'singular' | 'plural', string>
+      >;
     };
   };
   landingPage: {
@@ -35,7 +37,10 @@ export type I18nTexts = {
     title: string;
     measuringUnitsGroup: {
       title: string;
-      weight: string;
+      weight: {
+        menuItemTitle: string;
+        selectModalTitle: string;
+      };
       distance: string;
       bodyMeasurements: string;
     };

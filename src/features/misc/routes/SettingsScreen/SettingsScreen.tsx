@@ -1,12 +1,7 @@
 import { View } from 'react-native';
 
 import { Image } from 'expo-image';
-import {
-  FileBadgeIcon,
-  LandPlotIcon,
-  RulerIcon,
-  WeightIcon,
-} from 'lucide-react-native';
+import { FileBadgeIcon, LandPlotIcon, RulerIcon } from 'lucide-react-native';
 
 import logoImg from '@/assets/images/logo.png';
 import { MenuList, Typography } from '@/components/elements';
@@ -16,6 +11,7 @@ import { SettingsScreenRouteProps } from '@/types';
 
 import { ColorSchemeSettingMenuItem } from '../../components/ColorSchemeSettingMenuItem';
 import { LanguageSettingMenuItem } from '../../components/LanguageSettingMenuItem';
+import { WeightSettingMenuItem } from '../../components/WeightSettingMenuItem';
 import { settingsScreenStyles } from './SettingsScreen.styles';
 
 export function SettingsScreen({
@@ -36,14 +32,7 @@ export function SettingsScreen({
         </Typography>
 
         <MenuList.Root>
-          <MenuList.Item
-            icon={WeightIcon}
-            title={translate('settingsPage.measuringUnitsGroup.weight')}
-            value={`${translate(
-              'global.measuringUnits.weight.kilogram.plural',
-            )} (${translate('global.measuringUnits.weight.kilogram.symbol')})`}
-            onPress={() => {}}
-          />
+          <WeightSettingMenuItem />
 
           <MenuList.ItemSeparator addIconOffset />
 
