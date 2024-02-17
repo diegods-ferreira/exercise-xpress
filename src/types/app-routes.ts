@@ -7,6 +7,8 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type AppTabsParams = {
   Home: undefined;
+  Workouts: undefined;
+  Profile: undefined;
   Settings: undefined;
 };
 
@@ -27,6 +29,16 @@ export type WelcomeScreenRouteProps = NativeStackScreenProps<
 
 export type HomeScreenRouteProps = CompositeScreenProps<
   BottomTabScreenProps<AppTabsParams, 'Home'>,
+  NativeStackScreenProps<AppRoutesParams>
+>;
+
+export type WorkoutsScreenRouteProps = CompositeScreenProps<
+  BottomTabScreenProps<AppTabsParams, 'Workouts'>,
+  NativeStackScreenProps<AppRoutesParams>
+>;
+
+export type ProfileScreenRouteProps = CompositeScreenProps<
+  BottomTabScreenProps<AppTabsParams, 'Profile'>,
   NativeStackScreenProps<AppRoutesParams>
 >;
 

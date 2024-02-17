@@ -21,9 +21,10 @@ const generalStyles = {
 export const themes = {
   light: {
     colors: {
-      primary: '#aad729',
+      primary: '#ff8137',
+      secondary: '#246cd0',
 
-      background: '#f5f5f5',
+      background: '#f3f3f5',
       bgOffset: '#ffffff',
 
       text: '#262626',
@@ -35,7 +36,8 @@ export const themes = {
   },
   dark: {
     colors: {
-      primary: '#aad729',
+      primary: '#ff8137',
+      secondary: '#246cd0',
 
       background: '#171717',
       bgOffset: '#262626',

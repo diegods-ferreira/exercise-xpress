@@ -1,15 +1,16 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import {
+  DumbbellIcon,
   HomeIcon,
   LucideIcon,
   PlusIcon,
   SettingsIcon,
+  User2Icon,
 } from 'lucide-react-native';
 
-import { ButtonBase } from '@/components/elements';
 import { themes } from '@/config/styles/themes';
 import { useStyles } from '@/hooks';
 import { AppTabsParams } from '@/types';
@@ -23,20 +24,11 @@ type TabButtonProps = {
   routeName: keyof AppTabsParams;
 };
 
-type TabBarItem = {
-  label: string;
-  icon: LucideIcon;
-};
-
-const tabBarItems: Record<keyof AppTabsParams, TabBarItem> = {
-  Home: {
-    label: 'Início',
-    icon: HomeIcon,
-  },
-  Settings: {
-    label: 'Ajustes',
-    icon: SettingsIcon,
-  },
+const tabBarItems: Record<keyof AppTabsParams, LucideIcon> = {
+  Home: HomeIcon,
+  Workouts: DumbbellIcon,
+  Profile: User2Icon,
+  Settings: SettingsIcon,
 };
 
 function TabButton({
@@ -47,23 +39,24 @@ function TabButton({
 }: TabButtonProps) {
   const { styles, theme } = useStyles(tabBarButtonStyles({ isFocused }));
 
-  const { label, icon: Icon } = tabBarItems[routeName];
+  const Icon = tabBarItems[routeName];
 
   return (
-    <ButtonBase
-      variant="secondary"
-      style={styles.container}
+    <TouchableOpacity
+      activeOpacity={0.5}
       onPress={onPress}
       onLongPress={onLongPress}
+      style={styles.container}
     >
-      <Icon
-        size={theme.fontSizes['2xl']}
-        color={isFocused ? theme.colors.primary : theme.colors.textSecondary}
-        strokeWidth={isFocused ? 2 : 1}
-      />
+      <View style={styles.innerContainer}>
+        <Icon
+          size={theme.fontSizes['2xl']}
+          color={isFocused ? theme.colors.text : theme.colors.textSecondary}
+        />
 
-      <Text style={styles.menuName}>{label}</Text>
-    </ButtonBase>
+        {isFocused && <View style={styles.activeIndicator} />}
+      </View>
+    </TouchableOpacity>
   );
 }
 
@@ -96,11 +89,15 @@ export function BottomTabBar({ state, navigation }: BottomTabBarProps) {
 
         return (
           <React.Fragment key={route.key}>
-            {index === 1 && (
-              <TouchableOpacity activeOpacity={0.5} style={styles.actionButton}>
+            {index === 2 && (
+              <TouchableOpacity
+                activeOpacity={0.75}
+                style={styles.actionButton}
+              >
                 <PlusIcon
                   size={theme.fontSizes['2xl']}
-                  color={themes.dark.colors.background}
+                  color={themes.light.colors.background}
+                  strokeWidth={4}
                 />
               </TouchableOpacity>
             )}
