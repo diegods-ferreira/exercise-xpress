@@ -39,11 +39,11 @@ export const themes = {
       primary: '#ff8137',
       secondary: '#246cd0',
 
-      background: '#171717',
-      bgOffset: '#262626',
+      background: '#111214',
+      bgOffset: '#25262b',
 
-      text: '#fcfcfc',
-      textSecondary: '#a3a3a3',
+      text: '#ffffff',
+      textSecondary: '#9fa0a7',
 
       ripple: 'rgba(255, 255, 255, 0.1)',
     },
