@@ -27,8 +27,8 @@ export const themes = {
       background: '#f3f3f5',
       bgOffset: '#ffffff',
 
-      text: '#262626',
-      textSecondary: '#737373',
+      text: '#101213',
+      textSecondary: '#61656d',
 
       ripple: 'rgba(0, 0, 0, 0.1)',
     },
