@@ -30,14 +30,14 @@ export const buttonVariants: Record<
 > = {
   primary: {
     backgroundColor: 'primary',
-    color: themes.dark.colors.background,
+    color: themes.light.colors.bgOffset,
   },
   secondary: {
     backgroundColor: 'bgOffset',
     color: 'text',
   },
   link: {
-    color: 'primary',
+    color: 'secondary',
   },
 };
 
