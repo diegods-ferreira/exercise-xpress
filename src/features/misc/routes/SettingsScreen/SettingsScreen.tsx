@@ -4,7 +4,6 @@ import { Image } from 'expo-image';
 import {
   FileBadgeIcon,
   LandPlotIcon,
-  MoonIcon,
   RulerIcon,
   WeightIcon,
 } from 'lucide-react-native';
@@ -12,10 +11,10 @@ import {
 import logoImg from '@/assets/images/logo.png';
 import { MenuList, Typography } from '@/components/elements';
 import { useStyles } from '@/hooks';
-import { useColorSchemeStore } from '@/stores/color-scheme';
 import { useI18nStore } from '@/stores/i18n';
 import { SettingsScreenRouteProps } from '@/types';
 
+import { ColorSchemeSettingMenuItem } from '../../components/ColorSchemeSettingMenuItem';
 import { LanguageSettingMenuItem } from '../../components/LanguageSettingMenuItem';
 import { settingsScreenStyles } from './SettingsScreen.styles';
 
@@ -26,11 +25,6 @@ export function SettingsScreen({
   const { styles, theme } = useStyles(settingsScreenStyles);
 
   const { translate } = useI18nStore();
-
-  const [colorScheme, toggleColorScheme] = useColorSchemeStore((state) => [
-    state.colorScheme,
-    state.toggleColorScheme,
-  ]);
 
   return (
     <View style={styles.container}>
@@ -85,16 +79,8 @@ export function SettingsScreen({
         </Typography>
 
         <MenuList.Root>
-          <MenuList.ItemSwitch
-            icon={MoonIcon}
-            title={translate('settingsPage.generalGroup.darkTheme')}
-            value={colorScheme === 'dark'}
-            onPress={toggleColorScheme}
-            onValueChange={toggleColorScheme}
-          />
-
+          <ColorSchemeSettingMenuItem />
           <MenuList.ItemSeparator addIconOffset />
-
           <LanguageSettingMenuItem />
         </MenuList.Root>
       </View>
