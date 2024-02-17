@@ -32,7 +32,9 @@ function ButtonBase(props: PropsWithChildren<ButtonBaseProps>) {
     );
   }
 
-  return <TouchableOpacity {...props} style={styles.container} />;
+  return (
+    <TouchableOpacity {...props} style={styles.container} activeOpacity={0.5} />
+  );
 }
 
 export function IconButton({

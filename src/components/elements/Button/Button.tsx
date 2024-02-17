@@ -56,7 +56,13 @@ export function ButtonBase({
     );
   }
 
-  return <TouchableOpacity {...props} style={[styles.container, style]} />;
+  return (
+    <TouchableOpacity
+      {...props}
+      style={[styles.container, style]}
+      activeOpacity={0.5}
+    />
+  );
 }
 
 export function Button({
