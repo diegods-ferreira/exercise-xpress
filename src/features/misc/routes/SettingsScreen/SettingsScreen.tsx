@@ -14,13 +14,13 @@ import {
 
 import logoImg from '@/assets/images/logo.png';
 import { MenuList, Typography } from '@/components/elements';
+import { SelectModal } from '@/components/modals';
 import { Locale } from '@/config/i18n';
 import { useStyles } from '@/hooks';
 import { useColorSchemeStore } from '@/stores/color-scheme';
 import { useI18nStore } from '@/stores/i18n';
 import { SettingsScreenRouteProps } from '@/types';
 
-import { SelectModal } from '../../components/SelectModal/SelectModal';
 import { settingsScreenStyles } from './SettingsScreen.styles';
 
 const localeLabels: Record<Locale, string> = {
