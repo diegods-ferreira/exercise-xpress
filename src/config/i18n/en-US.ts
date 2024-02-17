@@ -59,7 +59,14 @@ export const en: I18nTexts = {
     generalGroup: {
       title: 'General',
       darkTheme: 'Dark theme',
-      language: 'Language',
+      language: {
+        menuItemTitle: 'Language',
+        selectModal: {
+          title: 'Select a language',
+          footerText:
+            "When first opened, the app loads your device's language. Once changed, the language selected by the user will always be loaded.",
+        },
+      },
     },
   },
 } as const;

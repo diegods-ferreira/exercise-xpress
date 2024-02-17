@@ -1,12 +1,9 @@
-import { useRef } from 'react';
 import { View } from 'react-native';
 
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { Image } from 'expo-image';
 import {
   FileBadgeIcon,
   LandPlotIcon,
-  LanguagesIcon,
   MoonIcon,
   RulerIcon,
   WeightIcon,
@@ -14,43 +11,26 @@ import {
 
 import logoImg from '@/assets/images/logo.png';
 import { MenuList, Typography } from '@/components/elements';
-import { SelectModal } from '@/components/modals';
-import { Locale } from '@/config/i18n';
 import { useStyles } from '@/hooks';
 import { useColorSchemeStore } from '@/stores/color-scheme';
 import { useI18nStore } from '@/stores/i18n';
 import { SettingsScreenRouteProps } from '@/types';
 
+import { LanguageSettingMenuItem } from '../../components/LanguageSettingMenuItem';
 import { settingsScreenStyles } from './SettingsScreen.styles';
-
-const localeLabels: Record<Locale, string> = {
-  en_US: 'English (US)',
-  pt_BR: 'Português (BR)',
-};
 
 export function SettingsScreen({
   navigation,
   route,
 }: SettingsScreenRouteProps) {
-  const bottomSheetRef = useRef<BottomSheetModal>(null);
-
   const { styles, theme } = useStyles(settingsScreenStyles);
 
-  const [translate, locale, setLocale] = useI18nStore((state) => [
-    state.translate,
-    state.locale,
-    state.setLocale,
-  ]);
+  const { translate } = useI18nStore();
 
   const [colorScheme, toggleColorScheme] = useColorSchemeStore((state) => [
     state.colorScheme,
     state.toggleColorScheme,
   ]);
-
-  const onSelectLanguage = (selectedLanguage: Locale) => {
-    setLocale(selectedLanguage);
-    bottomSheetRef.current?.close();
-  };
 
   return (
     <View style={styles.container}>
@@ -115,12 +95,7 @@ export function SettingsScreen({
 
           <MenuList.ItemSeparator addIconOffset />
 
-          <MenuList.Item
-            icon={LanguagesIcon}
-            title={translate('settingsPage.generalGroup.language')}
-            value={localeLabels[locale]}
-            onPress={() => bottomSheetRef.current?.present()}
-          />
+          <LanguageSettingMenuItem />
         </MenuList.Root>
       </View>
 
@@ -137,18 +112,6 @@ export function SettingsScreen({
         alt="ExerciseXpress Logo"
         contentFit="contain"
         tintColor={theme.colors.text}
-      />
-
-      <SelectModal
-        ref={bottomSheetRef}
-        title="Selecione um idioma"
-        selectedOption={locale}
-        options={[
-          { label: 'English (US)', value: 'en_US' },
-          { label: 'Português (BR)', value: 'pt_BR' },
-        ]}
-        onSelect={onSelectLanguage}
-        footerText="Quando aberto pela primeira vez, o aplicativo carrega o idioma do seu dispositivo. Uma vez alterado, sempre será carregado o idioma selecionado pelo usuário."
       />
     </View>
   );

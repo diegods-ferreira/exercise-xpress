@@ -42,7 +42,13 @@ export type I18nTexts = {
     generalGroup: {
       title: string;
       darkTheme: string;
-      language: string;
+      language: {
+        menuItemTitle: string;
+        selectModal: {
+          title: string;
+          footerText: string;
+        };
+      };
     };
   };
 };

@@ -60,7 +60,14 @@ export const pt: I18nTexts = {
     generalGroup: {
       title: 'Geral',
       darkTheme: 'Tema escuro',
-      language: 'Idioma',
+      language: {
+        menuItemTitle: 'Idioma',
+        selectModal: {
+          title: 'Selecione um idioma',
+          footerText:
+            'Quando aberto pela primeira vez, o aplicativo carrega o idioma do seu dispositivo. Uma vez alterado, sempre será carregado o idioma selecionado pelo usuário.',
+        },
+      },
     },
   },
 } as const;
