@@ -41,7 +41,7 @@ function SelectModalBase<TOption extends string>(
   }: SelectModalProps<TOption>,
   ref: React.ForwardedRef<BottomSheetModalMethods>,
 ) {
-  const { styles, theme, edgeInsets } = useStyles(selectModalStyles);
+  const { styles, edgeInsets } = useStyles(selectModalStyles);
 
   const hasAnyOptionWithIcon = useMemo(
     () => options.some((option) => !!option.icon),
@@ -55,11 +55,11 @@ function SelectModalBase<TOption extends string>(
       ref={ref}
       snapPoints={snapPoints}
       onDismiss={onDismiss}
-      backgroundStyle={{ backgroundColor: theme.colors.bgOffset }}
-      handleIndicatorStyle={{ backgroundColor: theme.colors.textSecondary }}
+      backgroundStyle={styles.bottomSheetBackground}
+      handleStyle={styles.bottomSheetHandle}
+      handleIndicatorStyle={styles.bottomSheetHandleIndicator}
       backdropComponent={BottomSheetModalBlurBackdrop}
       topInset={edgeInsets.top}
-      bottomInset={edgeInsets.bottom}
     >
       <View style={styles.container}>
         <View style={styles.header}>

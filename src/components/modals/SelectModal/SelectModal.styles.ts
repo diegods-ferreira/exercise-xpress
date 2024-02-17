@@ -5,11 +5,27 @@ import { StylesFunctionParams } from '@/types';
 export const selectModalStyles = ({
   colors,
   measures,
+  edgeInsets,
 }: StylesFunctionParams) => {
   return StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: colors.background,
+    },
+
+    bottomSheetBackground: {
+      backgroundColor: colors.background,
+      paddingBottom: edgeInsets.bottom,
+    },
+
+    bottomSheetHandle: {
+      backgroundColor: colors.bgOffset,
+      borderTopLeftRadius: measures.xl,
+      borderTopRightRadius: measures.xl,
+    },
+
+    bottomSheetHandleIndicator: {
+      backgroundColor: colors.textSecondary,
     },
 
     header: {
