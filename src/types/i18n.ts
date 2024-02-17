@@ -39,7 +39,10 @@ export type I18nTexts = {
       title: string;
       weight: {
         menuItemTitle: string;
-        selectModalTitle: string;
+        selectModal: {
+          title: string;
+          footerText: string;
+        };
       };
       distance: {
         menuItemTitle: string;

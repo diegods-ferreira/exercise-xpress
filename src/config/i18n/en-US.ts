@@ -54,7 +54,11 @@ export const en: I18nTexts = {
       title: 'Measuring units',
       weight: {
         menuItemTitle: 'Weight',
-        selectModalTitle: 'Select a measuring unit for weight',
+        selectModal: {
+          title: 'Select a measuring unit for weight',
+          footerText:
+            'The weight unit is used to record your exercises (e.g. weight training) and track your weight.',
+        },
       },
       distance: {
         menuItemTitle: 'Distance',

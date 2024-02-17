@@ -41,7 +41,7 @@ export function WeightSettingMenuItem() {
       <SelectModal
         ref={bottomSheetRef}
         title={translate(
-          'settingsPage.measuringUnitsGroup.weight.selectModalTitle',
+          'settingsPage.measuringUnitsGroup.weight.selectModal.title',
         )}
         selectedOption={settings.weight}
         options={[
@@ -57,6 +57,9 @@ export function WeightSettingMenuItem() {
           },
         ]}
         onSelect={onSelectLanguage}
+        footerText={translate(
+          'settingsPage.measuringUnitsGroup.weight.selectModal.footerText',
+        )}
       />
     </>
   );

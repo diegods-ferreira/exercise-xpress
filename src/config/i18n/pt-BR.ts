@@ -55,7 +55,11 @@ export const pt: I18nTexts = {
       title: 'Unidades de medida',
       weight: {
         menuItemTitle: 'Peso',
-        selectModalTitle: 'Selecione a unidade de medida de peso',
+        selectModal: {
+          title: 'Selecione a unidade de medida de peso',
+          footerText:
+            'A unidade de peso é usada para registros de seus exercícios (ex: musculação) e rastreio do seu peso.',
+        },
       },
       distance: {
         menuItemTitle: 'Distância',
