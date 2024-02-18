@@ -12,7 +12,7 @@ export function Switch(props: SwitchProps) {
       thumbColor="#ffffff"
       trackColor={{
         false: theme.colors.background,
-        true: theme.colors.primary,
+        true: theme.colors.secondary,
       }}
     />
   );

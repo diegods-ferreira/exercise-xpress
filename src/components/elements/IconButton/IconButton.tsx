@@ -39,18 +39,17 @@ function ButtonBase(props: PropsWithChildren<ButtonBaseProps>) {
 
 export function IconButton({
   icon: Icon,
+  variant = 'neutral',
   isDisabled = false,
   onPress,
 }: IconButtonProps) {
-  const { theme } = useStyles();
+  const { styles, theme } = useStyles(
+    iconButtonStyles({ variant, isDisabled }),
+  );
 
   return (
-    <ButtonBase isDisabled={isDisabled} onPress={onPress}>
-      <Icon
-        size={theme.fontSizes.xl}
-        color={theme.colors.text}
-        style={{ opacity: isDisabled ? 0.75 : 1 }}
-      />
+    <ButtonBase variant={variant} isDisabled={isDisabled} onPress={onPress}>
+      <Icon size={theme.fontSizes.xl} style={styles.icon} />
     </ButtonBase>
   );
 }

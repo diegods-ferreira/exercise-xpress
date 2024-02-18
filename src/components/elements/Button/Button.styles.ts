@@ -6,7 +6,7 @@ import { StylesFunctionParams } from '@/types';
 type Theme = typeof themes.dark;
 
 export type ButtonStylesProps = {
-  variant?: 'primary' | 'secondary' | 'link';
+  variant?: 'primary' | 'secondary' | 'neutral' | 'link';
   size?: 'small' | 'normal';
   fitContent?: boolean;
   isLoading?: boolean;
@@ -33,6 +33,10 @@ export const buttonVariants: Record<
     color: themes.light.colors.bgOffset,
   },
   secondary: {
+    backgroundColor: 'secondary',
+    color: themes.light.colors.bgOffset,
+  },
+  neutral: {
     backgroundColor: 'bgOffset',
     color: 'text',
   },
@@ -48,7 +52,7 @@ export const buttonStyles = ({
   isLoading = false,
   isDisabled = false,
 }: ButtonStylesProps) => {
-  return ({ colors, measures, roundedFull }: StylesFunctionParams) => {
+  return ({ colors, measures }: StylesFunctionParams) => {
     const { backgroundColor } = buttonVariants[variant];
 
     let paddingVertical: ViewStyle['paddingVertical'] =
@@ -74,7 +78,7 @@ export const buttonStyles = ({
       container: {
         width: fitContent ? 'auto' : '100%',
         backgroundColor: colors[backgroundColor] || 'transparent',
-        borderRadius: roundedFull,
+        borderRadius: measures.xl,
         paddingVertical,
         paddingHorizontal,
         opacity,
@@ -107,7 +111,7 @@ export const buttonTextStyles = ({
 
     return StyleSheet.create({
       text: {
-        color: variant === 'primary' ? color : colors[color],
+        color: variant.match(/primary|secondary/) ? color : colors[color],
         fontWeight: '600',
         textAlign: 'center',
         opacity,

@@ -1,7 +1,11 @@
 import { PropsWithChildren } from 'react';
 import { FlatList, View, ViewProps } from 'react-native';
 
-import { CheckIcon, ChevronRightIcon, LucideIcon } from 'lucide-react-native';
+import {
+  CheckCircle2Icon,
+  ChevronRightIcon,
+  LucideIcon,
+} from 'lucide-react-native';
 
 import { useStyles } from '@/hooks';
 
@@ -55,7 +59,7 @@ function MenuListItemBase({
   const { styles, theme } = useStyles(menuListItemBaseStyles);
 
   return (
-    <ButtonBase variant="secondary" style={styles.container} onPress={onPress}>
+    <ButtonBase variant="neutral" style={styles.container} onPress={onPress}>
       <View style={styles.leftWrapper}>
         {!!Icon && (
           <Icon
@@ -116,9 +120,9 @@ function MenuListItemCheckbox({
   return (
     <MenuListItemBase {...rest} title={label}>
       {isSelected && (
-        <CheckIcon
-          size={theme.fontSizes.xl}
-          color={theme.colors.primary}
+        <CheckCircle2Icon
+          size={theme.fontSizes['2xl']}
+          color={theme.colors.secondary}
           style={styles.checkIndicator}
         />
       )}
