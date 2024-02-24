@@ -1,4 +1,12 @@
 import { AppSettings } from './settings';
+import {
+  ExerciseCategory,
+  ExerciseEquipment,
+  ExerciseForce,
+  ExerciseLevel,
+  ExerciseMechanic,
+  ExerciseMuscle,
+} from './workouts';
 
 type FlattenKeys<T, Prefix extends string = ''> = {
   [K in keyof T]: T[K] extends string
@@ -25,6 +33,16 @@ export type I18nTexts = {
         AppSettings['bodyMeasurements'],
         Record<'symbol' | 'singular' | 'plural', string>
       >;
+    };
+    workouts: {
+      exercises: {
+        force: Record<ExerciseForce, string>;
+        level: Record<ExerciseLevel, string>;
+        mechanic: Record<ExerciseMechanic, string>;
+        equipment: Record<ExerciseEquipment, string>;
+        category: Record<ExerciseCategory, string>;
+        muscle: Record<ExerciseMuscle, string>;
+      };
     };
   };
   landingPage: {
