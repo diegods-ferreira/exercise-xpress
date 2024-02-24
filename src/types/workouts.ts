@@ -18,10 +18,10 @@ export type Exercise = {
   id: string;
   name: string;
   instructions: string[];
-  force: ExerciseForce;
+  force?: ExerciseForce | null;
   level: ExerciseLevel;
-  mechanic: ExerciseMechanic;
-  equipment: ExerciseEquipment;
+  mechanic?: ExerciseMechanic | null;
+  equipment?: ExerciseEquipment | null;
   category: ExerciseCategory;
   primaryMuscles: ExerciseMuscle[];
   secondaryMuscles: ExerciseMuscle[];
