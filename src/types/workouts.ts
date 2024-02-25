@@ -17,26 +17,25 @@ export type ExerciseMuscle = (typeof EXERCISE_MUSCLES)[number];
 export type Exercise = {
   id: string;
   name: string;
-  instructions: string[];
+  instructions?: string[];
   force?: ExerciseForce | null;
   level: ExerciseLevel;
   mechanic?: ExerciseMechanic | null;
   equipment?: ExerciseEquipment | null;
-  category: ExerciseCategory;
-  primaryMuscles: ExerciseMuscle[];
-  secondaryMuscles: ExerciseMuscle[];
-  images: string[];
+  category?: ExerciseCategory;
+  primaryMuscles?: ExerciseMuscle[];
+  secondaryMuscles?: ExerciseMuscle[];
+  images?: string[];
 };
 
 export type ExerciseSet = {
   id: string;
-  exerciseId: Exercise['id'];
-  name: Exercise['name'];
+  exercise: Omit<Exercise, 'images'>;
   restTimeBetweenSets: number;
 };
 
 export type Workout = {
   id: string;
   name: string;
-  exercises: Exercise[];
+  exercisesSets: ExerciseSet[];
 };
