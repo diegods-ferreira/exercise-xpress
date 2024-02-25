@@ -28,12 +28,11 @@ export type Exercise = {
   images: string[];
 };
 
-export type ExerciseSeries = Pick<
-  Exercise,
-  'category' | 'primaryMuscles' | 'images'
-> & {
+export type ExerciseSet = {
   id: string;
-  exerciseName: string;
+  exerciseId: Exercise['id'];
+  name: Exercise['name'];
+  restTimeBetweenSets: number;
 };
 
 export type Workout = {
