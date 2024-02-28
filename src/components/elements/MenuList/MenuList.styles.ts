@@ -81,6 +81,10 @@ export const menuListItemCheckboxStyles = ({
   measures,
 }: StylesFunctionParams) => {
   return StyleSheet.create({
+    indicatorOffset: {
+      paddingRight: measures['3xl'],
+    },
+
     checkIndicator: {
       position: 'absolute',
       right: measures.xl,
