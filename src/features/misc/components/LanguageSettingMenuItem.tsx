@@ -10,6 +10,7 @@ import { useI18nStore } from '@/stores';
 
 const localeLabels: Record<Locale, string> = {
   en_US: 'English (US)',
+  es_ES: 'Español (ES)',
   pt_BR: 'Português (BR)',
 };
 
@@ -39,8 +40,14 @@ export function LanguageSettingMenuItem() {
         )}
         selectedOption={locale}
         options={[
-          { label: 'English (US)', value: 'en_US' },
-          { label: 'Português (BR)', value: 'pt_BR' },
+          { label: localeLabels.en_US, value: 'en_US' },
+          { label: localeLabels.es_ES, value: 'es_ES' },
+          {
+            label: localeLabels.pt_BR,
+            value: 'pt_BR',
+            helpText:
+              'Os exercícios podem não estar totalmente traduzidos para esse idioma.',
+          },
         ]}
         onSelect={onSelectLanguage}
         footerText={translate(
