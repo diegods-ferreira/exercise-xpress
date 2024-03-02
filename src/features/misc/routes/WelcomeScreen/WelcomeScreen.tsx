@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { ImageBackground, View } from 'react-native';
 
 import { BlurView } from 'expo-blur';
@@ -9,12 +10,14 @@ import fitnessMontageImg from '@/assets/images/fitness-montage.png';
 import logoImg from '@/assets/images/logo.png';
 import { Button, IconButton, Panel, Typography } from '@/components/elements';
 import { useStyles } from '@/hooks';
-import { useColorSchemeStore, useI18nStore, useSettingsStore } from '@/stores';
+import { useColorSchemeStore, useSettingsStore } from '@/stores';
 import { WelcomeScreenRouteProps } from '@/types';
 
 import * as S from './WelcomeScreen.styles';
 
 export function WelComeScreen({ navigation }: WelcomeScreenRouteProps) {
+  const { t } = useTranslation();
+
   const { styles, theme } = useStyles(S.welcomeScreenStyles);
 
   const [colorScheme, toggleColorScheme] = useColorSchemeStore((state) => [
@@ -22,12 +25,10 @@ export function WelComeScreen({ navigation }: WelcomeScreenRouteProps) {
     state.toggleColorScheme,
   ]);
 
-  const translate = useI18nStore((state) => state.translate);
-
   const updateSetting = useSettingsStore((state) => state.updateSetting);
 
   const onGetStartedPress = async () => {
-    await updateSetting('showWelcomeScreen', false);
+    updateSetting('showWelcomeScreen', false);
     navigation.replace('HomeTabNavigator');
   };
 
@@ -69,24 +70,22 @@ export function WelComeScreen({ navigation }: WelcomeScreenRouteProps) {
       </ImageBackground>
 
       <Panel style={styles.welcomeContainer}>
-        <Typography variant="h1">{translate('landingPage.title')}</Typography>
+        <Typography variant="h1">{t('landingPage.title')}</Typography>
 
-        <Typography variant="subtitle1">
-          {translate('landingPage.subtitle')}
-        </Typography>
+        <Typography variant="subtitle1">{t('landingPage.subtitle')}</Typography>
 
         <Button
-          title={translate('landingPage.actionButton')}
+          title={t('landingPage.actionButton')}
           onPress={onGetStartedPress}
         />
 
         <View style={styles.privacyPolicyLinkWrapper}>
           <Typography variant="subtitle2">
-            {translate('landingPage.accessPrivacyPolicy')}
+            {t('landingPage.accessPrivacyPolicy')}
           </Typography>
 
           <Button
-            title={translate('global.privacyPolicy')}
+            title={t('global.privacyPolicy')}
             variant="link"
             size="small"
             fitContent

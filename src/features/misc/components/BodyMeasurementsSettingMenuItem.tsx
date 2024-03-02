@@ -1,17 +1,18 @@
 import { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { RulerIcon } from 'lucide-react-native';
 
 import { MenuList } from '@/components/elements';
 import { SelectModal } from '@/components/modals';
-import { useI18nStore, useSettingsStore } from '@/stores';
+import { useSettingsStore } from '@/stores';
 import { AppSettings } from '@/types';
 
 export function BodyMeasurementsSettingMenuItem() {
-  const bottomSheetRef = useRef<BottomSheetModal>(null);
+  const { t } = useTranslation();
 
-  const { translate } = useI18nStore();
+  const bottomSheetRef = useRef<BottomSheetModal>(null);
 
   const [settings, updateSetting] = useSettingsStore((state) => [
     state.settings,
@@ -29,12 +30,12 @@ export function BodyMeasurementsSettingMenuItem() {
     <>
       <MenuList.Item
         icon={RulerIcon}
-        title={translate(
+        title={t(
           'settingsPage.measuringUnitsGroup.bodyMeasurements.menuItemTitle',
         )}
-        value={`${translate(
+        value={`${t(
           `global.measuringUnits.bodyMeasurements.${settings.bodyMeasurements}.plural`,
-        )} (${translate(
+        )} (${t(
           `global.measuringUnits.bodyMeasurements.${settings.bodyMeasurements}.symbol`,
         )})`}
         onPress={() => bottomSheetRef.current?.present()}
@@ -42,32 +43,28 @@ export function BodyMeasurementsSettingMenuItem() {
 
       <SelectModal
         ref={bottomSheetRef}
-        title={translate(
+        title={t(
           'settingsPage.measuringUnitsGroup.bodyMeasurements.selectModal.title',
         )}
         selectedOption={settings.bodyMeasurements}
         options={[
           {
-            label: translate(
+            label: t(
               'global.measuringUnits.bodyMeasurements.centimeters.plural',
             ),
-            helpText: translate(
+            helpText: t(
               'global.measuringUnits.bodyMeasurements.centimeters.symbol',
             ),
             value: 'centimeters',
           },
           {
-            label: translate(
-              'global.measuringUnits.bodyMeasurements.inches.plural',
-            ),
-            helpText: translate(
-              'global.measuringUnits.bodyMeasurements.inches.symbol',
-            ),
+            label: t('global.measuringUnits.bodyMeasurements.inches.plural'),
+            helpText: t('global.measuringUnits.bodyMeasurements.inches.symbol'),
             value: 'inches',
           },
         ]}
         onSelect={onSelectLanguage}
-        footerText={translate(
+        footerText={t(
           'settingsPage.measuringUnitsGroup.bodyMeasurements.selectModal.footerText',
         )}
       />

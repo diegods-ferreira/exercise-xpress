@@ -1,11 +1,12 @@
 import { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { LanguagesIcon } from 'lucide-react-native';
 
 import { MenuList } from '@/components/elements';
 import { SelectModal } from '@/components/modals';
-import { Locale } from '@/config/i18n';
+import { Locale } from '@/lib/i18next';
 import { useI18nStore } from '@/stores';
 
 const localeLabels: Record<Locale, string> = {
@@ -15,9 +16,11 @@ const localeLabels: Record<Locale, string> = {
 };
 
 export function LanguageSettingMenuItem() {
+  const { t } = useTranslation();
+
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
-  const { locale, setLocale, translate } = useI18nStore();
+  const { locale, setLocale } = useI18nStore();
 
   const onSelectLanguage = (selectedLanguage: Locale) => {
     setLocale(selectedLanguage);
@@ -28,16 +31,14 @@ export function LanguageSettingMenuItem() {
     <>
       <MenuList.Item
         icon={LanguagesIcon}
-        title={translate('settingsPage.generalGroup.language.menuItemTitle')}
+        title={t('settingsPage.generalGroup.language.menuItemTitle')}
         value={localeLabels[locale]}
         onPress={() => bottomSheetRef.current?.present()}
       />
 
       <SelectModal
         ref={bottomSheetRef}
-        title={translate(
-          'settingsPage.generalGroup.language.selectModal.title',
-        )}
+        title={t('settingsPage.generalGroup.language.selectModal.title')}
         selectedOption={locale}
         options={[
           { label: localeLabels.en_US, value: 'en_US' },
@@ -50,7 +51,7 @@ export function LanguageSettingMenuItem() {
           },
         ]}
         onSelect={onSelectLanguage}
-        footerText={translate(
+        footerText={t(
           'settingsPage.generalGroup.language.selectModal.footerText',
         )}
       />

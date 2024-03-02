@@ -1,17 +1,18 @@
 import { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { WeightIcon } from 'lucide-react-native';
 
 import { MenuList } from '@/components/elements';
 import { SelectModal } from '@/components/modals';
-import { useI18nStore, useSettingsStore } from '@/stores';
+import { useSettingsStore } from '@/stores';
 import { AppSettings } from '@/types';
 
 export function WeightSettingMenuItem() {
-  const bottomSheetRef = useRef<BottomSheetModal>(null);
+  const { t } = useTranslation();
 
-  const { translate } = useI18nStore();
+  const bottomSheetRef = useRef<BottomSheetModal>(null);
 
   const [settings, updateSetting] = useSettingsStore((state) => [
     state.settings,
@@ -27,37 +28,31 @@ export function WeightSettingMenuItem() {
     <>
       <MenuList.Item
         icon={WeightIcon}
-        title={translate(
-          'settingsPage.measuringUnitsGroup.weight.menuItemTitle',
-        )}
-        value={`${translate(
+        title={t('settingsPage.measuringUnitsGroup.weight.menuItemTitle')}
+        value={`${t(
           `global.measuringUnits.weight.${settings.weight}.plural`,
-        )} (${translate(
-          `global.measuringUnits.weight.${settings.weight}.symbol`,
-        )})`}
+        )} (${t(`global.measuringUnits.weight.${settings.weight}.symbol`)})`}
         onPress={() => bottomSheetRef.current?.present()}
       />
 
       <SelectModal
         ref={bottomSheetRef}
-        title={translate(
-          'settingsPage.measuringUnitsGroup.weight.selectModal.title',
-        )}
+        title={t('settingsPage.measuringUnitsGroup.weight.selectModal.title')}
         selectedOption={settings.weight}
         options={[
           {
-            label: translate('global.measuringUnits.weight.kilogram.plural'),
-            helpText: translate('global.measuringUnits.weight.kilogram.symbol'),
+            label: t('global.measuringUnits.weight.kilogram.plural'),
+            helpText: t('global.measuringUnits.weight.kilogram.symbol'),
             value: 'kilogram',
           },
           {
-            label: translate('global.measuringUnits.weight.pound.plural'),
-            helpText: translate('global.measuringUnits.weight.pound.symbol'),
+            label: t('global.measuringUnits.weight.pound.plural'),
+            helpText: t('global.measuringUnits.weight.pound.symbol'),
             value: 'pound',
           },
         ]}
         onSelect={onSelectLanguage}
-        footerText={translate(
+        footerText={t(
           'settingsPage.measuringUnitsGroup.weight.selectModal.footerText',
         )}
       />

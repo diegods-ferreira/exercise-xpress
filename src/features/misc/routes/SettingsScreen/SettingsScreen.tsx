@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
 import { Image } from 'expo-image';
@@ -6,7 +7,6 @@ import { FileBadgeIcon } from 'lucide-react-native';
 import logoImg from '@/assets/images/logo.png';
 import { MenuList, Typography } from '@/components/elements';
 import { useStyles } from '@/hooks';
-import { useI18nStore } from '@/stores/i18n';
 import { SettingsScreenRouteProps } from '@/types';
 
 import { BodyMeasurementsSettingMenuItem } from '../../components/BodyMeasurementsSettingMenuItem';
@@ -20,17 +20,17 @@ export function SettingsScreen({
   navigation,
   route,
 }: SettingsScreenRouteProps) {
-  const { styles, theme } = useStyles(settingsScreenStyles);
+  const { t } = useTranslation();
 
-  const { translate } = useI18nStore();
+  const { styles, theme } = useStyles(settingsScreenStyles);
 
   return (
     <View style={styles.container}>
-      <Typography variant="h2">{translate('settingsPage.title')}</Typography>
+      <Typography variant="h2">{t('settingsPage.title')}</Typography>
 
       <View style={styles.settingsGroupContainer}>
         <Typography variant="subtitle3" style={styles.settingsGroupTitle}>
-          {translate('settingsPage.measuringUnitsGroup.title')}
+          {t('settingsPage.measuringUnitsGroup.title')}
         </Typography>
 
         <MenuList.Root>
@@ -44,7 +44,7 @@ export function SettingsScreen({
 
       <View style={styles.settingsGroupContainer}>
         <Typography variant="subtitle3" style={styles.settingsGroupTitle}>
-          {translate('settingsPage.generalGroup.title')}
+          {t('settingsPage.generalGroup.title')}
         </Typography>
 
         <MenuList.Root>
@@ -57,7 +57,7 @@ export function SettingsScreen({
       <MenuList.Root style={{ marginTop: theme.measures.lg }}>
         <MenuList.Item
           icon={FileBadgeIcon}
-          title={translate('global.privacyPolicy')}
+          title={t('global.privacyPolicy')}
           onPress={() => {}}
         />
       </MenuList.Root>

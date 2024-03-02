@@ -1,17 +1,18 @@
 import { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { LandPlotIcon } from 'lucide-react-native';
 
 import { MenuList } from '@/components/elements';
 import { SelectModal } from '@/components/modals';
-import { useI18nStore, useSettingsStore } from '@/stores';
+import { useSettingsStore } from '@/stores';
 import { AppSettings } from '@/types';
 
 export function DistanceSettingMenuItem() {
-  const bottomSheetRef = useRef<BottomSheetModal>(null);
+  const { t } = useTranslation();
 
-  const { translate } = useI18nStore();
+  const bottomSheetRef = useRef<BottomSheetModal>(null);
 
   const [settings, updateSetting] = useSettingsStore((state) => [
     state.settings,
@@ -27,12 +28,10 @@ export function DistanceSettingMenuItem() {
     <>
       <MenuList.Item
         icon={LandPlotIcon}
-        title={translate(
-          'settingsPage.measuringUnitsGroup.distance.menuItemTitle',
-        )}
-        value={`${translate(
+        title={t('settingsPage.measuringUnitsGroup.distance.menuItemTitle')}
+        value={`${t(
           `global.measuringUnits.distance.${settings.distance}.plural`,
-        )} (${translate(
+        )} (${t(
           `global.measuringUnits.distance.${settings.distance}.symbol`,
         )})`}
         onPress={() => bottomSheetRef.current?.present()}
@@ -40,24 +39,22 @@ export function DistanceSettingMenuItem() {
 
       <SelectModal
         ref={bottomSheetRef}
-        title={translate(
-          'settingsPage.measuringUnitsGroup.distance.selectModal.title',
-        )}
+        title={t('settingsPage.measuringUnitsGroup.distance.selectModal.title')}
         selectedOption={settings.distance}
         options={[
           {
-            label: translate('global.measuringUnits.distance.meters.plural'),
-            helpText: translate('global.measuringUnits.distance.meters.symbol'),
+            label: t('global.measuringUnits.distance.meters.plural'),
+            helpText: t('global.measuringUnits.distance.meters.symbol'),
             value: 'meters',
           },
           {
-            label: translate('global.measuringUnits.distance.miles.plural'),
-            helpText: translate('global.measuringUnits.distance.miles.symbol'),
+            label: t('global.measuringUnits.distance.miles.plural'),
+            helpText: t('global.measuringUnits.distance.miles.symbol'),
             value: 'miles',
           },
         ]}
         onSelect={onSelectLanguage}
-        footerText={translate(
+        footerText={t(
           'settingsPage.measuringUnitsGroup.distance.selectModal.footerText',
         )}
       />

@@ -9,6 +9,8 @@ import { StatusBar } from 'expo-status-bar';
 import { Routes } from '@/routes';
 import { useColorSchemeStore } from '@/stores';
 
+import '@/lib/i18next';
+
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
