@@ -1,39 +1,23 @@
-import { Alert } from 'react-native';
-
 import { create } from 'zustand';
 
-import { storage } from '@/utils/storage';
+import { storage } from '@/lib/react-native-mmkv';
+import { ColorScheme } from '@/types';
 
 type ColorSchemeStoreData = {
-  colorScheme: 'light' | 'dark';
-  isLoadingColorScheme: boolean;
-  toggleColorScheme: () => Promise<void>;
+  colorScheme: ColorScheme;
+  toggleColorScheme: () => void;
 };
 
 export const useColorSchemeStore = create<ColorSchemeStoreData>()(
   (set, get) => ({
-    colorScheme: 'dark',
-    isLoadingColorScheme: true,
-    toggleColorScheme: async () => {
+    colorScheme: storage.getColorScheme(),
+    toggleColorScheme: () => {
       const colorScheme = get().colorScheme;
       const newColorScheme = colorScheme === 'dark' ? 'light' : 'dark';
 
-      await storage.setColorScheme(newColorScheme);
+      storage.setColorScheme(newColorScheme);
 
       set(() => ({ colorScheme: newColorScheme }));
     },
   }),
 );
-
-storage
-  .getColorScheme()
-  .then((colorScheme) => useColorSchemeStore.setState({ colorScheme }))
-  .catch((err) => {
-    console.log(JSON.stringify(err), null, 2);
-
-    Alert.alert(
-      'Erro',
-      'Ocorreu um erro ao recuperar ao carregar o tema escolhido.',
-    );
-  })
-  .finally(() => useColorSchemeStore.setState({ isLoadingColorScheme: false }));

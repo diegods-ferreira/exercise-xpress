@@ -1,3 +1,5 @@
+export type ColorScheme = 'light' | 'dark';
+
 export type AppSettings = {
   showWelcomeScreen?: boolean;
   weight: 'kilogram' | 'pound';

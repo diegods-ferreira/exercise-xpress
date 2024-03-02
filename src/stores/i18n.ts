@@ -1,5 +1,3 @@
-import { Alert } from 'react-native';
-
 import { create } from 'zustand';
 
 import {
@@ -9,48 +7,36 @@ import {
   setLanguageToI18n,
   translate,
 } from '@/config/i18n';
-import { storage } from '@/utils/storage';
+import { storage } from '@/lib/react-native-mmkv';
 
 type I18nStoreData = {
   locale: Locale;
-  isLoadingLocale: boolean;
-  setLocale: (locale: Locale) => Promise<void>;
+  setLocale: (locale: Locale) => void;
   translate: typeof translate;
 };
 
-const getCurrentLocale = async () => {
-  const locale = await storage.getLocale();
+const getCurrentLocale = (): Locale => {
+  const locale = storage.getLocale();
 
   if (locale) {
+    setLanguageToI18n(locale);
     return locale;
   }
 
   const deviceLanguage = getDeviceLanguage();
-  const normalizedLocale = normalizedLocales[deviceLanguage];
-  return normalizedLocale || 'en_US';
+  const normalizedLocale = normalizedLocales[deviceLanguage] || 'en_US';
+
+  setLanguageToI18n(normalizedLocale);
+
+  return normalizedLocale;
 };
 
 export const useI18nStore = create<I18nStoreData>()((set) => ({
-  locale: 'en_US',
-  isLoadingLocale: true,
-  setLocale: async (locale) => {
+  locale: getCurrentLocale(),
+  setLocale: (locale) => {
     setLanguageToI18n(locale);
-
-    await storage.setLocale(locale);
-
+    storage.setLocale(locale);
     set(() => ({ locale }));
   },
   translate,
 }));
-
-getCurrentLocale()
-  .then((locale) => {
-    setLanguageToI18n(locale);
-    useI18nStore.setState({ locale });
-  })
-  .catch((err) => {
-    console.log(JSON.stringify(err), null, 2);
-
-    Alert.alert('Erro', 'Ocorreu um erro ao recuperar ao carregar o idioma.');
-  })
-  .finally(() => useI18nStore.setState({ isLoadingLocale: false }));
