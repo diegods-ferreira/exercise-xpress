@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import { FlatList, View, ViewProps } from 'react-native';
+import { FlatList, StyleProp, View, ViewProps, ViewStyle } from 'react-native';
 
 import {
   CheckCircle2Icon,
@@ -47,6 +47,7 @@ type MenuListItemBaseProps = {
   title: string;
   helpText?: string;
   onPress: () => void;
+  style?: StyleProp<ViewStyle>;
 };
 
 function MenuListItemBase({
@@ -54,12 +55,17 @@ function MenuListItemBase({
   title,
   helpText,
   onPress,
+  style,
   children,
 }: PropsWithChildren<MenuListItemBaseProps>) {
   const { styles, theme } = useStyles(menuListItemBaseStyles);
 
   return (
-    <ButtonBase variant="neutral" style={styles.container} onPress={onPress}>
+    <ButtonBase
+      variant="neutral"
+      style={[styles.container, style]}
+      onPress={onPress}
+    >
       <View style={styles.leftWrapper}>
         {!!Icon && (
           <Icon
@@ -105,7 +111,10 @@ function MenuListItem({ value, ...rest }: MenuListItemProps) {
   );
 }
 
-type MenuListItemCheckboxProps = Omit<MenuListItemBaseProps, 'title'> & {
+type MenuListItemCheckboxProps = Omit<
+  MenuListItemBaseProps,
+  'title' | 'style'
+> & {
   label: string;
   isSelected?: boolean;
 };
@@ -118,7 +127,7 @@ function MenuListItemCheckbox({
   const { styles, theme } = useStyles(menuListItemCheckboxStyles);
 
   return (
-    <MenuListItemBase {...rest} title={label}>
+    <MenuListItemBase {...rest} title={label} style={styles.indicatorOffset}>
       {isSelected && (
         <CheckCircle2Icon
           size={theme.fontSizes['2xl']}
