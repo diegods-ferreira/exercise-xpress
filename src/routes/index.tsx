@@ -15,14 +15,14 @@ const Stack = createNativeStackNavigator<AppRoutesParams>();
 export function Routes() {
   const { theme } = useStyles();
 
-  const settings = useSettingsStore((state) => state.settings);
+  const showWelcomeScreen = useSettingsStore(
+    (state) => state.showWelcomeScreen,
+  );
 
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={
-          settings.showWelcomeScreen ? 'Welcome' : 'HomeTabNavigator'
-        }
+        initialRouteName={showWelcomeScreen ? 'Welcome' : 'HomeTabNavigator'}
         screenOptions={{
           headerShown: false,
           contentStyle: { backgroundColor: theme.colors.background },

@@ -14,8 +14,8 @@ export function BodyMeasurementsSettingMenuItem() {
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
-  const [settings, updateSetting] = useSettingsStore((state) => [
-    state.settings,
+  const [bodyMeasurements, updateSetting] = useSettingsStore((state) => [
+    state.bodyMeasurements,
     state.updateSetting,
   ]);
 
@@ -34,9 +34,9 @@ export function BodyMeasurementsSettingMenuItem() {
           'settingsPage.measuringUnitsGroup.bodyMeasurements.menuItemTitle',
         )}
         value={`${t(
-          `global.measuringUnits.bodyMeasurements.${settings.bodyMeasurements}.plural`,
+          `global.measuringUnits.bodyMeasurements.${bodyMeasurements}.plural`,
         )} (${t(
-          `global.measuringUnits.bodyMeasurements.${settings.bodyMeasurements}.symbol`,
+          `global.measuringUnits.bodyMeasurements.${bodyMeasurements}.symbol`,
         )})`}
         onPress={() => bottomSheetRef.current?.present()}
       />
@@ -46,7 +46,7 @@ export function BodyMeasurementsSettingMenuItem() {
         title={t(
           'settingsPage.measuringUnitsGroup.bodyMeasurements.selectModal.title',
         )}
-        selectedOption={settings.bodyMeasurements}
+        selectedOption={bodyMeasurements}
         options={[
           {
             label: t(

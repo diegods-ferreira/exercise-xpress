@@ -14,8 +14,8 @@ export function WeightSettingMenuItem() {
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
-  const [settings, updateSetting] = useSettingsStore((state) => [
-    state.settings,
+  const [weight, updateSetting] = useSettingsStore((state) => [
+    state.weight,
     state.updateSetting,
   ]);
 
@@ -29,16 +29,16 @@ export function WeightSettingMenuItem() {
       <MenuList.Item
         icon={WeightIcon}
         title={t('settingsPage.measuringUnitsGroup.weight.menuItemTitle')}
-        value={`${t(
-          `global.measuringUnits.weight.${settings.weight}.plural`,
-        )} (${t(`global.measuringUnits.weight.${settings.weight}.symbol`)})`}
+        value={`${t(`global.measuringUnits.weight.${weight}.plural`)} (${t(
+          `global.measuringUnits.weight.${weight}.symbol`,
+        )})`}
         onPress={() => bottomSheetRef.current?.present()}
       />
 
       <SelectModal
         ref={bottomSheetRef}
         title={t('settingsPage.measuringUnitsGroup.weight.selectModal.title')}
-        selectedOption={settings.weight}
+        selectedOption={weight}
         options={[
           {
             label: t('global.measuringUnits.weight.kilogram.plural'),

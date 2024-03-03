@@ -3,23 +3,31 @@ import { useTranslation } from 'react-i18next';
 import { MoonIcon } from 'lucide-react-native';
 
 import { MenuList } from '@/components/elements';
-import { useColorSchemeStore } from '@/stores';
+import { useSettingsStore } from '@/stores';
+import { ColorScheme } from '@/types';
 
 export function ColorSchemeSettingMenuItem() {
   const { t } = useTranslation();
 
-  const [colorScheme, toggleColorScheme] = useColorSchemeStore((state) => [
+  const [colorScheme, updateSetting] = useSettingsStore((state) => [
     state.colorScheme,
-    state.toggleColorScheme,
+    state.updateSetting,
   ]);
+
+  const handleToggleColorScheme = () => {
+    const newColorScheme: ColorScheme =
+      colorScheme === 'dark' ? 'light' : 'dark';
+
+    updateSetting('colorScheme', newColorScheme);
+  };
 
   return (
     <MenuList.ItemSwitch
       icon={MoonIcon}
       title={t('settingsPage.generalGroup.darkTheme')}
       value={colorScheme === 'dark'}
-      onPress={toggleColorScheme}
-      onValueChange={toggleColorScheme}
+      onPress={handleToggleColorScheme}
+      onValueChange={handleToggleColorScheme}
     />
   );
 }

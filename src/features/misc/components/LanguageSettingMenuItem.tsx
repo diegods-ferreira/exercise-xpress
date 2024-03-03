@@ -6,8 +6,8 @@ import { LanguagesIcon } from 'lucide-react-native';
 
 import { MenuList } from '@/components/elements';
 import { SelectModal } from '@/components/modals';
-import { Locale } from '@/lib/i18next';
-import { useI18nStore } from '@/stores';
+import { useSettingsStore } from '@/stores';
+import { Locale } from '@/types';
 
 const localeLabels: Record<Locale, string> = {
   en_US: 'English (US)',
@@ -20,10 +20,13 @@ export function LanguageSettingMenuItem() {
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
-  const { locale, setLocale } = useI18nStore();
+  const [locale, updateSetting] = useSettingsStore((state) => [
+    state.locale,
+    state.updateSetting,
+  ]);
 
   const onSelectLanguage = (selectedLanguage: Locale) => {
-    setLocale(selectedLanguage);
+    updateSetting('locale', selectedLanguage);
     bottomSheetRef.current?.close();
   };
 

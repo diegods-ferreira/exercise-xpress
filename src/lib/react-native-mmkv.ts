@@ -1,9 +1,38 @@
 import { MMKV } from 'react-native-mmkv';
 
-import { Locale } from '@/config/i18n';
-import { AppSettings, ColorScheme } from '@/types';
+import { AppSettings } from '@/types';
 
-const STORAGE_KEY = '@exercise-xpress';
+type SettingConfig = {
+  storageKey: `settings.${keyof AppSettings}`;
+  storageGetFn: 'getBoolean' | 'getNumber' | 'getString';
+};
+
+const settingsConfig: Record<keyof AppSettings, SettingConfig> = {
+  showWelcomeScreen: {
+    storageKey: 'settings.showWelcomeScreen',
+    storageGetFn: 'getBoolean',
+  },
+  colorScheme: {
+    storageKey: 'settings.colorScheme',
+    storageGetFn: 'getString',
+  },
+  locale: {
+    storageKey: 'settings.locale',
+    storageGetFn: 'getString',
+  },
+  weight: {
+    storageKey: 'settings.weight',
+    storageGetFn: 'getString',
+  },
+  distance: {
+    storageKey: 'settings.distance',
+    storageGetFn: 'getString',
+  },
+  bodyMeasurements: {
+    storageKey: 'settings.bodyMeasurements',
+    storageGetFn: 'getString',
+  },
+};
 
 const mmkv = new MMKV({
   id: `exercise-xpress-storage`,
@@ -11,26 +40,21 @@ const mmkv = new MMKV({
 });
 
 export const storage = {
-  getColorScheme: () => {
-    const colorScheme = mmkv.getString(`${STORAGE_KEY}:color-scheme`);
-    return (colorScheme || 'dark') as ColorScheme;
+  getSettingValue: <TSetting extends keyof AppSettings>(
+    settingKey: TSetting,
+  ): AppSettings[TSetting] | undefined => {
+    const { storageKey, storageGetFn } = settingsConfig[settingKey];
+
+    const settingValue = mmkv[storageGetFn](storageKey);
+
+    return settingValue as AppSettings[TSetting] | undefined;
   },
-  setColorScheme: (colorScheme: ColorScheme) => {
-    mmkv.set(`${STORAGE_KEY}:color-scheme`, colorScheme);
-  },
-  getLocale: () => {
-    const locale = mmkv.getString(`${STORAGE_KEY}:locale`);
-    return locale as Locale | undefined;
-  },
-  setLocale: (locale: Locale) => {
-    mmkv.set(`${STORAGE_KEY}:locale`, locale);
-  },
-  getSettings: () => {
-    const settings = mmkv.getString(`${STORAGE_KEY}:settings`);
-    return (settings ? JSON.parse(settings) : {}) as AppSettings;
-  },
-  setSettings: (settings: AppSettings) => {
-    const stringifiedSettings = JSON.stringify(settings);
-    mmkv.set(`${STORAGE_KEY}:settings`, stringifiedSettings);
+  setSettingValue: <TSetting extends keyof AppSettings>(
+    settingKey: TSetting,
+    settingValue: AppSettings[TSetting],
+  ) => {
+    const { storageKey } = settingsConfig[settingKey];
+
+    mmkv.set(storageKey, settingValue);
   },
 };

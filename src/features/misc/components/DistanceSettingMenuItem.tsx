@@ -14,8 +14,8 @@ export function DistanceSettingMenuItem() {
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
-  const [settings, updateSetting] = useSettingsStore((state) => [
-    state.settings,
+  const [distance, updateSetting] = useSettingsStore((state) => [
+    state.distance,
     state.updateSetting,
   ]);
 
@@ -29,10 +29,8 @@ export function DistanceSettingMenuItem() {
       <MenuList.Item
         icon={LandPlotIcon}
         title={t('settingsPage.measuringUnitsGroup.distance.menuItemTitle')}
-        value={`${t(
-          `global.measuringUnits.distance.${settings.distance}.plural`,
-        )} (${t(
-          `global.measuringUnits.distance.${settings.distance}.symbol`,
+        value={`${t(`global.measuringUnits.distance.${distance}.plural`)} (${t(
+          `global.measuringUnits.distance.${distance}.symbol`,
         )})`}
         onPress={() => bottomSheetRef.current?.present()}
       />
@@ -40,7 +38,7 @@ export function DistanceSettingMenuItem() {
       <SelectModal
         ref={bottomSheetRef}
         title={t('settingsPage.measuringUnitsGroup.distance.selectModal.title')}
-        selectedOption={settings.distance}
+        selectedOption={distance}
         options={[
           {
             label: t('global.measuringUnits.distance.meters.plural'),

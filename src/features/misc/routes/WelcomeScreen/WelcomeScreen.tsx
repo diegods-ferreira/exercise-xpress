@@ -10,8 +10,8 @@ import fitnessMontageImg from '@/assets/images/fitness-montage.png';
 import logoImg from '@/assets/images/logo.png';
 import { Button, IconButton, Panel, Typography } from '@/components/elements';
 import { useStyles } from '@/hooks';
-import { useColorSchemeStore, useSettingsStore } from '@/stores';
-import { WelcomeScreenRouteProps } from '@/types';
+import { useSettingsStore } from '@/stores';
+import { ColorScheme, WelcomeScreenRouteProps } from '@/types';
 
 import * as S from './WelcomeScreen.styles';
 
@@ -20,16 +20,21 @@ export function WelComeScreen({ navigation }: WelcomeScreenRouteProps) {
 
   const { styles, theme } = useStyles(S.welcomeScreenStyles);
 
-  const [colorScheme, toggleColorScheme] = useColorSchemeStore((state) => [
+  const [colorScheme, updateSetting] = useSettingsStore((state) => [
     state.colorScheme,
-    state.toggleColorScheme,
+    state.updateSetting,
   ]);
-
-  const updateSetting = useSettingsStore((state) => state.updateSetting);
 
   const onGetStartedPress = async () => {
     updateSetting('showWelcomeScreen', false);
     navigation.replace('HomeTabNavigator');
+  };
+
+  const handleToggleColorScheme = () => {
+    const newColorScheme: ColorScheme =
+      colorScheme === 'dark' ? 'light' : 'dark';
+
+    updateSetting('colorScheme', newColorScheme);
   };
 
   return (
@@ -50,7 +55,7 @@ export function WelComeScreen({ navigation }: WelcomeScreenRouteProps) {
           <View style={styles.toggleThemeButton}>
             <IconButton
               icon={colorScheme === 'dark' ? SunIcon : MoonIcon}
-              onPress={toggleColorScheme}
+              onPress={handleToggleColorScheme}
             />
           </View>
 

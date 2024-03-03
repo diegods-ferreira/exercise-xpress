@@ -6,15 +6,15 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 
-import { Routes } from '@/routes';
-import { useColorSchemeStore } from '@/stores';
-
 import '@/lib/i18next';
+
+import { Routes } from '@/routes';
+import { useSettingsStore } from '@/stores';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  const colorScheme = useColorSchemeStore((state) => state.colorScheme);
+  const colorScheme = useSettingsStore((state) => state.colorScheme);
 
   const [appIsReady, setAppIsReady] = useState(false);
 

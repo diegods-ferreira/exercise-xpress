@@ -4,10 +4,9 @@ import { getLocales } from 'expo-localization';
 import i18n from 'i18next';
 
 import { en, es, pt } from '@/config/i18n';
+import { Locale } from '@/types';
 
 import { storage } from './react-native-mmkv';
-
-export type Locale = 'en_US' | 'pt_BR' | 'es_ES';
 
 const normalizedLocales: Record<string, Locale> = {
   'en-US': 'en_US',
@@ -43,7 +42,7 @@ const getDeviceLanguage = () => {
 };
 
 export const getCurrentLocale = (): Locale => {
-  const locale = storage.getLocale();
+  const locale = storage.getSettingValue('locale');
 
   if (locale) {
     i18n.changeLanguage(locale);
